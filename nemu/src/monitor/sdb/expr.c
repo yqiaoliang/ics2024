@@ -181,6 +181,8 @@ int find_operate_pos(int p, int q){
 word_t eval(int p, int q, bool *success){
   if (! *success) return 0;
 
+  printf("%d, %d \n", p, q);
+
   if (p > q){
     printf("ERROR occur in the expression : %d > %d \n", p, q);
     *success = false;
