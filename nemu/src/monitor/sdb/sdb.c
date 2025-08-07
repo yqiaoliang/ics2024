@@ -43,7 +43,13 @@ static char* rl_gets() {
 }
 
 static int cmd_c(char *args) {
-  cpu_exec(-1);
+  if (args == NULL) {
+    cpu_exec(1);
+    return 0;
+  }
+  for (int i = 0; i < atoi(args); i++) {
+    cpu_exec(1);
+  }
   return 0;
 }
 
