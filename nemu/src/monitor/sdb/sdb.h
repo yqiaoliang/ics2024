@@ -24,6 +24,7 @@ typedef struct watchpoint WP;
 WP *new_wp();
 word_t expr(char *e, bool *success);
 WP *get_wp_list();
+char * get_rand_expr();
 // bool is_parentheses_match(int p, int q);
 
 typedef struct watchpoint {

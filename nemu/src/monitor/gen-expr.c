@@ -19,7 +19,9 @@
 #include <time.h>
 #include <assert.h>
 #include <string.h>
-#include "./gen-expr.h"
+// #include "./gen-expr.h"
+#include "./sdb/sdb.h"
+
 
 // this should be enough
 static char buf[65536] = {};
@@ -111,7 +113,7 @@ char * get_rand_expr(){
 }
 
 
-int main(int argc, char *argv[]) {
+int main_test(int argc, char *argv[]) {
   int seed = time(0);
   srand(seed);
   int loop = 1;
