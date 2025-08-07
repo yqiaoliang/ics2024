@@ -108,6 +108,7 @@ static void gen_rand_expr(int func_deep) {
 
 char * get_rand_expr(){
   gen_rand_expr(10);
+  printf("buf: %s\n", buf);
   return  buf;
 
 }
