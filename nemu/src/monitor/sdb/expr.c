@@ -187,7 +187,7 @@ int find_operate_pos(int p, int q){
   }
 
   match = 0;
-  for (int i = p; i <= q; i++){
+  for (int i = q; i >= p; i--){
     if (tokens[i].type == tk_left) match += 1;
     else if (tokens[i].type == tk_right) match -= 1;
     if ((tokens[i].type == tk_mul || tokens[i].type == tk_div) && match == 0) {
