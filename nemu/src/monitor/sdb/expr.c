@@ -212,7 +212,7 @@ word_t eval(int p, int q, bool *success){
     return atoi(tokens[p].str);
   }
 
-  else if (tokens[p].type == tk_left && tokens[q].type == tk_right) {
+  else if (tokens[p].type == tk_left && tokens[q].type == tk_right && is_parentheses_match(p+1, q-1)) {
     return eval(p + 1, q - 1, success);
   }
 
