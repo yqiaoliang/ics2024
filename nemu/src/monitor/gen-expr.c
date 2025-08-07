@@ -109,7 +109,7 @@ static void gen_rand_expr(int func_deep) {
 char * get_rand_expr(){
   int seed = time(0);
   srand(seed);
-  gen_rand_expr(10);
+  gen_rand_expr(0);
   // printf("buf: %s\n", buf);
 
   return  buf;
