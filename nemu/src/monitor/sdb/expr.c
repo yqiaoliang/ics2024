@@ -133,6 +133,7 @@ static bool make_token(char *e) {
     }
   }
 
+  printf("expression: ");
   for(int i = 0; i < nr_token; i++){
     printf("%s", tokens[i].str);
   }
@@ -193,7 +194,7 @@ int find_operate_pos(int p, int q){
 word_t eval(int p, int q, bool *success){
   if (! *success) return 0;
 
-  printf("%d, %d \n", p, q);
+  // printf("%d, %d \n", p, q);
 
   if (p > q){
     printf("ERROR occur in the expression : %d > %d \n", p, q);
@@ -211,7 +212,7 @@ word_t eval(int p, int q, bool *success){
 
   else {
     int operate_pos = find_operate_pos(p, q);
-    printf("operate_pos: %d \n", operate_pos);
+    // printf("operate_pos: %d \n", operate_pos);
     word_t eval_left = eval(p, operate_pos-1, success);
     word_t eval_right = eval(operate_pos+1, q, success); 
 
