@@ -205,6 +205,7 @@ word_t eval(int p, int q, bool *success){
 
   else {
     int operate_pos = find_operate_pos(p, q);
+    printf("%d \n", operate_pos);
     word_t eval_left = eval(p, operate_pos-1, success);
     word_t eval_right = eval(operate_pos+1, q, success); 
 
