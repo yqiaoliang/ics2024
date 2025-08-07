@@ -26,7 +26,7 @@ int eval(int p, int q, bool *success);
 
 enum {
   tk_notype = 256, tk_eq, tk_add, tk_sub, tk_mul, tk_div, tk_left, tk_right, tk_num, tk_bool_eq,
-  tk_bool_uneq, tk_and, tk_ptr
+  tk_and, tk_ptr
 
   /* TODO: Add more token types */
 
@@ -50,9 +50,8 @@ static struct rule {
   {"\\)", tk_right},
   {"[0-9]+", tk_num}, 
   {"==", tk_bool_eq},
-  {"!=", tk_bool_uneq},
   {"&&", tk_and},
-  {"==", tk_eq},        // equal
+  {"=", tk_eq},        // equal
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -152,6 +151,21 @@ int expr(char *e, bool *success) {
 
   /* TODO: Insert codes to evaluate the expression. */
   // TODO();
+
+  for (int i = 0; i < nr_token; i ++) {
+    if (tokens[i].type == tk_mul && (i == 0 || 
+      tokens[i - 1].type == tk_add ||
+      tokens[i - 1].type == tk_sub ||
+      tokens[i - 1].type == tk_mul ||
+      tokens[i - 1].type == tk_div ||
+      tokens[i - 1].type == tk_left ||
+      tokens[i - 1].type == tk_right ||
+      tokens[i - 1].type == tk_eq ||
+      tokens[i - 1].type == tk_and ||
+      tokens[i - 1].type == tk_bool_eq )) {
+      tokens[i].type = tk_ptr;
+    }
+  } 
 
   if (!is_parentheses_match(0, nr_token-1)){
     *success = false;

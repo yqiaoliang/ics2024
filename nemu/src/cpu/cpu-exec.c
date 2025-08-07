@@ -42,7 +42,10 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
   WP *head = get_wp_list();
   while(head->next != NULL){
+    // bool success = true;
+    // int result = expr(head->expr, &success);
     
+    head = head->next;
   }
   
 }
