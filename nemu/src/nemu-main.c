@@ -24,10 +24,10 @@ int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
 #ifdef CONFIG_TARGET_AM
   am_init_monitor();
-  printf("am_init_monitor finish");
+  printf("am_init_monitor finish" \n);
 #else
   init_monitor(argc, argv);
-  printf("init_monitor finish" );
+  printf("init_monitor finish \n");
 #endif
 
   /* Start engine. */
