@@ -233,6 +233,8 @@ word_t eval(int p, int q, bool *success){
     word_t eval_left = eval(p, operate_pos-1, success);
     word_t eval_right = eval(operate_pos+1, q, success); 
 
+    printf("eval_left: %d, eval_right: %d \n", eval_left, eval_right);
+
     switch(tokens[operate_pos].type){
       case tk_add : return eval_left + eval_right;
       case tk_sub : return eval_left - eval_right;
