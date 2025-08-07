@@ -22,7 +22,7 @@
 #include <stdlib.h>
 
 bool is_parentheses_match(int p, int q);
-word_t eval(int p, int q, bool *success);
+int eval(int p, int q, bool *success);
 
 enum {
   tk_notype = 256, tk_eq, tk_add, tk_sub, tk_mul, tk_div, tk_left, tk_right, tk_num, tk_bool_eq,
@@ -144,7 +144,7 @@ static bool make_token(char *e) {
 
 
 
-word_t expr(char *e, bool *success) {
+int expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
     return 0;
@@ -208,7 +208,7 @@ int find_operate_pos(int p, int q){
 }
 
 
-word_t eval(int p, int q, bool *success){
+int eval(int p, int q, bool *success){
   if (! *success) return 0;
 
   // printf("%d, %d \n", p, q);
@@ -230,8 +230,8 @@ word_t eval(int p, int q, bool *success){
   else {
     int operate_pos = find_operate_pos(p, q);
     // printf("operate_pos: %d \n", operate_pos);
-    word_t eval_left = eval(p, operate_pos-1, success);
-    word_t eval_right = eval(operate_pos+1, q, success); 
+    int eval_left = eval(p, operate_pos-1, success);
+    int eval_right = eval(operate_pos+1, q, success); 
 
     printf("eval_left: %d, eval_right: %d \n", eval_left, eval_right);
 
