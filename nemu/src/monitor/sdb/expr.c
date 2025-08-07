@@ -182,7 +182,7 @@ word_t eval(int p, int q, bool *success){
   if (! *success) return 0;
 
   if (p > q){
-    printf("ERROR occur in the expression : p > q \n");
+    printf("ERROR occur in the expression : %d > %d \n", p, q);
     *success = false;
     return 0;
   }
