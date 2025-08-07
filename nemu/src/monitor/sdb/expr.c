@@ -178,14 +178,24 @@ int find_operate_pos(int p, int q){
   for (int i = q; i >= p; i--){
     if (tokens[i].type == tk_left) match += 1;
     else if (tokens[i].type == tk_right) match -= 1;
-    else if ((tokens[i].type == tk_add || tokens[i].type == tk_sub) && match == 0) return i;
+    else if ((tokens[i].type == tk_add || tokens[i].type == tk_sub) && match == 0) {
+      for (int i = p; i <= q; i++){
+    printf("%s", tokens[i].str);
+  }
+  printf("\n");
+      return i;}
   }
 
   match = 0;
   for (int i = p; i <= q; i++){
     if (tokens[i].type == tk_left) match += 1;
     else if (tokens[i].type == tk_right) match -= 1;
-    if ((tokens[i].type == tk_mul || tokens[i].type == tk_div) && match == 0) return i;
+    if ((tokens[i].type == tk_mul || tokens[i].type == tk_div) && match == 0) {
+      for (int i = p; i <= q; i++){
+    printf("%s", tokens[i].str);
+  }
+  printf("\n");
+      return i;}
   }
 
   printf("operate_pos == -1, str is:");
