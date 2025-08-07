@@ -159,7 +159,6 @@ int expr(char *e, bool *success) {
       tokens[i - 1].type == tk_mul ||
       tokens[i - 1].type == tk_div ||
       tokens[i - 1].type == tk_left ||
-      tokens[i - 1].type == tk_right ||
       tokens[i - 1].type == tk_eq ||
       tokens[i - 1].type == tk_and ||
       tokens[i - 1].type == tk_bool_eq )) {
