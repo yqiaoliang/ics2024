@@ -18,11 +18,6 @@
 
 #include <common.h>
 
-// word_t expr(char *e, bool *success);
-
-typedef struct watchpoint WP;
-WP *new_wp();
-word_t expr(char *e, bool *success)
-
+word_t expr(char *e, bool *success);
 
 #endif

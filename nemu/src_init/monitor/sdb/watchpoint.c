@@ -14,19 +14,12 @@
 ***************************************************************************************/
 
 #include "sdb.h"
-#include "../monitor.h"
-#include <assert.h>
 
 #define NR_WP 32
-
-WP * get_wp_list() {
-  return head;
-}
 
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
-  char *expr;
 
   /* TODO: Add more members if necessary */
 
@@ -47,49 +40,4 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
-
-WP * new_wp(char *expr) {
-  if (free_ == NULL) {
-    printf("No more watchpoints available.\n");
-    return NULL;
-  }
-
-  WP *wp = free_;
-  free_ = free_->next;
-
-  wp->next = head;
-  wp->expr = strdup(expr); // Duplicate the expression string
-  if (wp->expr == NULL) {
-    printf("Failed to allocate memory for watchpoint expression.\n");
-    free(wp);
-    return NUlLL
-  }
-
-  head = wp;
-  printf("success to create watchpoint %d\n", wp->NO);
-
-  return wp;
-}
-
-void free_wp(WP *wp) {
-  if (wp == NULL) return;
-
-  // Remove from the linked list
-  if (head == wp) {
-    head = wp->next;
-  } 
-  else {
-    WP *prev = head;
-    while (prev != NULL && prev->next != wp) {
-      prev = prev->next;
-    }
-    if (prev != NULL) {
-      prev->next = wp->next;
-    }
-  }
-
-  // Add back to the free list
-  wp->next = free_;
-  free_ = wp;
-}
 

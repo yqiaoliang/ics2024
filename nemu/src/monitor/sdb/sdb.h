@@ -18,6 +18,22 @@
 
 #include <common.h>
 
+// word_t expr(char *e, bool *success);
+
+typedef struct watchpoint WP;
+WP *new_wp();
 word_t expr(char *e, bool *success);
+WP *get_wp_list();
+// bool is_parentheses_match(int p, int q);
+
+typedef struct watchpoint {
+  int NO;
+  struct watchpoint *next;
+  char *expr;
+
+  /* TODO: Add more members if necessary */
+
+} WP;
+
 
 #endif
