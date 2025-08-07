@@ -53,6 +53,7 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args) {
+  printf("%s", args);
   cpu_exec(1);
   return 0;
 }
@@ -95,7 +96,7 @@ static int cmd_help(char *args) {
     }
     printf("Unknown command '%s'\n", arg);
   }
-  return -1;
+  return 0;
 }
 
 void sdb_set_batch_mode() {
