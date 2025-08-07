@@ -172,12 +172,18 @@ bool is_parentheses_match(int p, int q){
 }
 
 int find_operate_pos(int p, int q){
+  int match = 0;
   for (int i = q; i <= p; i--){
-    if (tokens[i].type == tk_add || tokens[i].type == tk_sub) return i;
+    if (tokens[i].type == tk_left) match += 1;
+    else if (tokens[i].type == tk_right) match -= 1;
+    else if ((tokens[i].type == tk_add || tokens[i].type == tk_sub) && match == 0) return i;
   }
 
+  match = 0;
   for (int i = p; i <= q; i++){
-    if (tokens[i].type == tk_mul || tokens[i].type == tk_div) return i;
+    if (tokens[i].type == tk_left) match += 1;
+    else if (tokens[i].type == tk_right) match -= 1;
+    if ((tokens[i].type == tk_mul || tokens[i].type == tk_div) && match == 0) return i;
   }
 
   return -1;
