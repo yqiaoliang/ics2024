@@ -31,5 +31,12 @@ int main(int argc, char *argv[]) {
   /* Start engine. */
   engine_start();
 
+
+    char * this_expr = "2 + 3 * 5 -(8 * 9)";
+    bool result = true;
+    bool *success = &result;
+    printf("%d", expr(this_expr, success));
+
+
   return is_exit_status_bad();
 }
