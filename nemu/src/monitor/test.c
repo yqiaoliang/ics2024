@@ -5,7 +5,7 @@
 
 int test(){
     
-    char * this_expr = "2 + 3 * 5 -(8 * 9)";
+    char * this_expr = "2 + 3 * 5 -(899 * 9)";
     bool result = true;
     bool *success = &result;
     printf("%d \n", expr(this_expr, success));
