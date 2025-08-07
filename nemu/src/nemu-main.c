@@ -29,6 +29,7 @@ int main(int argc, char *argv[]) {
 #else
   init_monitor(argc, argv);
   printf("init_monitor finish \n");
+  test();
 #endif
 
   /* Start engine. */
