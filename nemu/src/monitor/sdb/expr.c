@@ -132,11 +132,6 @@ static bool make_token(char *e) {
       return false;
     }
   }
-
-  for (int i = 0; i < nr_token; i++){
-    printf("%s", tokens[i].str); 
-  }
-
   return true;
 }
 
@@ -187,7 +182,7 @@ word_t eval(int p, int q, bool *success){
   if (! *success) return 0;
 
   if (p > q){
-    printf("ERROR occur in the expression : p > q");
+    printf("ERROR occur in the expression : p > q \n");
     *success = false;
     return 0;
   }
@@ -211,7 +206,7 @@ word_t eval(int p, int q, bool *success){
       case tk_mul : return eval_left * eval_right;
       case tk_div :
           if (eval_right == 0) {
-            printf("ERROR the expression exist div 0");
+            printf("ERROR the expression exist div 0 \n");
             *success = false;
             return 0;
           }
@@ -221,11 +216,3 @@ word_t eval(int p, int q, bool *success){
     return 0;
   }
 }
-
-// int main(){
-//     char * this_expr = "2 + 3 * 5 -(8 * 9)";
-//     bool result = true;
-//     bool *success = &result;
-//     int a = expr(this_expr, success);
-//     printf("%d", a);
-// }
