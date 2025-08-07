@@ -187,6 +187,12 @@ int find_operate_pos(int p, int q){
     if ((tokens[i].type == tk_mul || tokens[i].type == tk_div) && match == 0) return i;
   }
 
+  printf("operate_pos == -1, str is:");
+  for (int i = p; i <= q; i++){
+    printf("%s", tokens[i].str);
+  }
+  printf("\n");
+
   return -1;
 }
 
