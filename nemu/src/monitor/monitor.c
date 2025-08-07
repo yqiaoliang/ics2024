@@ -34,10 +34,10 @@ static void welcome() {
   printf("Welcome to %s-NEMU!\n", ANSI_FMT(str(__GUEST_ISA__), ANSI_FG_YELLOW ANSI_BG_RED));
   printf("For help, type \"help\"\n");
 
-    char * this_expr = "2 + 3 * 5 -(8 * 9)";
-    bool result = true;
-    bool *success = &result;
-    printf("%d", expr(this_expr, success));
+    // char * this_expr = "2 + 3 * 5 -(8 * 9)";
+    // bool result = true;
+    // bool *success = &result;
+    // printf("%d", expr(this_expr, success));
 
 }
 
