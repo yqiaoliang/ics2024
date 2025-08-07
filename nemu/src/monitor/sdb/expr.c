@@ -173,7 +173,7 @@ bool is_parentheses_match(int p, int q){
 
 int find_operate_pos(int p, int q){
   int match = 0;
-  for (int i = q; i <= p; i--){
+  for (int i = q; i >= p; i--){
     if (tokens[i].type == tk_left) match += 1;
     else if (tokens[i].type == tk_right) match -= 1;
     else if ((tokens[i].type == tk_add || tokens[i].type == tk_sub) && match == 0) return i;
