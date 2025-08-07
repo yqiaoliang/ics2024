@@ -31,8 +31,76 @@ static char *code_format =
 "  return 0; "
 "}";
 
-static void gen_rand_expr() {
-  buf[0] = '\0';
+static void gen_num(){
+  int num = rand() % 100;
+  num += 1;
+  char str_num[8];
+  sprintf(str_num, "%d", num);
+  strcat(buf, str_num);
+}
+
+static void gen_left(){
+  char left_char[2] = {'(', '\0'};
+  strcat(buf, left_char);
+}
+
+static void gen_right(){
+  char right_char[2] = {')', '\0'};
+  strcat(buf, right_char);
+}
+
+static void gen_operate(){
+  int num = rand() % 4;
+  char operate_char[2];
+  operate_char[1] = '\0';
+  switch(num){
+    case 0 :
+      operate_char[0] = '+';
+      strcat(buf, operate_char);
+      return;
+    case 1 :
+      operate_char[0] = '-';
+      strcat(buf, operate_char);
+      return;
+    case 2 :
+      operate_char[0] = '*';
+      strcat(buf, operate_char);
+      return;
+    case 3 :
+      operate_char[0] = '/';
+      strcat(buf, operate_char);
+      return;
+    default :
+      operate_char[0] = '+';
+      strcat(buf, operate_char);
+      return;
+  }
+}
+
+
+static void gen_rand_expr(int func_deep) {
+  if (func_deep == 0){
+    buf[0] = '\0';
+  }
+
+  if (func_deep > 5) {
+    gen_num();
+    return;
+  }
+
+  int choose = rand() % 3;
+  if (choose == 0) gen_num();
+  else if (choose == 1) {
+    gen_left();
+    gen_rand_expr(func_deep + 1);
+    gen_right();
+  }
+  else  {
+    gen_rand_expr(func_deep + 1);
+    gen_operate();
+    gen_rand_expr(func_deep + 1);
+  }
+  
 }
 
 int main(int argc, char *argv[]) {
@@ -44,7 +112,7 @@ int main(int argc, char *argv[]) {
   }
   int i;
   for (i = 0; i < loop; i ++) {
-    gen_rand_expr();
+    gen_rand_expr(0);
 
     sprintf(code_buf, code_format, buf);
 
