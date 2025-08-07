@@ -167,6 +167,7 @@ bool is_parentheses_match(int p, int q){
   for (int i = p; i <= q; i++){
     if (tokens[i].type == tk_left) match += 1;
     else if (tokens[i].type == tk_right) match -= 1;
+    if (match < 0) return false;
   }
 
   return match == 0;
