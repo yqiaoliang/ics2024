@@ -32,12 +32,14 @@ int main(int argc, char *argv[]) {
   test();
 #endif
 
-  printf("test0 \n");
-  printf("test1 \n");
-  printf("test2 \n");
+  
 
   /* Start engine. */
   engine_start();
+
+  printf("test0 \n");
+  printf("test1 \n");
+  printf("test2 \n");
 
   // test();
 
