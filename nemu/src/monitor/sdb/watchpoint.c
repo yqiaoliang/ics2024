@@ -90,6 +90,7 @@ void free_wp(int NO_) {
     // }
     if (prev == NULL) {
       printf("there is not exist %d watchpoint ", NO_);
+      return;
     }
 
     WP *cur = prev->next;
