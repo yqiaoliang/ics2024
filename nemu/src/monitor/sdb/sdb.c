@@ -143,7 +143,7 @@ static struct {
   {"x", "Examine memory at a given address", cmd_x },
   {"p", "evalutation expression that you gave", cmd_p},
   {"w", "generate a new watchpoint", cmd_w},
-  {"print_all_wp", "print all watchpoint that alive", cmd_print_wp},
+  {"print_wp", "print all watchpoint that alive", cmd_print_wp},
 
 
   /* TODO: Add more commands */
