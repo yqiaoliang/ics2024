@@ -91,7 +91,7 @@ static int cmd_x(char *args){
   // printf("%ld\n", test);
 
   for (int i = 0; i < num; i++){
-    printf("%d \n", vaddr_read(test+i, 1));
+    printf("%d \n", vaddr_read(test+i, 2));
   }
   
 
