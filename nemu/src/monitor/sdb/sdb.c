@@ -72,6 +72,33 @@ static int cmd_info(char *args) {
   return 0;
 }
 
+static int cmd_x(char *args){
+  if (args == NULL) {
+    return 0;
+  }
+
+  char *num_str = strtok(args, " ");
+  int num = atoi(num_str);
+  char *expr_str = strtok(NULL, "");
+  char *expr_ = NULL; 
+  expr_ = malloc(strlen(expr_str) + 1);
+  strcpy(expr_, expr_str);
+
+  if (num <= 0 || expr_ == NULL) return 0;
+  bool result  = true;
+  bool * success = &result;
+  int addr_ = expr(expr_, success);
+  if (! result) return 0;
+  for (int i = 0; i < num; i++){
+    vaddr_read(addr_, 4);
+  } 
+
+  return 0;
+
+}
+
+
+
 static int cmd_help(char *args);
 
 static struct {
@@ -84,6 +111,8 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "Execute n times instruction and stop", cmd_si },
   { "info", "Display information about the program state", cmd_info },
+  {"x", "Examine memory at a given address", cmd_x },
+
 
   /* TODO: Add more commands */
 
