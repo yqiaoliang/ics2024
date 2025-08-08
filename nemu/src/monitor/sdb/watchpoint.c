@@ -74,25 +74,33 @@ WP * new_wp(char *expr_) {
   return wp;
 }
 
-void free_wp(WP *wp) {
-  if (wp == NULL) return;
+void free_wp(int NO_) {
 
   // Remove from the linked list
-  if (head == wp) {
-    head = wp->next;
+  if (NO_ == head->NO) {
+    head = head->next;
   } 
   else {
     WP *prev = head;
-    while (prev != NULL && prev->next != wp) {
+    while (prev != NULL && prev->next->NO != NO_) {
       prev = prev->next;
     }
-    if (prev != NULL) {
-      prev->next = wp->next;
-    }
+    // if (prev != NULL) {
+    //   prev->next = wp->next;
+    // }
   }
 
   // Add back to the free list
-  wp->next = free_;
-  free_ = wp;
+  // wp->next = free_;
+  printf("free NO %d watchpoint success" ,NO_);
+  // free_ = wp;
 }
 
+void print_all_wp(){
+  WP *pre = free_;
+
+  while(pre->next != NULL){
+    printf("NO. %d, expr: %s" ,pre->NO, pre->expr);
+    pre = free_->next;
+  }
+}

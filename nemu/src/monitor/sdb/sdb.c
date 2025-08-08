@@ -80,6 +80,16 @@ static int cmd_p(char *args){
   return 0;
 }
 
+static int cmd_w(char *args){
+  new_wp(args);
+  return 0;
+}
+
+static int cmd_print_wp(char * args){
+  print_all_wp();
+  return 0;
+}
+
 static int cmd_x(char *args){
   if (args == NULL) {
     return 0;
@@ -132,6 +142,8 @@ static struct {
   { "info", "Display information about the program state", cmd_info },
   {"x", "Examine memory at a given address", cmd_x },
   {"p", "evalutation expression that you gave", cmd_p},
+  {"w", "generate a new watchpoint", cmd_w},
+  {"print_all_wp", "print all watchpoint that alive", cmd_print_wp},
 
 
   /* TODO: Add more commands */
