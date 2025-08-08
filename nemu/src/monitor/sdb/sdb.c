@@ -86,7 +86,8 @@ static int cmd_x(char *args){
   char *expr_ = NULL; 
   expr_ = malloc(strlen(expr_str) + 1);
   strcpy(expr_, expr_str);
-  long test = atoi(expr_);
+  long test;
+  sscanf(expr_, "%lx", &test);
   printf("%ld\n", test);
 
   vaddr_read(test, 4);
