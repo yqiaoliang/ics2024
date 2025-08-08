@@ -27,7 +27,7 @@ int eval(int p, int q, bool *success);
 
 enum {
   tk_notype = 256, tk_eq, tk_add, tk_sub, tk_mul, tk_div, tk_left, tk_right, tk_num, tk_bool_eq,
-  tk_and, tk_ptr
+  tk_and, tk_ptr, tk_hex, tk_reg,
 
   /* TODO: Add more token types */
 
@@ -50,6 +50,8 @@ static struct rule {
   {"\\(", tk_left},         
   {"\\)", tk_right},
   {"[0-9]+", tk_num}, 
+  {"0x", tk_hex},
+  {"$", tk_reg},
   {"==", tk_bool_eq},
   {"&&", tk_and},
   {"=", tk_eq},        // equal
@@ -234,7 +236,9 @@ int eval(int p, int q, bool *success){
   }
 
   else if (p == q){
-    return atoi(tokens[p].str);
+    if (tokens[p].type == tk_num) return atoi(tokens[p].str);
+    char * endptr;
+    return strtol(tokens[p].str, &endptr, 16);
   }
 
   else if (tokens[p].type == tk_left && tokens[q].type == tk_right && is_parentheses_match(p+1, q-1)) {
@@ -260,6 +264,9 @@ int eval(int p, int q, bool *success){
             return 0;
           }
           return eval_left / eval_right;
+      case tk_bool_eq: return eval_left == eval_right;
+      case tk_and : return eval_left && eval_right;
+      
     }
 
     return 0;
