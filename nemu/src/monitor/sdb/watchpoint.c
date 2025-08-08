@@ -101,6 +101,6 @@ void print_all_wp(){
 
   while(pre->next != NULL){
     printf("NO. %d, expr: %s" ,pre->NO, pre->expr);
-    pre = free_->next;
+    pre = pre->next;
   }
 }
