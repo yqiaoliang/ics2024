@@ -77,21 +77,27 @@ static int cmd_x(char *args){
     return 0;
   }
 
+  
+
   char *num_str = strtok(args, " ");
   int num = atoi(num_str);
+  if (num <= 0) return 0;
   char *expr_str = strtok(NULL, "");
   char *expr_ = NULL; 
   expr_ = malloc(strlen(expr_str) + 1);
   strcpy(expr_, expr_str);
+  int test = atoi(expr_);
 
-  if (num <= 0 || expr_ == NULL) return 0;
-  bool result  = true;
-  bool * success = &result;
-  int addr_ = expr(expr_, success);
-  if (! result) return 0;
-  for (int i = 0; i < num; i++){
-    vaddr_read(addr_, 4);
-  } 
+  vaddr_read(test, 4);
+
+  // if (num <= 0 || expr_ == NULL) return 0;
+  // bool result  = true;
+  // bool * success = &result;
+  // int addr_ = expr(expr_, success);
+  // if (! result) return 0;
+  // for (int i = 0; i < num; i++){
+  //   vaddr_read(addr_, 4);
+  // } 
 
   return 0;
 
