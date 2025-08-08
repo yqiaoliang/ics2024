@@ -20,6 +20,7 @@
 
 // word_t expr(char *e, bool *success);
 word_t vaddr_read(vaddr_t addr, int len);
+int expr(char *e, bool *success);
 
 typedef struct watchpoint WP;
 WP *new_wp();
@@ -32,6 +33,7 @@ typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
   char *expr;
+  int expr_result;
 
   /* TODO: Add more members if necessary */
 

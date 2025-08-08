@@ -20,6 +20,7 @@
  */
 #include <regex.h>
 #include <stdlib.h>
+#include "sdb.h"
 
 bool is_parentheses_match(int p, int q);
 int eval(int p, int q, bool *success);

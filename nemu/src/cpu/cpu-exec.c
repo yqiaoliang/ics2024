@@ -42,9 +42,10 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
   WP *head = get_wp_list();
   while(head->next != NULL){
-    // bool success = true;
-    // int result = expr(head->expr, &success);
-    
+    bool success = true;
+    int result = expr(head->expr, &success);
+    if (result != head->expr_result) nemu_state.state = NEMU_STOP;
+    printf("The system triggered a monitoring point");
     head = head->next;
   }
   
