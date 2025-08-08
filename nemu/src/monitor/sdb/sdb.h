@@ -20,12 +20,12 @@
 
 // word_t expr(char *e, bool *success);
 word_t vaddr_read(vaddr_t addr, int len);
-int expr(char *e, bool *success);
+// int expr(char *e, bool *success);
 
 typedef struct watchpoint WP;
 WP *new_wp();
 void free_wp(int NO_);
-int expr(char *e, bool *success);
+long expr(char *e, bool *success);
 WP *get_wp_list();
 char * get_rand_expr();
 // bool is_parentheses_match(int p, int q);

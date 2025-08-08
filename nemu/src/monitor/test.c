@@ -12,7 +12,7 @@ int test(){
         // printf("expr: %s\n", this_expr);
         bool result = true;
         bool *success = &result;
-        printf("%d \n", expr(this_expr, success));
+        printf("%ld \n", expr(this_expr, success));
         printf("\n");
         
     }
