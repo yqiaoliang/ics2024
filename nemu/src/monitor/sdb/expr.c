@@ -195,10 +195,10 @@ int find_operate_pos(int p, int q){
     if (tokens[i].type == tk_left) match += 1;
     else if (tokens[i].type == tk_right) match -= 1;
     else if ((tokens[i].type == tk_add || tokens[i].type == tk_sub) && match == 0) {
-      for (int i = p; i <= q; i++){
-    printf("%s", tokens[i].str);
-  }
-  printf("\n");
+  //     for (int i = p; i <= q; i++){
+  //   printf("%s", tokens[i].str);
+  // }
+  // printf("\n");
       return i;}
   }
 
@@ -267,7 +267,7 @@ int eval(int p, int q, bool *success){
     int eval_left = eval(p, operate_pos-1, success);
     int eval_right = eval(operate_pos+1, q, success); 
 
-    printf("eval_left: %d, eval_right: %d \n", eval_left, eval_right);
+    // printf("eval_left: %d, eval_right: %d \n", eval_left, eval_right);
 
     switch(tokens[operate_pos].type){
       case tk_add : return eval_left + eval_right;
