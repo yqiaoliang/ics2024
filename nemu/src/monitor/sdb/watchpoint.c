@@ -99,8 +99,10 @@ void free_wp(int NO_) {
 void print_all_wp(){
   WP *pre = head;
 
-  while(pre->next != NULL){
+  while(pre != NULL){
     printf("NO. %d, expr: %s \n" ,pre->NO, pre->expr);
     pre = pre->next;
   }
+
+  // printf("NO. %d, expr: %s \n" ,pre->NO, pre->expr);
 }
