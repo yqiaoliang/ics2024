@@ -85,14 +85,19 @@ static int cmd_w(char *args){
   return 0;
 }
 
-static int cmd_print_wp(char * args){
-  print_all_wp();
+static int cmd_print_alive_wp(char * args){
+  print_alive_wp();
   return 0;
 }
 
 static int cmd_d (char * args){
   int NO_ = atoi(args);
   free_wp(NO_);
+  return 0;
+}
+
+static int cmd_print_free_wp(char * args){
+  print_free_wp();
   return 0;
 }
 
@@ -149,7 +154,8 @@ static struct {
   {"x", "Examine memory at a given address", cmd_x },
   {"p", "evalutation expression that you gave", cmd_p},
   {"w", "generate a new watchpoint", cmd_w},
-  {"print_wp", "print all watchpoint that alive", cmd_print_wp},
+  {"alive_wp", "print all watchpoint that alive", cmd_print_alive_wp},
+  {"free_wp", "print all watchpoint that free", cmd_print_free_wp},
   {"d", "delete watchpoint that alive", cmd_d},
 
 

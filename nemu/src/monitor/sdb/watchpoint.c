@@ -102,11 +102,11 @@ void free_wp(int NO_) {
   // Add back to the free list
   
   // wp->next = free_;
-  printf("free NO %d watchpoint success" ,NO_);
+  printf("free NO %d watchpoint success \n" ,NO_);
   // free_ = wp;
 }
 
-void print_all_wp(){
+void print_alive_wp(){
   WP *pre = head;
 
   while(pre != NULL){
@@ -114,4 +114,13 @@ void print_all_wp(){
     pre = pre->next;
   }
 
+}
+
+void print_free_wp(){
+    WP *pre = free_;
+
+  while(pre != NULL){
+    printf("NO. %d, expr: %s \n" ,pre->NO, pre->expr);
+    pre = pre->next;
+  }
 }
