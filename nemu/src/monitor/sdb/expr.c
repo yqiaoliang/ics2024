@@ -250,6 +250,8 @@ long eval(int p, int q, bool *success){
         reg_name[i-1] = tokens[p].str[i];
     }
 
+    printf("%s", reg_name);
+
     char * reg_ptr = reg_name;
     bool result = true;
     bool * success = & result;
