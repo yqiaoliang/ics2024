@@ -207,10 +207,10 @@ int find_operate_pos(int p, int q){
     if (tokens[i].type == tk_left) match += 1;
     else if (tokens[i].type == tk_right) match -= 1;
     if ((tokens[i].type == tk_mul || tokens[i].type == tk_div) && match == 0) {
-      for (int i = p; i <= q; i++){
-    printf("%s", tokens[i].str);
-  }
-  printf("\n");
+  //     for (int i = p; i <= q; i++){
+  //   printf("%s", tokens[i].str);
+  // }
+  // printf("\n");
       return i;}
   }
 
