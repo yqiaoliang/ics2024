@@ -90,6 +90,12 @@ static int cmd_print_wp(char * args){
   return 0;
 }
 
+static int cmd_d (char * args){
+  int NO_ = atoi(args);
+  free_wp(NO_);
+  return 0;
+}
+
 static int cmd_x(char *args){
   if (args == NULL) {
     return 0;
@@ -144,6 +150,7 @@ static struct {
   {"p", "evalutation expression that you gave", cmd_p},
   {"w", "generate a new watchpoint", cmd_w},
   {"print_wp", "print all watchpoint that alive", cmd_print_wp},
+  {"d", "delete watchpoint that alive", cmd_d},
 
 
   /* TODO: Add more commands */

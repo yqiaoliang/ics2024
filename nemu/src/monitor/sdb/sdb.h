@@ -24,6 +24,7 @@ int expr(char *e, bool *success);
 
 typedef struct watchpoint WP;
 WP *new_wp();
+void free_wp(int NO_);
 int expr(char *e, bool *success);
 WP *get_wp_list();
 char * get_rand_expr();
