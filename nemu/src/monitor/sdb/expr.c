@@ -50,8 +50,8 @@ static struct rule {
   {"\\(", tk_left},         
   {"\\)", tk_right},
   {"[0-9]+", tk_num}, 
-  {"0x", tk_hex},
-  {"$", tk_reg},
+  {"0x[0-9a-fA-F]+", tk_hex},
+  {"\\$[a-zA-Z0-9]+", tk_reg},
   {"==", tk_bool_eq},
   {"&&", tk_and},
   {"=", tk_eq},        // equal
