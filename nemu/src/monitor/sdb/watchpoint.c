@@ -95,6 +95,8 @@ void free_wp(int NO_) {
     WP *cur = prev->next;
     prev->next = cur->next;
     cur->next = free_;
+    cur->expr = NULL;
+    cur->expr_result = 0;
     free_ = cur;
 
   }
