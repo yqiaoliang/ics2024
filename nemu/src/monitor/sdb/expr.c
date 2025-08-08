@@ -238,7 +238,23 @@ int eval(int p, int q, bool *success){
   else if (p == q){
     if (tokens[p].type == tk_num) return atoi(tokens[p].str);
     char * endptr;
-    return strtol(tokens[p].str, &endptr, 16);
+    if (tokens[p].type == tk_hex) return strtol(tokens[p].str, &endptr, 16);
+
+    char reg_name[8];
+
+    for (int i = 1; i < 32; i++){
+        if (tokens[p].str[i] == '\0') {
+          reg_name[i-1] = '\0';
+          break;
+        }
+        reg_name[i-1] = tokens[p].str[i];
+    }
+
+    char * reg_ptr = reg_name;
+    bool result = true;
+    bool * success = & result;
+
+    return isa_reg_str2val(reg_ptr, success);
   }
 
   else if (tokens[p].type == tk_left && tokens[q].type == tk_right && is_parentheses_match(p+1, q-1)) {
