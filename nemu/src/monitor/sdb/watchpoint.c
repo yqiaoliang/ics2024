@@ -83,12 +83,14 @@ void free_wp(int NO_) {
   else {
     WP *prev = head;
     while (prev != NULL && prev->next->NO != NO_) {
-      prev = prev->next;
+      
 
-      if (prev == NULL) {
+      if (prev->next == NULL) {
         printf("there is not exist %d watchpoint ", NO_);
         return;
       }
+
+      prev = prev->next;
 
     }
 
