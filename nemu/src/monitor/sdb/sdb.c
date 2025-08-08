@@ -88,7 +88,7 @@ static int cmd_x(char *args){
   strcpy(expr_, expr_str);
   long test;
   sscanf(expr_, "%lx", &test);
-  printf("%ld\n", test);
+  // printf("%ld\n", test);
 
   vaddr_read(test, 4);
 
