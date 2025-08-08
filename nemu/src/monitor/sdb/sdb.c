@@ -64,9 +64,10 @@ static int cmd_si(char *args) {
   return 0;
 }
 
-// static int cmd_info(char *args) {
-//   TODO();
-// }
+static int cmd_info(char *args) {
+  isa_reg_display();
+  return 0;
+}
 
 static int cmd_help(char *args);
 
@@ -79,6 +80,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si", "Execute n times instruction and stop", cmd_si },
+  { "info", "Display information about the program state", cmd_info },
 
   /* TODO: Add more commands */
 
