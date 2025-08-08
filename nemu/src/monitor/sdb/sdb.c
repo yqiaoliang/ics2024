@@ -90,7 +90,10 @@ static int cmd_x(char *args){
   sscanf(expr_, "%lx", &test);
   // printf("%ld\n", test);
 
-  printf("%d \n", vaddr_read(test, 4));
+  for (int i = 0; i < num; i++){
+    printf("%d \n", vaddr_read(test+i, 4));
+  }
+  
 
   // if (num <= 0 || expr_ == NULL) return 0;
   // bool result  = true;
