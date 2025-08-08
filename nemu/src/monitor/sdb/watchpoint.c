@@ -105,7 +105,7 @@ void free_wp(int NO_) {
   // Add back to the free list
   
   // wp->next = free_;
-  printf("free NO %d watchpoint success \n" ,NO_);
+  printf("free NO.%d watchpoint success \n" ,NO_);
   // free_ = wp;
 }
 
