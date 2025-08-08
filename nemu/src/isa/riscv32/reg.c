@@ -38,6 +38,7 @@ word_t isa_reg_str2val(const char *s, bool *success) {
     }
   }
 
+  printf("no such reg %s\n", s);
   *success = false;
   return 0;
 }
