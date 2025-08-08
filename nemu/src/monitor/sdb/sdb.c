@@ -72,6 +72,14 @@ static int cmd_info(char *args) {
   return 0;
 }
 
+static int cmd_p(char *args){
+  bool result = true;
+  bool *success = &result;
+  printf("%d \n", expr(args, success));
+
+  return 0;
+}
+
 static int cmd_x(char *args){
   if (args == NULL) {
     return 0;
@@ -123,6 +131,7 @@ static struct {
   { "si", "Execute n times instruction and stop", cmd_si },
   { "info", "Display information about the program state", cmd_info },
   {"x", "Examine memory at a given address", cmd_x },
+  {"p", "evalutation expression that you gave", cmd_p},
 
 
   /* TODO: Add more commands */
