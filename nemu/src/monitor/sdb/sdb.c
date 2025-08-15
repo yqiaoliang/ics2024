@@ -185,7 +185,7 @@ static int cmd_help(char *args) {
     }
     printf("Unknown command '%s'\n", arg);
   }
-  return 0;
+  return -1;
 }
 
 void sdb_set_batch_mode() {
