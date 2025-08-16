@@ -5,7 +5,7 @@
 #include "../../tools/gen-expr/gen-expr.h"
 
 int test(){
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 100; i++) {
         printf("test %d\n", i);
         char * this_expr = get_rand_expr();
         // char * this_expr = "(19+29)*(((35-72)))/83*66";
