@@ -116,8 +116,6 @@ static int cmd_x(char *args){
     return 0;
   }
 
-  
-
   char *num_str = strtok(args, " ");
   int num = atoi(num_str);
   if (num <= 0) return 0;
@@ -126,13 +124,16 @@ static int cmd_x(char *args){
   char *expr_ = NULL; 
   expr_ = malloc(strlen(expr_str) + 1);
   strcpy(expr_, expr_str);
-  long test;
-  sscanf(expr_, "%lx", &test);
-
-  for (int i = 0; i < num; i++){
-    printf("%d \n", vaddr_read(test+i, 4));
+  bool success = true;
+  bool * success_ptr = &success;
+  long test = expr(expr_, success_ptr);
+  if (success_ptr){
+    for (int i = 0; i < num; i++){
+      printf("%d \n", vaddr_read(test+i, 4));
+    }
   }
-  
+  else printf("your expression is wrong");
+
 
   // if (num <= 0 || expr_ == NULL) return 0;
   // bool result  = true;
