@@ -205,19 +205,20 @@ int find_operate_pos(int p, int q){
     if (tokens[i].type == tk_left) match += 1;
     else if (tokens[i].type == tk_right) match -= 1;
     if ((tokens[i].type == tk_mul || tokens[i].type == tk_div) && match == 0) {
-  //     for (int i = p; i <= q; i++){
-  //   printf("%s", tokens[i].str);
-  // }
-  // printf("\n");
       return i;
     }
   }
 
-  // printf("operate_pos == -1, str is:");
-  // for (int i = p; i <= q; i++){
-  //   printf("%s", tokens[i].str);
-  // }
-  // printf("\n");
+  match = 0;
+  for (int i = q; i >= p; i--){
+    if (tokens[i].type == tk_left) match += 1;
+    else if (tokens[i].type == tk_right) match -= 1;
+    if ((tokens[i].type == tk_and || tokens[i].type == tk_bool_eq) && match == 0) {
+      return i;
+    }
+  }
+
+
 
   return -1;
 }
