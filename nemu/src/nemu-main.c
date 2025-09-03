@@ -41,5 +41,5 @@ int main(int argc, char *argv[]) {
   // test();
 
   // return is_exit_status_bad();
-  return 0;
+  return 1;
 }
