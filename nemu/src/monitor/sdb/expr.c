@@ -55,7 +55,7 @@ static struct rule {
   {"\\$[a-zA-Z0-9]+", tk_reg},
   {"==", tk_bool_eq},
   {"&&", tk_and},
-  {"=", tk_eq},        // equal
+  {"=", tk_eq}, 
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -253,8 +253,8 @@ double eval_aux(int p, int q, bool *success){
     // printf("%s", reg_name);
 
     char * reg_ptr = reg_name;
-    bool result = true;
-    bool * success = & result;
+    // bool result = true;
+    // bool * success = & result;
 
     return isa_reg_str2val(reg_ptr, success);
   }
