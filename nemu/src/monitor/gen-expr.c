@@ -162,6 +162,6 @@ int main_test(int argc, int loop) {
     // printf("my_reslut: %u %u %s\n", result, buf);
   }
 
-  printf("error_num: %d", error_num);
+  printf("error_num: %d \n", error_num);
   return 0;
 }
