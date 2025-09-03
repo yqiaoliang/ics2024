@@ -123,7 +123,7 @@ int main_test(int argc, int loop) {
 
   int i;
   int error_num = 0;
-  for (i = 0; i < loop; i ++) {
+  for (i = 0; i < loop; i++) {
     gen_rand_expr(0);
 
     sprintf(code_buf, code_format, buf);

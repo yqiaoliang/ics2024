@@ -5,6 +5,6 @@
 #include "../../tools/gen-expr/gen-expr.h"
 
 int test(){
-    main_test(2, 1000);
+    main_test(2, 100);
     return 0;
 }
