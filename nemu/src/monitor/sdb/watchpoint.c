@@ -106,7 +106,6 @@ void free_wp(int NO_) {
     cur->expr = NULL;
     cur->expr_result = 0;
     
-
   }
   printf("free NO.%d watchpoint success \n" ,NO_);
 }

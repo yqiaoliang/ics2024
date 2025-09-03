@@ -24,6 +24,7 @@
 
 bool is_parentheses_match(int p, int q);
 long eval(int p, int q, bool *success);
+double eval_aux(int p, int q, bool *success);
 
 enum {
   tk_notype = 256, tk_eq, tk_add, tk_sub, tk_mul, tk_div, tk_left, tk_right, tk_num, tk_bool_eq,
@@ -221,8 +222,12 @@ int find_operate_pos(int p, int q){
   return -1;
 }
 
-
 long eval(int p, int q, bool *success){
+  return (long) eval_aux(p, q, success);
+}
+
+
+double eval_aux(int p, int q, bool *success){
   if (! *success) return 0;
 
   if (p > q){
@@ -255,7 +260,7 @@ long eval(int p, int q, bool *success){
   }
 
   else if (tokens[p].type == tk_left && tokens[q].type == tk_right && is_parentheses_match(p+1, q-1)) {
-    return eval(p + 1, q - 1, success);
+    return eval_aux(p + 1, q - 1, success);
   }
 
   else {
@@ -264,8 +269,8 @@ long eval(int p, int q, bool *success){
       success = false;
       return 0;
     }
-    int eval_left = eval(p, operate_pos-1, success);
-    int eval_right = eval(operate_pos+1, q, success); 
+    int eval_left = eval_aux(p, operate_pos-1, success);
+    int eval_right = eval_aux(operate_pos+1, q, success); 
 
     // printf("eval_left: %d, eval_right: %d \n", eval_left, eval_right);
 
