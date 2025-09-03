@@ -256,7 +256,8 @@ double eval_aux(int p, int q, bool *success){
     // bool result = true;
     // bool * success = & result;
 
-    return isa_reg_str2val(reg_ptr, success);
+    double result = isa_reg_str2val(reg_ptr, success);
+    return result;
   }
 
   else if (tokens[p].type == tk_left && tokens[q].type == tk_right && is_parentheses_match(p+1, q-1)) {
