@@ -149,7 +149,7 @@ int main_test(int argc, int loop) {
     printf("expr: %s\n", buf);
     printf("my_reslut: %u\n", result);
     printf("result: %u\n", result);
-    if (my_expr_reslut == result) printf("correct\n");
+    if (my_expr_reslut - result == 0) printf("correct\n");
     else {
       printf("error\n");
       error_num += 1;
