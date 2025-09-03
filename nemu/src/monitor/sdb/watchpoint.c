@@ -65,7 +65,7 @@ WP * new_wp(char *expr_) {
   if (wp->expr == NULL || !result) {
     printf("Failed to allocate memory for watchpoint expression.\n");
     free_wp(wp->NO);
-    return NULL;
+    return wp;
   }
 
   head = wp;
