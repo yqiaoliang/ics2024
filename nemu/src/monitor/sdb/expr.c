@@ -253,11 +253,12 @@ double eval_aux(int p, int q, bool *success){
     // printf("%s", reg_name);
 
     char * reg_ptr = reg_name;
-    // bool result = true;
-    // bool * success = & result;
+    bool result = true;
+    bool * success_ptr = & result;
 
-    double result = isa_reg_str2val(reg_ptr, success);
-    return result;
+    double this_rlt = isa_reg_str2val(reg_ptr, success_ptr);
+    *success = result;
+    return this_rlt;
   }
 
   else if (tokens[p].type == tk_left && tokens[q].type == tk_right && is_parentheses_match(p+1, q-1)) {
