@@ -267,6 +267,7 @@ double eval_aux(int p, int q, bool *success){
     int operate_pos = find_operate_pos(p, q);
     if(operate_pos == -1) {
       *success = false;
+      printf("no operate\n");
       return 0;
     }
 
