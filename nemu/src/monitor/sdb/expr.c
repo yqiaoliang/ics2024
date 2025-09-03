@@ -287,7 +287,9 @@ double eval_aux(int p, int q, bool *success){
           return eval_left / eval_right;
         }
       case tk_bool_eq: return eval_left == eval_right;
-      case tk_and : return (abs(eval_right) > 1e-6) && (abs(eval_left) > 1e-6);
+      case tk_and : {return (abs(eval_left) > 1e-6) && (abs(eval_right) > 1e-6);
+        printf("l: %f, r: %f", eval_left, eval_right);
+      }
       
     }
 
