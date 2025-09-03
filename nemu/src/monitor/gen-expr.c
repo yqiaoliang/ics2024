@@ -91,9 +91,9 @@ static void gen_rand_expr(int func_deep) {
     return;
   }
 
-  int choose = rand() % 11;
-  if (choose < 6) gen_num();
-  else if (choose < 8) {
+  int choose = rand() % 12;
+  if (choose < 5) gen_num();
+  else if (choose < 7) {
     gen_left();
     gen_rand_expr(func_deep + 1);
     gen_right();
@@ -145,10 +145,10 @@ int main_test(int argc, int loop) {
 
     bool success = true;
     bool * success_ptr = &success;
-    long my_expr_reslut = expr(buf, success_ptr);
+    uint32_t my_expr_reslut = expr(buf, success_ptr);
     // my_expr_reslut = (int) my_expr_reslut;
     printf("expr: %s\n", buf);
-    printf("my_reslut: %lu\n", my_expr_reslut);
+    printf("my_reslut: %d\n", my_expr_reslut);
     printf("result: %u\n", result);
     if (my_expr_reslut - result == 0) printf("correct\n");
     else {

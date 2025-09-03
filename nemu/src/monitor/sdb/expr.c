@@ -23,7 +23,7 @@
 #include "sdb.h"
 
 bool is_parentheses_match(int p, int q);
-long eval(int p, int q, bool *success);
+uint32_t eval(int p, int q, bool *success);
 double eval_aux(int p, int q, bool *success);
 
 enum {
@@ -147,7 +147,7 @@ static bool make_token(char *e) {
 
 
 
-long expr(char *e, bool *success) {
+uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
     *success = false;
     return 0;
@@ -222,7 +222,7 @@ int find_operate_pos(int p, int q){
   return -1;
 }
 
-long eval(int p, int q, bool *success){
+uint32_t eval(int p, int q, bool *success){
   return (long) eval_aux(p, q, success);
 }
 

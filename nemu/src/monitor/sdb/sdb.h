@@ -25,7 +25,7 @@ word_t vaddr_read(vaddr_t addr, int len);
 typedef struct watchpoint WP;
 WP *new_wp();
 void free_wp(int NO_);
-long expr(char *e, bool *success);
+uint32_t expr(char *e, bool *success);
 WP *get_wp_list();
 char * get_rand_expr();
 int main_test(int argc, int loop);

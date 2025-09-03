@@ -85,7 +85,7 @@ static int cmd_info(char *args) {
 static int cmd_p(char *args){
   bool result = true;
   bool *success = &result;
-  printf("result: %ld \n", expr(args, success));
+  printf("result: %d \n", expr(args, success));
 
   return 0;
 }
