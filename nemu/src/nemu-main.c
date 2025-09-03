@@ -38,8 +38,5 @@ int main(int argc, char *argv[]) {
   engine_start();
   printf("exit code: %d \n", is_exit_status_bad());
 
-  // test();
-
   return is_exit_status_bad();
-  // return 1;
 }
