@@ -61,7 +61,8 @@ static int cmd_q(char *args) {
 
 static int cmd_si(char *args) {
   printf("%s \n", args);
-  cpu_exec(1);
+  if (!args) cpu_exec(1);
+  for (int i = 0; i < atoi(args); i++) cpu_exec(1);
   return 0;
 }
 
