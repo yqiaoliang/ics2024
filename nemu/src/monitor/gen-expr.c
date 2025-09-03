@@ -148,13 +148,13 @@ int main_test(int argc, int loop) {
     long my_expr_reslut = expr(buf, success_ptr);
     // my_expr_reslut = (int) my_expr_reslut;
     printf("expr: %s\n", buf);
-    printf("my_reslut: %u\n", result);
+    printf("my_reslut: %lu\n", my_expr_reslut);
     printf("result: %u\n", result);
     if (my_expr_reslut - result == 0) printf("correct\n");
     else {
       printf("error\n");
       error_num += 1;
-      printf("sub %ld\n", my_expr_reslut - result);
+      // printf("sub %u\n", my_expr_reslut - result);
     }
     printf("\n");
 
