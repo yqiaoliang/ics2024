@@ -117,14 +117,12 @@ char * get_rand_expr(){
 }
 
 
-int main_test(int argc, char *argv[]) {
+int main_test(int argc, int loop) {
   int seed = time(0);
   srand(seed);
-  int loop = 1;
-  if (argc > 1) {
-    sscanf(argv[1], "%d", &loop);
-  }
+
   int i;
+  int error_num = 0;
   for (i = 0; i < loop; i ++) {
     gen_rand_expr(0);
 
@@ -145,7 +143,25 @@ int main_test(int argc, char *argv[]) {
     ret = fscanf(fp, "%d", &result);
     pclose(fp);
 
-    printf("%u %s\n", result, buf);
+    bool success = true;
+    bool * success_ptr = &success;
+    long my_expr_reslut = expr(buf, success_ptr);
+    printf("expr: %s\n", buf);
+    printf("my_reslut: %u\n", result);
+    printf("result: %u\n", result);
+    if (my_expr_reslut == result) printf("correct\n");
+    else {
+      printf("error\n");
+      error_num += 1;
+    }
+    printf("\n");
+
+
+
+
+    // printf("my_reslut: %u %u %s\n", result, buf);
   }
+
+  printf("error_num: %d", error_num);
   return 0;
 }

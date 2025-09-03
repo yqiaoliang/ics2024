@@ -28,6 +28,7 @@ void free_wp(int NO_);
 long expr(char *e, bool *success);
 WP *get_wp_list();
 char * get_rand_expr();
+int main_test(int argc, int loop);
 // bool is_parentheses_match(int p, int q);
 
 typedef struct watchpoint {
