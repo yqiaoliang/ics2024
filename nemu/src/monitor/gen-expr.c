@@ -91,9 +91,9 @@ static void gen_rand_expr(int func_deep) {
     return;
   }
 
-  int choose = rand() % 3;
-  if (choose == 0) gen_num();
-  else if (choose == 1) {
+  int choose = rand() % 11;
+  if (choose < 6) gen_num();
+  else if (choose < 8) {
     gen_left();
     gen_rand_expr(func_deep + 1);
     gen_right();
