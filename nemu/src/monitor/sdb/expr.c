@@ -195,11 +195,8 @@ int find_operate_pos(int p, int q){
     if (tokens[i].type == tk_left) match += 1;
     else if (tokens[i].type == tk_right) match -= 1;
     else if ((tokens[i].type == tk_add || tokens[i].type == tk_sub) && match == 0) {
-  //     for (int i = p; i <= q; i++){
-  //   printf("%s", tokens[i].str);
-  // }
-  // printf("\n");
-      return i;}
+      return i;
+    }
   }
 
   match = 0;
@@ -211,14 +208,15 @@ int find_operate_pos(int p, int q){
   //   printf("%s", tokens[i].str);
   // }
   // printf("\n");
-      return i;}
+      return i;
+    }
   }
 
-  printf("operate_pos == -1, str is:");
-  for (int i = p; i <= q; i++){
-    printf("%s", tokens[i].str);
-  }
-  printf("\n");
+  // printf("operate_pos == -1, str is:");
+  // for (int i = p; i <= q; i++){
+  //   printf("%s", tokens[i].str);
+  // }
+  // printf("\n");
 
   return -1;
 }
@@ -227,10 +225,7 @@ int find_operate_pos(int p, int q){
 long eval(int p, int q, bool *success){
   if (! *success) return 0;
 
-  // printf("%d, %d \n", p, q);
-
   if (p > q){
-    printf("ERROR occur in the expression : %d > %d \n", p, q);
     *success = false;
     return 0;
   }
@@ -265,7 +260,10 @@ long eval(int p, int q, bool *success){
 
   else {
     int operate_pos = find_operate_pos(p, q);
-    // printf("operate_pos: %d \n", operate_pos);
+    if(operate_pos == -1) {
+      success = false;
+      return 0;
+    }
     int eval_left = eval(p, operate_pos-1, success);
     int eval_right = eval(operate_pos+1, q, success); 
 
@@ -275,13 +273,14 @@ long eval(int p, int q, bool *success){
       case tk_add : return eval_left + eval_right;
       case tk_sub : return eval_left - eval_right;
       case tk_mul : return eval_left * eval_right;
-      case tk_div :
+      case tk_div :{
           if (eval_right == 0) {
             printf("ERROR the expression exist div 0 \n");
             *success = false;
             return 0;
           }
           return eval_left / eval_right;
+        }
       case tk_bool_eq: return eval_left == eval_right;
       case tk_and : return eval_left && eval_right;
       
