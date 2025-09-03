@@ -40,6 +40,6 @@ int main(int argc, char *argv[]) {
 
   // test();
 
-  // return is_exit_status_bad();
-  return 1;
+  return is_exit_status_bad();
+  // return 1;
 }
