@@ -269,8 +269,8 @@ double eval_aux(int p, int q, bool *success){
       success = false;
       return 0;
     }
-    int eval_left = eval_aux(p, operate_pos-1, success);
-    int eval_right = eval_aux(operate_pos+1, q, success); 
+    double eval_left = eval_aux(p, operate_pos-1, success);
+    double eval_right = eval_aux(operate_pos+1, q, success); 
 
     // printf("eval_left: %d, eval_right: %d \n", eval_left, eval_right);
 
