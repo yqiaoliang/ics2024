@@ -122,7 +122,7 @@ static int cmd_x(char *args){
   int num = atoi(num_str);
   if (num <= 0) return 0;
   char *expr_str = strtok(NULL, "");
-  printf("expr_str: %s", expr_str);
+  printf("expr_str: %s\n", expr_str);
   char *expr_ = NULL; 
   expr_ = malloc(strlen(expr_str) + 1);
   strcpy(expr_, expr_str);
