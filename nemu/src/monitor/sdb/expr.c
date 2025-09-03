@@ -266,9 +266,11 @@ double eval_aux(int p, int q, bool *success){
   else {
     int operate_pos = find_operate_pos(p, q);
     if(operate_pos == -1) {
-      success = false;
+      *success = false;
       return 0;
     }
+
+    printf("op: %s", tokens[operate_pos].str);
     double eval_left = eval_aux(p, operate_pos-1, success);
     double eval_right = eval_aux(operate_pos+1, q, success); 
 
