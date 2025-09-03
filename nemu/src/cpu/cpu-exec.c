@@ -46,7 +46,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
     int result = expr(head->expr, &success);
     if (result != head->expr_result) {
       if (nemu_state.state == NEMU_RUNNING) nemu_state.state = NEMU_STOP;
-      printf("The system triggered a monitoring point \n");
+      printf("The system triggered a monitoring point, current nemu state: %d \n", nemu_state.state);
       return;
     }
     head = head->next;
