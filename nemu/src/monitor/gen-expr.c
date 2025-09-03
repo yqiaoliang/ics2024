@@ -148,7 +148,7 @@ int main_test(int argc, int loop) {
     uint32_t my_expr_reslut = expr(buf, success_ptr);
     // my_expr_reslut = (int) my_expr_reslut;
     printf("expr: %s\n", buf);
-    printf("my_reslut: %d\n", my_expr_reslut);
+    printf("my_reslut: %u\n", my_expr_reslut);
     printf("result: %u\n", result);
     if (my_expr_reslut - result == 0) printf("correct\n");
     else {
