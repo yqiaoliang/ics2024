@@ -24,7 +24,7 @@
 
 bool is_parentheses_match(int p, int q);
 long eval(int p, int q, bool *success);
-long eval_aux(int p, int q, bool *success);
+double eval_aux(int p, int q, bool *success);
 
 enum {
   tk_notype = 256, tk_eq, tk_add, tk_sub, tk_mul, tk_div, tk_left, tk_right, tk_num, tk_bool_eq,
@@ -227,7 +227,7 @@ long eval(int p, int q, bool *success){
 }
 
 
-long eval_aux(int p, int q, bool *success){
+double eval_aux(int p, int q, bool *success){
   if (! *success) return 0;
 
   if (p > q){
