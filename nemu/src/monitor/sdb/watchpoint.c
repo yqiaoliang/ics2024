@@ -81,7 +81,12 @@ void free_wp(int NO_) {
 
   // Remove from the linked list
   if (NO_ == head->NO) {
+    WP *cur = head;
     head = head->next;
+    cur->next = free_;
+    free_ = cur;
+    cur->expr = NULL;
+    cur->expr_result = 0;
   } 
   else {
     WP *prev = head;
@@ -97,9 +102,10 @@ void free_wp(int NO_) {
     WP *cur = prev->next;
     prev->next = cur->next;
     cur->next = free_;
+    free_ = cur;
     cur->expr = NULL;
     cur->expr_result = 0;
-    free_ = cur;
+    
 
   }
   printf("free NO.%d watchpoint success \n" ,NO_);
