@@ -31,6 +31,8 @@
 static WP wp_pool[NR_WP] = {};
 static WP *head = NULL, *free_ = NULL;
 
+void free_wp(int NO_);
+
 WP * get_wp_list() {
   return head;
 }
@@ -65,7 +67,7 @@ WP * new_wp(char *expr_) {
   if (wp->expr == NULL || !result) {
     printf("Failed to allocate memory for watchpoint expression.\n");
     free_wp(wp->NO);
-    return wp;
+    return NULL;
   }
 
   head = wp;
