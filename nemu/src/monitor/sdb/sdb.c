@@ -52,6 +52,8 @@ static int cmd_c(char *args) {
     cpu_exec(1);
   }
   return 0;
+  nemu_state.state = NEMU_RUNNING;
+
 }
 
 
