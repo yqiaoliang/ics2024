@@ -146,6 +146,7 @@ int main_test(int argc, int loop) {
     bool success = true;
     bool * success_ptr = &success;
     long my_expr_reslut = expr(buf, success_ptr);
+    // my_expr_reslut = (int) my_expr_reslut;
     printf("expr: %s\n", buf);
     printf("my_reslut: %u\n", result);
     printf("result: %u\n", result);
@@ -153,6 +154,7 @@ int main_test(int argc, int loop) {
     else {
       printf("error\n");
       error_num += 1;
+      printf("sub %ld\n", my_expr_reslut - result);
     }
     printf("\n");
 
