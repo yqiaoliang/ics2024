@@ -314,6 +314,7 @@ double eval_aux(int p, int q, bool *success){
           //   *success = false;
           //   return 0;
           // }
+          printf("eval_right: %0x \n", (uint32_t)eval_right);
           return vaddr_read((uint32_t)eval_right, 4);
         }
       
