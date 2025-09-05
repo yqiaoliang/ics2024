@@ -120,6 +120,7 @@ static int cmd_x(char *args){
   }
 
   char *num_str = strtok(args, " ");
+  printf("num_str: %s\n", num_str);
   int num = atoi(num_str);
   if (num <= 0) return 0;
   char *expr_str = strtok(NULL, "");
