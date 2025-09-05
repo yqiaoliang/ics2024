@@ -114,6 +114,7 @@ static int cmd_print_free_wp(char * args){
 
 static int cmd_x(char *args){
   if (args == NULL) {
+    printf("please enter addr\n");
     return 0;
   }
 
