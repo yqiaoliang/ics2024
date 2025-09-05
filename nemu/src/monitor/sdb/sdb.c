@@ -133,7 +133,7 @@ static int cmd_x(char *args){
   uint32_t test = expr(expr_, success_ptr);
   if (success_ptr){
     for (int i = 0; i < num; i++){
-      printf("%u \n", vaddr_read(test+i, 4));
+      printf("%0x \n", vaddr_read(test+i, 4));
     }
   }
   else printf("your expression is wrong");

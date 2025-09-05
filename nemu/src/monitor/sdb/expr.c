@@ -291,6 +291,14 @@ double eval_aux(int p, int q, bool *success){
         }
       case tk_bool_eq: return eval_left == eval_right;
       case tk_and : return eval_left && eval_right;
+      case tk_ptr : {
+          // if (! (eval_right >= PMEM_LEFT && eval_right <= PMEM_RIGHT)){
+          //   printf("ERROR the expression exist pointer that out of bound \n");
+          //   *success = false;
+          //   return 0;
+          // }
+          return vaddr_read((uint32_t)eval_right, 4);
+        }
       
     }
 
