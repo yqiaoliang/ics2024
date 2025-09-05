@@ -297,7 +297,7 @@ double eval_aux(int p, int q, bool *success){
           //   *success = false;
           //   return 0;
           // }
-          return vaddr_read((uint32_t)eval_right, 4);
+          return vaddr_read((uint32_t)eval_right, 1);
         }
       
     }
