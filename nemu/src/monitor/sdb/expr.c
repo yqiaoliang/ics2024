@@ -286,10 +286,11 @@ double eval_aux(int p, int q, bool *success){
     double eval_left;
     double eval_right;
 
-    if (operate_pos - 1 >= 0) eval_left = eval_aux(p, operate_pos-1, success);
+    if (operate_pos - 1 >= p) eval_left = eval_aux(p, operate_pos-1, success);
     else eval_left = 0;
 
-    eval_right = eval_aux(operate_pos+1, q, success);
+    if (operate_pos + 1 <= q) eval_right = eval_aux(operate_pos+1, q, success);
+    else eval_right = 0;
     if (! *success) return 0;
 
     // printf("eval_left: %d, eval_right: %d \n", eval_left, eval_right);
