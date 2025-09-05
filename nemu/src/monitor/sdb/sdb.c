@@ -127,7 +127,7 @@ static int cmd_x(char *args){
   strcpy(expr_, expr_str);
   bool success = true;
   bool * success_ptr = &success;
-  long test = expr(expr_, success_ptr);
+  uint32_t test = expr(expr_, success_ptr);
   if (success_ptr){
     for (int i = 0; i < num; i++){
       printf("%d \n", vaddr_read(test+i, 4));
