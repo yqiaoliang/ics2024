@@ -94,6 +94,7 @@ static bool make_token(char *e) {
 
   nr_token = 0;
 
+  int sub_num = -1;
   while (e[position] != '\0') {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
@@ -113,11 +114,26 @@ static bool make_token(char *e) {
 
         switch (rules[i].token_type) {
           case tk_notype : break;
+          case tk_add : case tk_sub: {
+            if (sub_num == -1) sub_num = 0;
+            if (rules[i].token_type == tk_sub) sub_num += 1;
+          }
           default: 
             if (nr_token >= ARRLEN(tokens)) {
               Log("To many tokens in expression");
               return false;
             }
+
+            if (sub_num != -1){
+              if (sub_num % 2 == 1) {
+                tokens[nr_token].type = tk_sub;
+              }
+              else tokens[nr_token].type = tk_add;
+              nr_token++;
+              sub_num = -1;
+            }
+
+
             if(substr_len > 31) Log("at least one of token to long, over 31 chars");
             tokens[nr_token].type = rules[i].token_type;
             strncpy(tokens[nr_token].str, substr_start, substr_len);
@@ -134,6 +150,15 @@ static bool make_token(char *e) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
     }
+  }
+
+  if (sub_num != -1){
+    if (sub_num % 2 == 1) {
+      tokens[nr_token].type = tk_sub;
+    }
+    else tokens[nr_token].type = tk_add;
+    nr_token++;
+    sub_num = -1;
   }
 
   // printf("expression: ");
