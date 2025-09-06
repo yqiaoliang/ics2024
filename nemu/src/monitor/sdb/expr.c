@@ -117,6 +117,7 @@ static bool make_token(char *e) {
           case tk_add : case tk_sub: {
             if (sub_num == -1) sub_num = 0;
             if (rules[i].token_type == tk_sub) sub_num += 1;
+            break;
           }
           default: 
             if (nr_token >= ARRLEN(tokens)) {
