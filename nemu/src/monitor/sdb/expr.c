@@ -213,7 +213,7 @@ int find_operate_pos(int p, int q){
   for (int i = q; i >= p; i--){
     if (tokens[i].type == tk_left) match += 1;
     else if (tokens[i].type == tk_right) match -= 1;
-    if ((tokens[i].type == tk_and || tokens[i].type == tk_bool_eq) && match == 0) {
+    if ((tokens[i].type == tk_and  || tokens[i].type == tk_bool_eq ) && match == 0) {
       return i;
     }
   }
