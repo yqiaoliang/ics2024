@@ -44,6 +44,10 @@ static char* rl_gets() {
 
 static int cmd_c(char *args) {
   if (args == NULL) {
+    cpu_exec(1);
+    return 0;
+  }
+  if (atoi(args) < 0) {
     cpu_exec(-1);
     return 0;
   }
@@ -210,7 +214,7 @@ void sdb_set_batch_mode() {
 
 void sdb_mainloop() {
   if (is_batch_mode) {
-    cmd_c(NULL);
+    cmd_c("-1");
     return;
   }
 
