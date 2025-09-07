@@ -56,7 +56,9 @@ LDFLAGS += $(CFLAGS_BUILD)
 include $(NEMU_HOME)/scripts/config.mk
 
 ifdef CONFIG_TARGET_AM
+ARCH = riscv32-nemu
 include $(AM_HOME)/Makefile
+# include $(NEMU_HOME)/scripts/native.mk
 LINKAGE += $(ARCHIVES)
 else
 # Include rules to build NEMU
