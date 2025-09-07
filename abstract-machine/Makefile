@@ -11,6 +11,7 @@ html:
 ifeq ($(MAKECMDGOALS),)
   MAKECMDGOALS  = image
   .DEFAULT_GOAL = image
+  echo "Default target: image"
 endif
 
 
@@ -150,7 +151,6 @@ endif
 
 ### Build order control
 image: image-dep
-	@echo \# Build complete [$(ARCH)]
 archive: $(ARCHIVE)
 image-dep: $(IMAGE).elf
 .PHONY: image image-dep archive run
