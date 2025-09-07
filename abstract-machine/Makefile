@@ -14,6 +14,7 @@ ifeq ($(MAKECMDGOALS),)
 endif
 
 @echo entering makefile
+
 ### Override checks when `make clean/clean-all/html`
 ifeq ($(findstring $(MAKECMDGOALS),clean|clean-all|html),)	# if not cleaning or generating html
 
