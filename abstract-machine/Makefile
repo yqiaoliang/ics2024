@@ -13,6 +13,8 @@ ifeq ($(MAKECMDGOALS),)
   .DEFAULT_GOAL = image
 endif
 
+${info "ARCH: $(ARCH)"}
+
 ### Override checks when `make clean/clean-all/html`
 ifeq ($(findstring $(MAKECMDGOALS),clean|clean-all|html),)	# if not cleaning or generating html
 
@@ -29,8 +31,6 @@ endif
 ARCHS = $(basename $(notdir $(shell ls $(AM_HOME)/scripts/*.mk))) # get all name of `*.mk` in `scripts/`
 ifeq ($(filter $(ARCHS), $(ARCH)), )
   $(error Expected $$ARCH in {$(ARCHS)}, Got "$(ARCH)")
-else
-	@echo "# Building for $(ARCH)"
 endif
 
 ### Extract instruction set architecture (`ISA`) and platform from `$ARCH`. Example: `ARCH=x86_64-qemu -> ISA=x86_64; PLATFORM=qemu`
