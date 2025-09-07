@@ -47,7 +47,7 @@ static int cmd_c(char *args) {
     cpu_exec(1);
     return 0;
   }
-  if (atoi(args) < 0) {
+  if (strcmp(args, "batch_mode") == 0) {
     cpu_exec(-1);
     return 0;
   }
@@ -214,7 +214,7 @@ void sdb_set_batch_mode() {
 
 void sdb_mainloop() {
   if (is_batch_mode) {
-    cmd_c("-1");
+    cmd_c("batch_mode");
     return;
   }
 
