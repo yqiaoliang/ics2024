@@ -44,7 +44,7 @@ static char* rl_gets() {
 
 static int cmd_c(char *args) {
   if (args == NULL) {
-    cpu_exec(1);
+    cpu_exec(-1);
     return 0;
   }
   for (int i = 0; i < atoi(args); i++) {
