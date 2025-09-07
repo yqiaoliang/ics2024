@@ -42,9 +42,9 @@ run-batch: run-env
 	$(NEMU_EXEC) -b
 
 help:
-	@echo "make run			- run NEMU"
+	@echo "make run		- run NEMU"
 	@echo "make run-batch		- run NEMU in batch mode"
-	@echo "make gdb			- run NEMU in gdb"
+	@echo "make gdb		- run NEMU in gdb"
 	@echo "make clean-all		- clean all generated files"
 
 gdb: run-env
