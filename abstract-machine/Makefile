@@ -13,8 +13,6 @@ ifeq ($(MAKECMDGOALS),)
   .DEFAULT_GOAL = image
 endif
 
-${info "ARCH: $(ARCH)"}
-
 ### Override checks when `make clean/clean-all/html`
 ifeq ($(findstring $(MAKECMDGOALS),clean|clean-all|html),)	# if not cleaning or generating html
 
@@ -25,7 +23,6 @@ $(info # Building $(NAME)-$(MAKECMDGOALS) [$(ARCH)])
 ifeq ($(wildcard $(AM_HOME)/am/include/am.h),) 	# checkout if `am/include/am.h` exists
   $(error $$AM_HOME must be an AbstractMachine repo)
 endif
-
 
 ### Check: environment variable `$ARCH` must be in the supported list
 ARCHS = $(basename $(notdir $(shell ls $(AM_HOME)/scripts/*.mk))) # get all name of `*.mk` in `scripts/`
