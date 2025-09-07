@@ -28,6 +28,8 @@ endif
 ARCHS = $(basename $(notdir $(shell ls $(AM_HOME)/scripts/*.mk))) # get all name of `*.mk` in `scripts/`
 ifeq ($(filter $(ARCHS), $(ARCH)), )
   $(error Expected $$ARCH in {$(ARCHS)}, Got "$(ARCH)")
+else 
+	  $(info # Target architecture: $(ARCH))
 endif
 
 ### Extract instruction set architecture (`ISA`) and platform from `$ARCH`. Example: `ARCH=x86_64-qemu -> ISA=x86_64; PLATFORM=qemu`
