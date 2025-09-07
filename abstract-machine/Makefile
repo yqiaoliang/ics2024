@@ -11,7 +11,7 @@ html:
 ifeq ($(MAKECMDGOALS),)
   MAKECMDGOALS  = image
   .DEFAULT_GOAL = image
-  echo "Default target: image"
+  @echo "Default target: image"
 endif
 
 
