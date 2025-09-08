@@ -30,4 +30,5 @@ ifdef mainargs
 ASFLAGS += -DBIN_PATH=\"$(mainargs)\"
 endif
 # SRCS-$(CONFIG_TARGET_AM) += src/am-bin.S
+SRCS- += src/am-bin.S
 .PHONY: src/am-bin.S
