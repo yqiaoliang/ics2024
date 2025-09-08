@@ -36,8 +36,10 @@ FILELIST_MK = $(shell find -L ./src -name "filelist.mk")
 $(info # FILELIST_MK = $(FILELIST_MK))
 include $(FILELIST_MK)
 
+$(info DIRS-BLACKLIST = $(DIRS-BLACKLIST-y))
 # Filter out directories and files in blacklist to obtain the final set of source files
 DIRS-BLACKLIST-y += $(DIRS-BLACKLIST)
+$(info DIRS-BLACKLIST = $(DIRS-BLACKLIST-y))
 SRCS-BLACKLIST-y += $(SRCS-BLACKLIST) $(shell find -L $(DIRS-BLACKLIST-y) -name "*.c")
 SRCS-y += $(shell find -L $(DIRS-y) -name "*.c")
 SRCS = $(filter-out $(SRCS-BLACKLIST-y),$(SRCS-y))
