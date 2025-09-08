@@ -19,11 +19,9 @@ void sdb_mainloop();
 
 void engine_start() {
 #ifdef CONFIG_TARGET_AM
-  printf("cpu_exec(-1)\n");
   cpu_exec(-1);
 #else
   /* Receive commands from user. */
-  printf("sdb_mainloop\n");
   sdb_mainloop();
 #endif
 }
