@@ -24,6 +24,7 @@ endif
 # ARCH = riscv32-nemu
 
 remove_quote = $(patsubst "%",%,$(1))
+$(info # CONFIG_ISA = $(CONFIG_ISA))
 
 # Extract variabls from menuconfig
 GUEST_ISA ?= $(call remove_quote,$(CONFIG_ISA))
