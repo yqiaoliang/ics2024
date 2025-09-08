@@ -16,10 +16,12 @@
 SRCS-y += src/nemu-main.c
 DIRS-y += src/cpu src/monitor src/utils
 DIRS-$(CONFIG_MODE_SYSTEM) += src/memory
-DIRS-BLACKLIST-$(CONFIG_TARGET_AM) += src/monitor/sdb
+# DIRS-BLACKLIST-$(CONFIG_TARGET_AM) += src/monitor/sdb
 
 SHARE = $(if $(CONFIG_TARGET_SHARE),1,0)
 LIBS += $(if $(CONFIG_TARGET_NATIVE_ELF),-lreadline -ldl -pie,)
+# 针对 RISC-V 架构添加标准库链接
+# LDFLAGS += -lc -ldl
 ifeq ($(ARCH), native)
 # LDFLAGS += $(if $(CONFIG_TARGET_NATIVE_ELF),-lreadline -ldl -pie,)
 endif
@@ -27,5 +29,5 @@ endif
 ifdef mainargs
 ASFLAGS += -DBIN_PATH=\"$(mainargs)\"
 endif
-SRCS-$(CONFIG_TARGET_AM) += src/am-bin.S
+# SRCS-$(CONFIG_TARGET_AM) += src/am-bin.S
 .PHONY: src/am-bin.S

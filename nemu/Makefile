@@ -68,12 +68,13 @@ include $(NEMU_HOME)/scripts/config.mk
 
 
 ifdef CONFIG_TARGET_AM
--include $(NEMU_HOME)/../Makefile
-include $(NEMU_HOME)/scripts/build.mk
-include $(NEMU_HOME)/tools/difftest.mk
-export ARCH = riscv32-nemu
-include $(AM_HOME)/Makefile
-LINKAGE += $(ARCHIVES)
+# -include $(NEMU_HOME)/../Makefile
+# # include $(NEMU_HOME)/scripts/build.mk
+# # include $(NEMU_HOME)/tools/difftest.mk
+# export ARCH = riscv32-nemu
+# include $(AM_HOME)/Makefile
+# LINKAGE += $(ARCHIVES)
+include $(NEMU_HOME)/scripts/native.mk
 else
 # Include rules to build NEMU
 include $(NEMU_HOME)/scripts/native.mk
