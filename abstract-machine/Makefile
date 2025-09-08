@@ -60,9 +60,9 @@ ARCHIVE   = $(WORK_DIR)/build/$(NAME)-$(ARCH).a
 
 ### Collect the files to be linked: object files (`.o`) and libraries (`.a`)
 OBJS      = $(addprefix $(DST_DIR)/, $(addsuffix .o, $(basename $(SRCS))))
-LIBS     := $(sort $(LIBS) am klib) # lazy evaluation ("=") causes infinite recursions
+# LIBS     := $(sort $(LIBS) am klib) # lazy evaluation ("=") causes infinite recursions
 $(info # LIBS = $(LIBS))
-# LIBS    := $(sort am klib) # eager evaluation (":=") avoids infinite recursions
+LIBS    := $(sort am klib) # eager evaluation (":=") avoids infinite recursions
 $(info # LIBS = $(LIBS))
 LINKAGE   = $(OBJS)  # library archives are added by LIB_TEMPLATE below
 
@@ -103,6 +103,8 @@ LDFLAGS  += -z noexecstack $(addprefix -T, $(LDSCRIPTS))
 -include $(AM_HOME)/scripts/$(ARCH).mk
 
 ## 5. Compilation Rules
+
+$(info # DST_DIR = $(DST_DIR))
 
 ### Rule (compile): a single `.c` -> `.o` (gcc)
 $(DST_DIR)/%.o: %.c
