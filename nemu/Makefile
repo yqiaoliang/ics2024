@@ -41,6 +41,7 @@ $(info DIRS-BLACKLIST = $(DIRS-BLACKLIST-y))
 DIRS-BLACKLIST-y += $(DIRS-BLACKLIST)
 $(info DIRS-BLACKLIST = $(DIRS-BLACKLIST-y))
 SRCS-BLACKLIST-y += $(SRCS-BLACKLIST) $(shell find -L $(DIRS-BLACKLIST-y) -name "*.c")
+$(info SRCS-BLACKLIST-y = $(SRCS-BLACKLIST-y))
 SRCS-y += $(shell find -L $(DIRS-y) -name "*.c")
 SRCS = $(filter-out $(SRCS-BLACKLIST-y),$(SRCS-y))
 
