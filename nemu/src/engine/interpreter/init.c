@@ -23,7 +23,7 @@ void engine_start() {
   cpu_exec(-1);
 #else
   /* Receive commands from user. */
-  printf("sdb_mainloop");
+  printf("sdb_mainloop\n");
   sdb_mainloop();
 #endif
 }

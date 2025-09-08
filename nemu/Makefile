@@ -74,6 +74,7 @@ ifdef CONFIG_TARGET_AM
 # export ARCH = riscv32-nemu
 # include $(AM_HOME)/Makefile
 # LINKAGE += $(ARCHIVES)
+$(info CONFIG_TARGET_AM is set)
 include $(NEMU_HOME)/scripts/native.mk
 else
 # Include rules to build NEMU
