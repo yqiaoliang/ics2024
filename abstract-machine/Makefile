@@ -8,27 +8,24 @@ html:
 ## 1. Basic Setup and Checks
 
 ### Default to create a bare-metal kernel image
-$(info # MAKECMDGOALS = $(MAKECMDGOALS))
 ifeq ($(MAKECMDGOALS),)
   MAKECMDGOALS  = image
   .DEFAULT_GOAL = image
 endif
 
-# ARCH = native
-
 ### Override checks when `make clean/clean-all/html`
-ifeq ($(findstring $(MAKECMDGOALS),clean|clean-all|html),)	# if not cleaning or generating html
+ifeq ($(findstring $(MAKECMDGOALS),clean|clean-all|html),)
 
 ### Print build info message
 $(info # Building $(NAME)-$(MAKECMDGOALS) [$(ARCH)])
 
 ### Check: environment variable `$AM_HOME` looks sane
-ifeq ($(wildcard $(AM_HOME)/am/include/am.h),) 	# checkout if `am/include/am.h` exists
+ifeq ($(wildcard $(AM_HOME)/am/include/am.h),)
   $(error $$AM_HOME must be an AbstractMachine repo)
 endif
 
 ### Check: environment variable `$ARCH` must be in the supported list
-ARCHS = $(basename $(notdir $(shell ls $(AM_HOME)/scripts/*.mk))) # get all name of `*.mk` in `scripts/`
+ARCHS = $(basename $(notdir $(shell ls $(AM_HOME)/scripts/*.mk)))
 ifeq ($(filter $(ARCHS), $(ARCH)), )
   $(error Expected $$ARCH in {$(ARCHS)}, Got "$(ARCH)")
 endif
@@ -60,10 +57,7 @@ ARCHIVE   = $(WORK_DIR)/build/$(NAME)-$(ARCH).a
 
 ### Collect the files to be linked: object files (`.o`) and libraries (`.a`)
 OBJS      = $(addprefix $(DST_DIR)/, $(addsuffix .o, $(basename $(SRCS))))
-# LIBS     := $(sort $(LIBS) am klib) # lazy evaluation ("=") causes infinite recursions
-$(info # LIBS = $(LIBS))
-LIBS    := $(sort am klib) # eager evaluation (":=") avoids infinite recursions
-$(info # LIBS = $(LIBS))
+LIBS     := $(sort $(LIBS) am klib) # lazy evaluation ("=") causes infinite recursions
 LINKAGE   = $(OBJS)  # library archives are added by LIB_TEMPLATE below
 
 ## 3. General Compilation Flags
@@ -80,7 +74,6 @@ READELF   = $(CROSS_COMPILE)readelf
 
 ### Compilation flags
 INC_PATH += $(WORK_DIR)/include $(addsuffix /include/, $(addprefix $(AM_HOME)/, $(LIBS)))
-# $(info # INC_PATH = $(INC_PATH))
 INCFLAGS += $(addprefix -I, $(INC_PATH))
 
 ARCH_H := arch/$(ARCH).h
@@ -94,8 +87,6 @@ CFLAGS   += -O2 -MMD -Wall -Werror $(INCFLAGS) \
 CXXFLAGS +=  $(CFLAGS) -ffreestanding -fno-rtti -fno-exceptions
 ASFLAGS  += -MMD $(INCFLAGS)
 LDFLAGS  += -z noexecstack $(addprefix -T, $(LDSCRIPTS))
-# LDFLAGS += -L/usr/riscv64-linux-gnu/lib
-# LDFLAGS	 += -lc -ldl -lm
 
 ## 4. Arch-Specific Configurations
 
@@ -103,8 +94,6 @@ LDFLAGS  += -z noexecstack $(addprefix -T, $(LDSCRIPTS))
 -include $(AM_HOME)/scripts/$(ARCH).mk
 
 ## 5. Compilation Rules
-
-$(info # DST_DIR = $(DST_DIR))
 
 ### Rule (compile): a single `.c` -> `.o` (gcc)
 $(DST_DIR)/%.o: %.c
@@ -148,10 +137,8 @@ $(IMAGE).elf: $(LINKAGE) $(LDSCRIPTS)
 	@echo \# Creating image [$(ARCH)]
 	@echo + LD "->" $(IMAGE_REL).elf
 ifneq ($(filter $(ARCH),native),)
-	$(info # Using CXX linker for native)
 	@$(CXX) -o $@ -Wl,--whole-archive $(LINKAGE) -Wl,-no-whole-archive $(LDFLAGS_CXX)
 else
-	$(info # Using LD linker for non-native)
 	@$(LD) $(LDFLAGS) -o $@ --start-group $(LINKAGE) --end-group
 endif
 
