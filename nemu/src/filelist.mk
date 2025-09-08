@@ -20,11 +20,6 @@ DIRS-$(CONFIG_MODE_SYSTEM) += src/memory
 
 SHARE = $(if $(CONFIG_TARGET_SHARE),1,0)
 LIBS += $(if $(CONFIG_TARGET_NATIVE_ELF),-lreadline -ldl -pie,)
-# 针对 RISC-V 架构添加标准库链接
-# LDFLAGS += -lc -ldl
-ifeq ($(ARCH), native)
-# LDFLAGS += $(if $(CONFIG_TARGET_NATIVE_ELF),-lreadline -ldl -pie,)
-endif
 
 ifdef mainargs
 ASFLAGS += -DBIN_PATH=\"$(mainargs)\"
