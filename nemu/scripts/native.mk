@@ -35,6 +35,7 @@ run-env: $(BINARY) $(DIFF_REF_SO)
 
 run: run-env
 # 	$(call git_commit, "run NEMU")
+	$(info run command in native.mk)
 	$(NEMU_EXEC) -b
 
 run-batch: run-env
