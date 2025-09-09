@@ -29,7 +29,7 @@ override ARGS += $(ARGS_DIFF)
 
 # Command to execute NEMU
 IMG ?=
-NEMU_EXEC := $(BINARY) $(ARGS) -b $(IMG)
+NEMU_EXEC := $(BINARY) $(ARGS) $(IMG)
 
 run-env: $(BINARY) $(DIFF_REF_SO)
 
@@ -41,7 +41,7 @@ run: run-env
 
 run-batch: run-env
 # 	$(call git_commit, "run NEMU - batch")
-	$(NEMU_EXEC) -b
+	$(BINARY) $(ARGS) -b $(IMG)
 
 help:
 	@echo "make run		- run NEMU"
