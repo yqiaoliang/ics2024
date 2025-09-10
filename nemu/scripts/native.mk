@@ -40,7 +40,7 @@ run: run-env
 
 run-batch: run-env
 # 	$(call git_commit, "run NEMU - batch")
-	$(BINARY) $(ARGS) -b $(IMG)
+# 	$(BINARY) $(ARGS) -b $(IMG)
 	$(BINARY) $(ARGS) --batch= $(IMG)
 
 help:
