@@ -36,6 +36,20 @@ void init_iringbuf(){
   #endif
 }
 
+void printf_iringbuf(){
+  #ifdef CONFIG_ITRACE
+    if (iringbuf_full){
+      for (int i = iringbuf_index; i < iringbuf_len; i++){
+        printf("%s\n", iringbuf[i]);
+      }
+    }
+
+    for (int i = 0; i < iringbuf_index; i++){
+      printf("%s\n", iringbuf[i]);
+    }
+  #endif
+}
+
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
  * This is useful when you use the `si' command.
@@ -54,8 +68,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
 #endif
-  // if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
-  if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(iringbuf[iringbuf_index-1])); }
+  if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
   WP *head = get_wp_list();
 
@@ -166,6 +179,7 @@ void cpu_exec(uint64_t n) {
     case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
 
     case NEMU_END: case NEMU_ABORT:
+      IFDEF(CONFIG_ITRACE, printf_iringbuf()); // print the iringbuf when nemu ends or aborts
       Log("nemu: %s at pc = " FMT_WORD,
           (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED) :
            (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
