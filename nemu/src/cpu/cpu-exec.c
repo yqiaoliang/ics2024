@@ -109,7 +109,6 @@ static void exec_once(Decode *s, vaddr_t pc) {
   int ilen = s->snpc - s->pc;
   int i;
   uint8_t *inst = (uint8_t *)&s->isa.inst;
-  printf("test1\n");
 #ifdef CONFIG_ISA_x86
   for (i = 0; i < ilen; i ++) {
 #else
@@ -126,7 +125,6 @@ static void exec_once(Decode *s, vaddr_t pc) {
   memset(iringbuf_p, ' ', space_len);
   p += space_len;
   iringbuf_p += space_len;
-  printf("test2\n");
 
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
@@ -136,7 +134,6 @@ static void exec_once(Decode *s, vaddr_t pc) {
 
   iringbuf_index = (iringbuf_index + 1) % iringbuf_len;
   iringbuf_full = iringbuf_full || (iringbuf_index == 0);
-  printf("test3\n");
 #endif
 }
 
