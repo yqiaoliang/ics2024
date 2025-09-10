@@ -84,7 +84,7 @@ word_t paddr_read(paddr_t addr, int len) {
       mringbuf_index = (mringbuf_index + 1) % mringbuf_len;
       mringbuf_full = mringbuf_full || (mringbuf_index == 0);
     #endif
-    return read_data;
+    return read_data
   );
   out_of_bound(addr);
   return 0;
