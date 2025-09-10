@@ -20,6 +20,22 @@
 // #include "../monitor/monitor.h"
 #include "../monitor/sdb/sdb.h"
 
+#ifdef CONFIG_ITRACE
+  #define iringbuf_len 15
+  static char * iringbuf[iringbuf_len];
+  static int iringbuf_index = 0;
+  static int iringbuf_full = 0;
+#endif
+
+void init_iringbuf(){
+  #ifdef CONFIG_ITRACE
+    for (int i = 0; i < iringbuf_len; i++){
+      iringbuf[i] = (char *)malloc(128);
+      memset(iringbuf[i], 0, 128);
+    }
+  #endif
+}
+
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
  * This is useful when you use the `si' command.
@@ -62,30 +78,40 @@ static void exec_once(Decode *s, vaddr_t pc) {
   s->snpc = pc;
   isa_exec_once(s);
   cpu.pc = s->dnpc;
-// #ifdef CONFIG_ITRACE
-//   char *p = s->logbuf;
-//   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
-//   int ilen = s->snpc - s->pc;
-//   int i;
-//   uint8_t *inst = (uint8_t *)&s->isa.inst;
-// #ifdef CONFIG_ISA_x86
-//   for (i = 0; i < ilen; i ++) {
-// #else
-//   for (i = ilen - 1; i >= 0; i --) {
-// #endif
-//     p += snprintf(p, 4, " %02x", inst[i]);
-//   }
-//   int ilen_max = MUXDEF(CONFIG_ISA_x86, 8, 4);
-//   int space_len = ilen_max - ilen;
-//   if (space_len < 0) space_len = 0;
-//   space_len = space_len * 3 + 1;
-//   memset(p, ' ', space_len);
-//   p += space_len;
+#ifdef CONFIG_ITRACE
+  char *p = s->logbuf;
+  char *iringbuf_p = iringbuf[iringbuf_index];
+  p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
+  iringbuf_p += snprintf(iringbuf_p, 128, FMT_WORD ":", s->pc);
+  int ilen = s->snpc - s->pc;
+  int i;
+  uint8_t *inst = (uint8_t *)&s->isa.inst;
+#ifdef CONFIG_ISA_x86
+  for (i = 0; i < ilen; i ++) {
+#else
+  for (i = ilen - 1; i >= 0; i --) {
+#endif
+    p += snprintf(p, 4, " %02x", inst[i]);
+    iringbuf_p += snprintf(iringbuf_p, 4, " %02x", inst[i]);
+  }
+  int ilen_max = MUXDEF(CONFIG_ISA_x86, 8, 4);
+  int space_len = ilen_max - ilen;
+  if (space_len < 0) space_len = 0;
+  space_len = space_len * 3 + 1;
+  memset(p, ' ', space_len);
+  memset(iringbuf_p, ' ', space_len);
+  p += space_len;
+  iringbuf_p += space_len;
 
-//   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
-//   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
-//       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst, ilen);
-// #endif
+  void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
+  disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
+      MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst, ilen);
+  disassemble(iringbuf_p, 128 - (iringbuf_p - iringbuf[iringbuf_index]),
+      MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst, ilen);
+
+  iringbuf_index = (iringbuf_index + 1) % iringbuf_len;
+  iringbuf_full = iringbuf_full || (iringbuf_index == 0);
+#endif
 }
 
 
