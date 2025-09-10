@@ -55,6 +55,7 @@ void printf_iringbuf(){
     }
 
     printf("-----------------------------------------------\n");
+    printf("\n");
   #endif
 }
 
