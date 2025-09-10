@@ -166,12 +166,6 @@ void assert_fail_msg() {
 /* Simulate how the CPU works. */
 void cpu_exec(uint64_t n) {
   g_print_step = (n < MAX_INST_TO_PRINT);
-  #ifdef CONFIG_ITRACE
-    printf("CONFIG_ITRACE\n");
-  #endif
-  #ifdef CONFIG_MTRACE
-    printf("CONFIG_MTRACE\n");
-  #endif
 
   switch (nemu_state.state) {
     case NEMU_END: case NEMU_ABORT: case NEMU_QUIT:
