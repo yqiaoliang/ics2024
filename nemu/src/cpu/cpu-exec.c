@@ -55,7 +55,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
 #endif
   // if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
-  // IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
+  IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
   WP *head = get_wp_list();
 
   char * nemu_state_names[] = {"NEMU_RUNNING", "NEMU_STOP", "NEMU_END", "NEMU_ABORT", "NEMU_QUIT"};
