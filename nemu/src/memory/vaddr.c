@@ -39,13 +39,13 @@ void printf_mringbuf(){
     printf("-----------------------------------------------\n");
     if (mringbuf_full){
       for (int i = mringbuf_index; i < mringbuf_len; i++){
-        // printf("       ");
+        printf("       ");
         printf("%s\n", mringbuf[i]);
       }
     }
 
     for (int i = 0; i < mringbuf_index; i++){
-      // printf("       ");
+      printf("       ");
       printf("%s\n", mringbuf[i]);
     }
 
