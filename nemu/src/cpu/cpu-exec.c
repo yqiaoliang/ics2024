@@ -40,12 +40,15 @@ void printf_iringbuf(){
   #ifdef CONFIG_ITRACE
     if (iringbuf_full){
       for (int i = iringbuf_index; i < iringbuf_len; i++){
+        // if (i == iringbuf_len - 1) printf("ERROR: ");
+        printf("       ");
         printf("%s\n", iringbuf[i]);
       }
     }
 
     for (int i = 0; i < iringbuf_index; i++){
-      if (i == iringbuf_index - 1) printf("---- ERROR: ");
+      if (i == iringbuf_index - 1) printf("ERROR: ");
+      else printf("       ");
       printf("%s\n", iringbuf[i]);
     }
   #endif
