@@ -55,6 +55,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
 #endif
   // if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
+  if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(iringbuf[iringbuf_index])); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
   WP *head = get_wp_list();
 
