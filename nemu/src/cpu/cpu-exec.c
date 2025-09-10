@@ -100,6 +100,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   s->snpc = pc;
   isa_exec_once(s);
   cpu.pc = s->dnpc;
+  printf("test0\n");
 #ifdef CONFIG_ITRACE
   char *p = s->logbuf;
   char *iringbuf_p = iringbuf[iringbuf_index];
@@ -108,6 +109,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   int ilen = s->snpc - s->pc;
   int i;
   uint8_t *inst = (uint8_t *)&s->isa.inst;
+  printf("test1\n");
 #ifdef CONFIG_ISA_x86
   for (i = 0; i < ilen; i ++) {
 #else
@@ -124,6 +126,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   memset(iringbuf_p, ' ', space_len);
   p += space_len;
   iringbuf_p += space_len;
+  printf("test2\n");
 
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
@@ -133,6 +136,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
 
   iringbuf_index = (iringbuf_index + 1) % iringbuf_len;
   iringbuf_full = iringbuf_full || (iringbuf_index == 0);
+  printf("test3\n");
 #endif
 }
 
@@ -140,9 +144,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
 static void execute(uint64_t n) {
   Decode s;
   for (;n > 0; n --) {
-    printf("test0\n");
     exec_once(&s, cpu.pc);
-    printf("test1\n");
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
     if (nemu_state.state != NEMU_RUNNING) break;

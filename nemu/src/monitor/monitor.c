@@ -109,6 +109,8 @@ void init_monitor(int argc, char *argv[]) {
 
   init_iringbuf();
 
+  init_mringbuf();
+
   /* Open the log file. */
   init_log(log_file);
 
