@@ -45,6 +45,7 @@ void printf_iringbuf(){
     }
 
     for (int i = 0; i < iringbuf_index; i++){
+      if (iringbuf_full || i < iringbuf_index - 1) printf("--->");
       printf("%s\n", iringbuf[i]);
     }
   #endif
