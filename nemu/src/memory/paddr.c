@@ -24,6 +24,22 @@ static uint8_t *pmem = NULL;
 static uint8_t pmem[CONFIG_MSIZE] PG_ALIGN = {};
 #endif
 
+#ifdef CONFIG_MTRACE
+  #define mringbuf_len 20
+  static char * mringbuf[mringbuf_len];
+  static int mringbuf_index = 0;
+  static int mringbuf_full = 0;
+#endif
+
+void init_mringbuf(){
+  #ifdef CONFIG_MTRACE
+    for (int i = 0; i < mringbuf_len; i++){
+      mringbuf[i] = (char *)malloc(128);
+      memset(mringbuf[i], 0, 128);
+    }
+  #endif
+}
+
 uint8_t* guest_to_host(paddr_t paddr) { return pmem + paddr - CONFIG_MBASE; }
 paddr_t host_to_guest(uint8_t *haddr) { return haddr - pmem + CONFIG_MBASE; }
 
@@ -51,8 +67,25 @@ void init_mem() {
 }
 
 word_t paddr_read(paddr_t addr, int len) {
-  if (likely(in_pmem(addr))) return pmem_read(addr, len);
-  IFDEF(CONFIG_DEVICE, return mmio_read(addr, len));
+  if (likely(in_pmem(addr))) {
+    word_t read_data = pmem_read(addr, len);
+    #ifdef CONFIG_MTRACE
+      snprintf(mringbuf[mringbuf_index], 128, "read: addr: %x  data: %d", addr, read_data);
+      mringbuf_index = (mringbuf_index + 1) % mringbuf_len;
+      mringbuf_full = mringbuf_full || (mringbuf_index == 0);
+    #endif
+
+    return read_data;
+  }
+  IFDEF(CONFIG_DEVICE, 
+    word_t read_data = mmio_read(addr, len);
+    #ifdef CONFIG_MTRACE
+      snprintf(mringbuf[mringbuf_index], 128, "mmio read: addr: %x  data: %d", addr, read_data);
+      mringbuf_index = (mringbuf_index + 1) % mringbuf_len;
+      mringbuf_full = mringbuf_full || (mringbuf_index == 0);
+    #endif
+    return read_data;
+  );
   out_of_bound(addr);
   return 0;
 }
