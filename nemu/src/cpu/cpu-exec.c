@@ -38,6 +38,7 @@ void init_iringbuf(){
 
 void printf_iringbuf(){
   #ifdef CONFIG_ITRACE
+    printf("ERROR HAPPEND, THE NEARING INSTRUCTIONS ARE:\n");
     printf("-----------------------------------------------\n");
     if (iringbuf_full){
       for (int i = iringbuf_index; i < iringbuf_len; i++){
