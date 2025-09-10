@@ -38,7 +38,7 @@ void init_iringbuf(){
 
 void printf_iringbuf(){
   #ifdef CONFIG_ITRACE
-  printf("------- Instruction Trace Ring Buffer ------\n");
+    printf("------- Instruction Trace Ring Buffer ------\n");
     if (iringbuf_full){
       for (int i = iringbuf_index; i < iringbuf_len; i++){
         // if (i == iringbuf_len - 1) printf("ERROR: ");
@@ -52,6 +52,8 @@ void printf_iringbuf(){
       else printf("       ");
       printf("%s\n", iringbuf[i]);
     }
+
+    printf("--------------------------------------------\n");
   #endif
 }
 
