@@ -30,6 +30,8 @@ WP *get_wp_list();
 char * get_rand_expr();
 int main_test(int argc, int loop);
 void init_iringbuf();
+void init_mringbuf();
+void printf_mringbuf();
 // bool is_parentheses_match(int p, int q);
 
 typedef struct watchpoint {

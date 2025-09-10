@@ -192,6 +192,11 @@ void cpu_exec(uint64_t n) {
         else if (nemu_state.halt_ret != 0) printf_iringbuf();
       #endif
 
+      #ifdef CONFIG_MTRACE
+        if (nemu_state.state == NEMU_ABORT) printf_mringbuf();
+        else if (nemu_state.halt_ret != 0) printf_mringbuf();
+      #endif
+
       Log("nemu: %s at pc = " FMT_WORD,
           (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED) :
            (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
