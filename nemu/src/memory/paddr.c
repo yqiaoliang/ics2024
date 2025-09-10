@@ -82,7 +82,7 @@ word_t paddr_read(paddr_t addr, int len) {
     #ifdef CONFIG_MTRACE
       snprintf(mringbuf[mringbuf_index], 128, "mmio read: addr: %x  data: %d", addr, read_data);
       mringbuf_index = (mringbuf_index + 1) % mringbuf_len;
-      mringbuf_full = mringbuf_full || (mringbuf_index == 0);
+      mringbuf_full = mringbuf_full || (mringbuf_index == 0)
     #endif
     return read_data
   );
