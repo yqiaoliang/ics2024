@@ -140,7 +140,9 @@ static void exec_once(Decode *s, vaddr_t pc) {
 static void execute(uint64_t n) {
   Decode s;
   for (;n > 0; n --) {
+    printf("test0\n");
     exec_once(&s, cpu.pc);
+    printf("test1\n");
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
     if (nemu_state.state != NEMU_RUNNING) break;
@@ -180,16 +182,12 @@ void cpu_exec(uint64_t n) {
   }
 
   uint64_t timer_start = get_time();
-    printf("test0\n");
   if (n < 0 ){
     while (nemu_state.state == NEMU_RUNNING) {
       execute(1);
     }
   }
-
-
   else execute(n);
-  printf("test1\n");
 
   uint64_t timer_end = get_time();
   g_timer += timer_end - timer_start;
