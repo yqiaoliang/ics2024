@@ -69,10 +69,10 @@ static void exec_once(Decode *s, vaddr_t pc) {
   s->snpc = pc;
   isa_exec_once(s);
 #ifdef CONFIG_FTRACE
-  FuncSymbol * func_symbol = find_func_by_instr_addr(cpu.pc);
+  const FuncSymbol * func_symbol = find_func_by_instr_addr(cpu.pc);
   if (func_symbol) {
     Ftrace * ftrace = get_ftrace();
-     snprintf(ftrace->fringbuf[mtrace->mringbuf_index], "0x%0x   [%s]", cpu.pc, func_symbol->name);
+     snprintf(ftrace->fringbuf[ftrace->fringbuf_index], 128, "0x%0x   [%s]", cpu.pc, func_symbol->name);
   }
 #endif
   cpu.pc = s->dnpc;
@@ -173,6 +173,11 @@ void cpu_exec(uint64_t n) {
       #ifdef CONFIG_MTRACE
         if (nemu_state.state == NEMU_ABORT) printf_mringbuf();
         else if (nemu_state.halt_ret != 0) printf_mringbuf();
+      #endif
+
+      #ifdef CONFIG_FTRACE
+        if (nemu_state.state == NEMU_ABORT) printf_fringbuf();
+        else if (nemu_state.halt_ret != 0) printf_fringbuf();
       #endif
 
       Log("nemu: %s at pc = " FMT_WORD,
