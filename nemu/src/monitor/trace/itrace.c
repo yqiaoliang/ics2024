@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "trace.h"
+#include <stdio.h>
 
 static Itrace * itrace = NULL;
 
@@ -17,7 +18,6 @@ void init_iringbuf(){
 }
 
 void printf_iringbuf(){
-  #ifdef CONFIG_ITRACE
     printf("ERROR HAPPEND, THE NEARING INSTRUCTIONS ARE:\n");
     printf("-----------------------------------------------\n");
     if (itrace->iringbuf_full){
@@ -36,7 +36,6 @@ void printf_iringbuf(){
 
     printf("-----------------------------------------------\n");
     printf("\n");
-  #endif
 }
 
 Itrace * get_itrace(){

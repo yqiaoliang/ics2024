@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "trace.h"
+#include <stdio.h>
 
 static Mtrace * mtrace = NULL;
 
@@ -17,7 +18,6 @@ void init_mringbuf(){
 }
 
 void printf_mringbuf(){
-  #ifdef CONFIG_MTRACE
     printf("ERROR HAPPEND, THE NEARING MEMORY OPERATIONS ARE:\n");
     printf("-----------------------------------------------\n");
     if (mtrace->mringbuf_full){
@@ -28,13 +28,12 @@ void printf_mringbuf(){
     }
 
     for (int i = 0; i < mtrace->mringbuf_index; i++){
-      else printf("       ");
+      printf("       ");
       printf("%s\n", mtrace->mringbuf[i]);
     }
 
     printf("-----------------------------------------------\n");
     printf("\n");
-  #endif
 }
 
 Mtrace * get_mtrace(){
