@@ -17,6 +17,7 @@
 #define __SDB_H__
 
 #include <common.h>
+#include "../trace/trace.h"
 
 // word_t expr(char *e, bool *success);
 word_t vaddr_read(vaddr_t addr, int len);
@@ -29,9 +30,6 @@ uint32_t expr(char *e, bool *success);
 WP *get_wp_list();
 char * get_rand_expr();
 int main_test(int argc, int loop);
-void init_iringbuf();
-void init_mringbuf();
-void printf_mringbuf();
 void use_ftrace(char * file_path);
 // bool is_parentheses_match(int p, int q);
 

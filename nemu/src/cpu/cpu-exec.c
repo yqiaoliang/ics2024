@@ -19,45 +19,8 @@
 #include <locale.h>
 // #include "../monitor/monitor.h"
 #include "../monitor/sdb/sdb.h"
+// #include <elf.h>
 
-#ifdef CONFIG_ITRACE
-  #define iringbuf_len 15
-  static char * iringbuf[iringbuf_len];
-  static int iringbuf_index = 0;
-  static int iringbuf_full = 0;
-#endif
-
-void init_iringbuf(){
-  #ifdef CONFIG_ITRACE
-    for (int i = 0; i < iringbuf_len; i++){
-      iringbuf[i] = (char *)malloc(128);
-      memset(iringbuf[i], 0, 128);
-    }
-  #endif
-}
-
-void printf_iringbuf(){
-  #ifdef CONFIG_ITRACE
-    printf("ERROR HAPPEND, THE NEARING INSTRUCTIONS ARE:\n");
-    printf("-----------------------------------------------\n");
-    if (iringbuf_full){
-      for (int i = iringbuf_index; i < iringbuf_len; i++){
-        // if (i == iringbuf_len - 1) printf("ERROR: ");
-        printf("       ");
-        printf("%s\n", iringbuf[i]);
-      }
-    }
-
-    for (int i = 0; i < iringbuf_index; i++){
-      if (i == iringbuf_index - 1) printf("ERROR: ");
-      else printf("       ");
-      printf("%s\n", iringbuf[i]);
-    }
-
-    printf("-----------------------------------------------\n");
-    printf("\n");
-  #endif
-}
 
 /* The assembly code of instructions executed is only output to the screen
  * when the number of instructions executed is less than this value.
@@ -107,8 +70,9 @@ static void exec_once(Decode *s, vaddr_t pc) {
   isa_exec_once(s);
   cpu.pc = s->dnpc;
 #ifdef CONFIG_ITRACE
+  Itrace * itrace = get_itrace();
   char *p = s->logbuf;
-  char *iringbuf_p = iringbuf[iringbuf_index];
+  char *iringbuf_p = itrace->iringbuf[itrace->iringbuf_index];
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
   iringbuf_p += snprintf(iringbuf_p, 128, FMT_WORD ":", s->pc);
   int ilen = s->snpc - s->pc;
@@ -134,11 +98,11 @@ static void exec_once(Decode *s, vaddr_t pc) {
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst, ilen);
-  disassemble(iringbuf_p, 128 - (iringbuf_p - iringbuf[iringbuf_index]),
+  disassemble(iringbuf_p, itrace->iringbuf[itrace->iringbuf_index]+128-iringbuf_p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst, ilen);
 
-  iringbuf_index = (iringbuf_index + 1) % iringbuf_len;
-  iringbuf_full = iringbuf_full || (iringbuf_index == 0);
+  itrace->iringbuf_index = (itrace->iringbuf_index + 1) % itrace->iringbuf_len;
+  itrace->iringbuf_full = itrace->iringbuf_full || (itrace->iringbuf_index == 0);
 #endif
 }
 
@@ -199,10 +163,10 @@ void cpu_exec(uint64_t n) {
         else if (nemu_state.halt_ret != 0) printf_iringbuf();
       #endif
 
-      #ifdef CONFIG_MTRACE
-        if (nemu_state.state == NEMU_ABORT) printf_mringbuf();
-        else if (nemu_state.halt_ret != 0) printf_mringbuf();
-      #endif
+      // #ifdef CONFIG_MTRACE
+      //   if (nemu_state.state == NEMU_ABORT) printf_mringbuf();
+      //   else if (nemu_state.halt_ret != 0) printf_mringbuf();
+      // #endif
 
       Log("nemu: %s at pc = " FMT_WORD,
           (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED) :
