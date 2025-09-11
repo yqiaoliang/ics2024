@@ -32,6 +32,7 @@ int main_test(int argc, int loop);
 void init_iringbuf();
 void init_mringbuf();
 void printf_mringbuf();
+void use_ftrace(char * file_path);
 // bool is_parentheses_match(int p, int q);
 
 typedef struct watchpoint {

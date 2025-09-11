@@ -70,8 +70,13 @@ CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
+static bool ftrace_flag = false;
 
 void device_update();
+
+void use_ftrace(char * file_path){
+  ftrace_flag = true;
+}
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
