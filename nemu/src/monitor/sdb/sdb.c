@@ -210,6 +210,7 @@ static int cmd_help(char *args) {
 
 void sdb_set_batch_mode() {
   is_batch_mode = true;
+  printf("test_sdb_set\n");
 }
 
 void sdb_mainloop() {
