@@ -13,7 +13,7 @@ void init_mringbuf(){
     mtrace->mringbuf_full = 0;
     for (int i = 0; i < MRINGBUF_LEN; i++){
       mtrace->mringbuf[i] = (char *)malloc(128);
-      memset(mtrace->mringbuf[i], 0, 128);
+      memset(mtrace->mringbuf[i], '\0', 128);
     }
 }
 

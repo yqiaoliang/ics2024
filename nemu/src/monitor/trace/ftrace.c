@@ -182,7 +182,7 @@ int init_ftrace(char *file_path) {
     ftrace->fringbuf_full = 0;
     for (int i = 0; i < FRINGBUF_LEN; i++){
       ftrace->fringbuf[i] = (char *)malloc(128);
-      memset(ftrace->fringbuf[i], 0, 128);
+      memset(ftrace->fringbuf[i], '\0', 128);
     }
 
     size_t file_size;

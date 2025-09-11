@@ -13,7 +13,7 @@ void init_iringbuf(){
     itrace->iringbuf_full = 0;
     for (int i = 0; i < IRINGBUF_LEN; i++){
       itrace->iringbuf[i] = (char *)malloc(128);
-      memset(itrace->iringbuf[i], 0, 128);
+      memset(itrace->iringbuf[i], '\0', 128);
     }
 }
 
