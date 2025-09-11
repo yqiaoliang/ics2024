@@ -1,53 +1,42 @@
-// // #include "../sdb/sdb.c"
-// #include "trace.h"
+#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
+#include "trace.h"
 
-// #ifdef CONFIG_MTRACE
-//   #define mringbuf_len 20
-//   static char * mringbuf[mringbuf_len];
-//   static int mringbuf_index = 0;
-//   static int mringbuf_full = 0;
-// #endif
+static Mtrace * mtrace = NULL;
 
-// void init_mringbuf(){
-//   #ifdef CONFIG_MTRACE
-//     for (int i = 0; i < mringbuf_len; i++){
-//       mringbuf[i] = (char *)malloc(128);
-//       memset(mringbuf[i], '\0', 128);
-//     }
-//   #endif
-// }
+void init_mringbuf(){
+    mtrace = (Mtrace *) malloc(sizeof(Mtrace));
+    mtrace->mringbuf_len = MRINGBUF_LEN;
+    mtrace->mringbuf_index = 0;
+    mtrace->mringbuf_full = 0;
+    for (int i = 0; i < MRINGBUF_LEN; i++){
+      mtrace->mringbuf[i] = (char *)malloc(128);
+      memset(mtrace->mringbuf[i], 0, 128);
+    }
+}
 
-// void printf_mringbuf(){
-//   #ifdef CONFIG_MTRACE
-//     printf("THE NEARING MEMORY OPERATIONS ARE:\n");
-//     printf("-----------------------------------------------\n");
-//     if (mringbuf_full){
-//       for (int i = mringbuf_index; i < mringbuf_len; i++){
-//         printf("       ");
-//         printf("%s\n", mringbuf[i]);
-//       }
-//     }
+void printf_mringbuf(){
+  #ifdef CONFIG_MTRACE
+    printf("ERROR HAPPEND, THE NEARING MEMORY OPERATIONS ARE:\n");
+    printf("-----------------------------------------------\n");
+    if (mtrace->mringbuf_full){
+      for (int i = mtrace->mringbuf_index; i < mtrace->mringbuf_len; i++){
+        printf("       ");
+        printf("%s\n", mtrace->mringbuf[i]);
+      }
+    }
 
-//     for (int i = 0; i < mringbuf_index; i++){
-//       printf("       ");
-//       printf("%s\n", mringbuf[i]);
-//     }
+    for (int i = 0; i < mtrace->mringbuf_index; i++){
+      else printf("       ");
+      printf("%s\n", mtrace->mringbuf[i]);
+    }
 
-//     printf("-----------------------------------------------\n");
-//     printf("\n");
-//   #endif
-// }
+    printf("-----------------------------------------------\n");
+    printf("\n");
+  #endif
+}
 
-// char * get_mringbuf(){
-//     return mringbuf[mringbuf_index];
-// }
-
-// void update_mringbuf_idex(int idx, int is_full){
-//     mringbuf_index = idx;
-//     mringbuf_full = is_full;
-// }
-
-
-// int get_mringbuf_len() {
-//     return mringbuf_len;
-// }
+Mtrace * get_mtrace(){
+  return mtrace;
+}
