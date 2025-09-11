@@ -8,13 +8,9 @@
 #include <unistd.h>
 #include <stdint.h>
 #include <errno.h>
+#include "trace.h"
 
-// 存储函数符号的结构
-typedef struct {
-    const char *name;       // 函数名
-    uint32_t addr;          // 函数起始地址
-    uint32_t size;          // 函数大小（字节）
-} FuncSymbol;
+
 
 // 全局变量：存储所有FUNC类型符号
 static FuncSymbol *func_symbols = NULL;
@@ -132,8 +128,8 @@ void parse_symbol_table(void *elf_data, Elf32_Shdr *symtab_shdr) {
         const char *sym_name = strtab + symbols[i].st_name;
         if (sym_name[0] == '\0' && i != 0) continue;
         
-        printf("symbol #%d: ", i);
-        print_symbol_info(&symbols[i], sym_name);
+        // printf("symbol #%d: ", i);
+        // print_symbol_info(&symbols[i], sym_name);
 
         // 保存FUNC类型符号
         if (ELF32_ST_TYPE(symbols[i].st_info) == STT_FUNC) {

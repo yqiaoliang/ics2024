@@ -1,3 +1,4 @@
+#include <stdint.h>
 #define IRINGBUF_LEN 15
 #define MRINGBUF_LEN 20
 
@@ -28,4 +29,10 @@ Mtrace * get_mtrace();
 
 
 // TTRACE
-void init_ftrace(char * file_path);
+typedef struct {
+    const char *name;       //func name
+    uint32_t addr;          // func start addr
+    uint32_t size;          // size of func
+} FuncSymbol;
+int init_ftrace(char * file_path);
+const FuncSymbol *find_func_by_instr_addr(uint32_t instr_addr);
