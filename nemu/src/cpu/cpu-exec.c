@@ -68,6 +68,13 @@ static void exec_once(Decode *s, vaddr_t pc) {
   s->pc = pc;
   s->snpc = pc;
   isa_exec_once(s);
+#ifdef CONFIG_FTRACE
+  FuncSymbol * func_symbol = find_func_by_instr_addr(cpu.pc);
+  if (func_symbol) {
+    Ftrace * ftrace = get_ftrace();
+     snprintf(ftrace->fringbuf[mtrace->mringbuf_index], "0x%0x   [%s]", cpu.pc, func_symbol->name);
+  }
+#endif
   cpu.pc = s->dnpc;
 #ifdef CONFIG_ITRACE
   Itrace * itrace = get_itrace();

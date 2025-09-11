@@ -13,6 +13,7 @@
 
 
 // 全局变量：存储所有FUNC类型符号
+static Ftrace * ftrace;
 static FuncSymbol *func_symbols = NULL;
 static int func_sym_count = 0;
 
@@ -175,6 +176,15 @@ void print_symbol_info(Elf32_Sym *symbol, const char *sym_name) {
 
 // 初始化ftrace（解析ELF文件并加载符号表）
 int init_ftrace(char *file_path) {
+    ftrace = (Ftrace *) malloc(sizeof(Ftrace));
+    ftrace->fringbuf_len = FRINGBUF_LEN;
+    ftrace->fringbuf_index = 0;
+    ftrace->fringbuf_full = 0;
+    for (int i = 0; i < FRINGBUF_LEN; i++){
+      ftrace->fringbuf[i] = (char *)malloc(128);
+      memset(ftrace->fringbuf[i], 0, 128);
+    }
+
     size_t file_size;
     void *elf_data = map_elf_file(file_path, &file_size);
     if (elf_data == NULL) {
@@ -223,5 +233,29 @@ const FuncSymbol *find_func_by_instr_addr(uint32_t instr_addr) {
         }
     }
     return NULL;  // 未找到对应函数
+}
+
+
+void printf_fringbuf(){
+printf("ERROR HAPPEND, THE NEARING FUNCTION ARE:\n");
+printf("-----------------------------------------------\n");
+if (ftrace->fringbuf_full){
+    for (int i = ftrace->fringbuf_index; i < ftrace->fringbuf_len; i++){
+    printf("       ");
+    printf("%s\n", ftrace->fringbuf[i]);
+    }
+}
+
+for (int i = 0; i < ftrace->fringbuf_index; i++){
+    printf("       ");
+    printf("%s\n", ftrace->fringbuf[i]);
+}
+
+printf("-----------------------------------------------\n");
+printf("\n");
+}
+
+Ftrace * get_ftrace(){
+    return ftrace;
 }
 
