@@ -25,7 +25,7 @@ word_t vaddr_read(vaddr_t addr, int len) {
   word_t read_data = paddr_read(addr, len);
   #ifdef CONFIG_MTRACE
     Mtrace * mtrace = get_mtrace();
-    snprintf(mtrace->mringbuf[mtrace->mringbuf_index], 128, "read:  addr: %0x  data: %d", addr, read_data);
+    snprintf(mtrace->mringbuf[mtrace->mringbuf_index], 128, "read:  addr: 0x%0x  data: %d", addr, read_data);
     mtrace->mringbuf_index = (mtrace->mringbuf_index + 1) % mtrace->mringbuf_len;
     mtrace->mringbuf_full = mtrace->mringbuf_full || (mtrace->mringbuf_index == 0);
   #endif
@@ -36,7 +36,7 @@ void vaddr_write(vaddr_t addr, int len, word_t data) {
   paddr_write(addr, len, data);
   #ifdef CONFIG_MTRACE
     Mtrace * mtrace = get_mtrace();
-    snprintf(mtrace->mringbuf[mtrace->mringbuf_index], 128, "write: addr: %0x  data: %d", addr, data);
+    snprintf(mtrace->mringbuf[mtrace->mringbuf_index], 128, "write: addr: 0x%0x  data: %d", addr, data);
     mtrace->mringbuf_index = (mtrace->mringbuf_index + 1) % mtrace->mringbuf_len;
     mtrace->mringbuf_full = mtrace->mringbuf_full || (mtrace->mringbuf_index == 0);
   #endif

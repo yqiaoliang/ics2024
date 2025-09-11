@@ -229,6 +229,7 @@ const FuncSymbol *find_func_by_instr_addr(uint32_t instr_addr) {
         const FuncSymbol *func = &func_symbols[i];
         // 函数地址范围：[addr, addr + size)
         if (instr_addr >= func->addr && instr_addr < (func->addr + func->size)) {
+            printf("Func: %s", func->name);
             return func;
         }
     }
