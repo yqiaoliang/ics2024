@@ -2,7 +2,7 @@
 
 #define IRINGBUF_LEN 15
 #define MRINGBUF_LEN 20
-#define FRINGBUF_LEN 20
+#define FRINGBUF_LEN 40
 
 // ITRACE
 typedef struct{
