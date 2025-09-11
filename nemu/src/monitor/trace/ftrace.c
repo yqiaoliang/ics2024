@@ -129,8 +129,8 @@ void parse_symbol_table(void *elf_data, Elf32_Shdr *symtab_shdr) {
         const char *sym_name = strtab + symbols[i].st_name;
         if (sym_name[0] == '\0' && i != 0) continue;
         
-        // printf("symbol #%d: ", i);
-        // print_symbol_info(&symbols[i], sym_name);
+        printf("symbol #%d: ", i);
+        print_symbol_info(&symbols[i], sym_name);
 
         // 保存FUNC类型符号
         if (ELF32_ST_TYPE(symbols[i].st_info) == STT_FUNC) {
