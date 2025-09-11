@@ -159,12 +159,8 @@ void cpu_exec(uint64_t n) {
 
     case NEMU_END: case NEMU_ABORT:{
       #ifdef CONFIG_ITRACE
-        printf("test0\n");
         if (nemu_state.state == NEMU_ABORT) printf_iringbuf();
-        else if (nemu_state.halt_ret != 0) {
-          printf("test1\n");
-          printf_iringbuf();
-        }
+        else if (nemu_state.halt_ret != 0) printf_iringbuf();
       #endif
 
       #ifdef CONFIG_MTRACE
