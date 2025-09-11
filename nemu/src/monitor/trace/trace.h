@@ -1,8 +1,7 @@
-// #include "../sdb/sdb.h"
 #define IRINGBUF_LEN 15
 #define MRINGBUF_LEN 20
 
-
+// ITRACE
 typedef struct{
     int iringbuf_len;
     char *iringbuf[IRINGBUF_LEN];
@@ -14,6 +13,8 @@ void printf_iringbuf();
 Itrace * get_itrace();
 
 
+
+// MTRACE
 typedef struct{
     int mringbuf_len;
     char *mringbuf[MRINGBUF_LEN];
