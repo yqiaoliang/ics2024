@@ -10,10 +10,8 @@
 #include <errno.h>
 #include "trace.h"
 
-
-
 // 全局变量：存储所有FUNC类型符号
-static Ftrace * ftrace;
+static Ftrace * ftrace = NULL;
 static FuncSymbol *func_symbols = NULL;
 static int func_sym_count = 0;
 
@@ -25,6 +23,7 @@ void parse_symbol_table(void *elf_data, Elf32_Shdr *symtab_shdr);
 void print_symbol_info(Elf32_Sym *symbol, const char *sym_name);
 int init_ftrace(char *file_path);
 const FuncSymbol *find_func_by_instr_addr(uint32_t instr_addr);
+void cleanup_ftrace(void);
 
 // 映射ELF文件到内存
 void *map_elf_file(const char *filename, size_t *file_size) {
@@ -91,11 +90,7 @@ Elf32_Shdr *find_symbol_table(void *elf_data) {
 // 解析符号表（提取并存储FUNC类型符号）
 void parse_symbol_table(void *elf_data, Elf32_Shdr *symtab_shdr) {
     // 释放旧的符号列表（如果存在）
-    if (func_symbols != NULL) {
-        free(func_symbols);
-        func_symbols = NULL;
-        func_sym_count = 0;
-    }
+    cleanup_ftrace();
 
     Elf32_Ehdr *ehdr = (Elf32_Ehdr *)elf_data;
     Elf32_Shdr *shdr = (Elf32_Shdr *)(elf_data + ehdr->e_shoff);
@@ -132,10 +127,12 @@ void parse_symbol_table(void *elf_data, Elf32_Shdr *symtab_shdr) {
         printf("symbol #%d: ", i);
         print_symbol_info(&symbols[i], sym_name);
 
-        // 保存FUNC类型符号
+        // 保存FUNC类型符号，复制字符串到堆内存
         if (ELF32_ST_TYPE(symbols[i].st_info) == STT_FUNC) {
+            // 使用strdup复制字符串，确保在munmap后仍有效
+            char *name_copy = sym_name[0] != '\0' ? strdup(sym_name) : strdup("unknown");
             func_symbols[func_idx] = (FuncSymbol){
-                .name = sym_name,
+                .name = name_copy,
                 .addr = symbols[i].st_value,
                 .size = symbols[i].st_size
             };
@@ -176,13 +173,36 @@ void print_symbol_info(Elf32_Sym *symbol, const char *sym_name) {
 
 // 初始化ftrace（解析ELF文件并加载符号表）
 int init_ftrace(char *file_path) {
+    // 如果已经初始化，先清理
+    if (ftrace != NULL) {
+        for (int i = 0; i < ftrace->fringbuf_len; i++) {
+            free(ftrace->fringbuf[i]);
+        }
+        free(ftrace);
+        ftrace = NULL;
+    }
+
+    // 初始化ftrace结构体
     ftrace = (Ftrace *) malloc(sizeof(Ftrace));
+    if (ftrace == NULL) {
+        fprintf(stderr, "ERROR: malloc failed for ftrace\n");
+        return EXIT_FAILURE;
+    }
+    
     ftrace->fringbuf_len = FRINGBUF_LEN;
     ftrace->fringbuf_index = 0;
     ftrace->fringbuf_full = 0;
     for (int i = 0; i < FRINGBUF_LEN; i++){
-      ftrace->fringbuf[i] = (char *)malloc(128);
-      memset(ftrace->fringbuf[i], '\0', 128);
+        ftrace->fringbuf[i] = (char *)malloc(128);
+        if (ftrace->fringbuf[i] == NULL) {
+            fprintf(stderr, "ERROR: malloc failed for fringbuf\n");
+            // 释放已分配的资源
+            for (int j = 0; j < i; j++) free(ftrace->fringbuf[j]);
+            free(ftrace);
+            ftrace = NULL;
+            return EXIT_FAILURE;
+        }
+        memset(ftrace->fringbuf[i], '\0', 128);
     }
 
     size_t file_size;
@@ -208,7 +228,7 @@ int init_ftrace(char *file_path) {
 
     // 解析并打印符号表（同时存储FUNC符号）
     printf("Successfully loaded symbol table, total %ld symbols:\n",
-           symtab_shdr->sh_size / sizeof(Elf32_Sym));
+           (long)(symtab_shdr->sh_size / sizeof(Elf32_Sym)));
     printf("-------------------------------------------------\n");
     parse_symbol_table(elf_data, symtab_shdr);
 
@@ -227,8 +247,8 @@ const FuncSymbol *find_func_by_instr_addr(uint32_t instr_addr) {
     // 遍历所有函数符号，检查地址是否在函数范围内
     for (int i = 0; i < func_sym_count; i++) {
         const FuncSymbol *func = &func_symbols[i];
-        // 函数地址范围：[addr, addr + size)
-        if (instr_addr >= func->addr && instr_addr < (func->addr + func->size)) {
+        // 函数地址范围：[addr, addr + size)，并确保size大于0
+        if (func->size > 0 && instr_addr >= func->addr && instr_addr < (func->addr + func->size)) {
             printf("Func: %s\n", func->name);
             return func;
         }
@@ -236,27 +256,43 @@ const FuncSymbol *find_func_by_instr_addr(uint32_t instr_addr) {
     return NULL;  // 未找到对应函数
 }
 
-
+// 打印环形缓冲区内容
 void printf_fringbuf(){
-printf("ERROR HAPPEND, THE NEARING FUNCTION ARE:\n");
-printf("-----------------------------------------------\n");
-if (ftrace->fringbuf_full){
-    for (int i = ftrace->fringbuf_index; i < ftrace->fringbuf_len; i++){
-    printf("       ");
-    printf("%s\n", ftrace->fringbuf[i]);
+    if (ftrace == NULL) {
+        printf("ERROR: ftrace not initialized\n");
+        return;
     }
+    
+    printf("ERROR HAPPENED, THE NEARING FUNCTIONS ARE:\n");
+    printf("-----------------------------------------------\n");
+    
+    if (ftrace->fringbuf_full){
+        for (int i = ftrace->fringbuf_index; i < ftrace->fringbuf_len; i++){
+            printf("       %s\n", ftrace->fringbuf[i]);
+        }
+    }
+
+    for (int i = 0; i < ftrace->fringbuf_index; i++){
+        printf("       %s\n", ftrace->fringbuf[i]);
+    }
+
+    printf("-----------------------------------------------\n\n");
 }
 
-for (int i = 0; i < ftrace->fringbuf_index; i++){
-    printf("       ");
-    printf("%s\n", ftrace->fringbuf[i]);
-}
-
-printf("-----------------------------------------------\n");
-printf("\n");
-}
-
+// 获取ftrace指针
 Ftrace * get_ftrace(){
     return ftrace;
 }
 
+// 清理函数，释放分配的内存
+void cleanup_ftrace(void) {
+    // 释放函数符号名称的内存
+    if (func_symbols != NULL) {
+        for (int i = 0; i < func_sym_count; i++) {
+            free((void *)func_symbols[i].name);  // 释放strdup分配的内存
+        }
+        free(func_symbols);
+        func_symbols = NULL;
+        func_sym_count = 0;
+    }
+}

@@ -47,3 +47,4 @@ int init_ftrace(char * file_path);
 void printf_fringbuf();
 Ftrace * get_ftrace();
 const FuncSymbol *find_func_by_instr_addr(uint32_t instr_addr);
+void cleanup_ftrace(void);
