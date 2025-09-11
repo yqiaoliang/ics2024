@@ -24,3 +24,8 @@ typedef struct{
 void init_mringbuf();
 void printf_mringbuf();
 Mtrace * get_mtrace();
+
+
+
+// TTRACE
+void init_ftrace(char * file_path);
