@@ -75,8 +75,8 @@ static int parse_args(int argc, char *argv[]) {
     {"diff"     , required_argument, NULL, 'd'},
     {"port"     , required_argument, NULL, 'p'},
     {"help"     , no_argument      , NULL, 'h'},
+    {"ftrace"   , required_argument, NULL, 'f'},
     {0          , 0                , NULL,  0 },
-    {"ftrace"   , required_argument, NULL,  'f'},
   };
   int o;
   while ( (o = getopt_long(argc, argv, "-bhl:d:p:f:", table, NULL)) != -1) {
