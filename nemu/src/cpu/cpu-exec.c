@@ -72,7 +72,9 @@ static void exec_once(Decode *s, vaddr_t pc) {
   const FuncSymbol * func_symbol = find_func_by_instr_addr(cpu.pc);
   if (func_symbol) {
     Ftrace * ftrace = get_ftrace();
-     snprintf(ftrace->fringbuf[ftrace->fringbuf_index], 128, "0x%0x   [%s]", cpu.pc, func_symbol->name);
+    snprintf(ftrace->fringbuf[ftrace->fringbuf_index], 128, "0x%0x   [%s]", cpu.pc, func_symbol->name);
+    ftrace->fringbuf_index = (ftrace->fringbuf_index + 1) % ftrace->fringbuf_len;
+    ftrace->fringbuf_full = ftrace->fringbuf_full || (ftrace->fringbuf_index == 0);
   }
 #endif
   cpu.pc = s->dnpc;
