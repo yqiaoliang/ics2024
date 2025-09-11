@@ -90,6 +90,7 @@ void parse_symbol_table(void *elf_data, Elf32_Shdr *symtab_shdr) {
 }
 
 int init_ftrace(char * file_path){
+    printf("test0\n");
     size_t file_size;
     void *elf_data = map_elf_file(file_path, &file_size);
     if (elf_data == NULL) {
