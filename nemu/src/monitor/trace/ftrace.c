@@ -18,13 +18,13 @@ void print_symbol_info(Elf32_Sym *symbol, const char *sym_name);
 void *map_elf_file(const char *filename, size_t *file_size) {
     int fd = open(filename, O_RDONLY);
     if (fd == -1) {
-        printf("ERROR: can't open %s file", filename);
+        printf("ERROR: can't open %s file \n", filename);
         return NULL;
     }
 
     struct stat st;
     if (fstat(fd, &st) == -1) {
-        printf("ERROR: can't grep data from %s file", filename);
+        printf("ERROR: can't grep data from %s file \n", filename);
         close(fd);
         return NULL;
     }
@@ -32,7 +32,7 @@ void *map_elf_file(const char *filename, size_t *file_size) {
 
     void *elf_data = mmap(NULL, *file_size, PROT_READ, MAP_PRIVATE, fd, 0);
     if (elf_data == MAP_FAILED) {
-        printf("ERROR: cant't map file of %s", filename);
+        printf("ERROR: cant't map file of %s \n", filename);
         close(fd);
         return NULL;
     }
@@ -49,7 +49,7 @@ int validate_elf_header(void *elf_data) {
     }
     
     if (ehdr->e_ident[EI_CLASS] != ELFCLASS32) {
-        printf("ERROR: only support 32 bit");
+        printf("ERROR: only support 32 bit \n");
         return 0;
     }
     
