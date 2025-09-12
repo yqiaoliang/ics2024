@@ -7,44 +7,46 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
-  int count = 0;
+  // int count = 0;
   va_list ap;
 
   char all_num[] = "0123456789";
   const char * cur = fmt;
   int is_format = 0;
   while (*cur != '\0'){
-    if (*cur== '%')  {va_start(ap, fmt); is_format = 1; break;}
+    if (*cur== '%')  {va_start(ap, fmt); is_format = 1; break;
+        int d0 = va_arg(ap, int);
+        char *s0 = va_arg(ap, char *); 
+        int d1 = va_arg(ap, int); d1++;
+        char *s1 = va_arg(ap, char *);
+        int d2 = va_arg(ap, int); d2++;
+        int d3 = va_arg(ap, int);  d3++;
+        char *s2 = va_arg(ap, char *);
+        int d4 = va_arg(ap, int); d4++;
+
+        while (d0){
+          putch(all_num[d0%10]);
+          d0 /= 10;
+        }
+        putch('\n');
+
+        while(*s0++) putch(*s0);
+        putch('\n');
+        while(*s1++) putch(*s1);
+        putch('\n');
+        while(*s2++) putch(*s2);
+
+        if (is_format) va_end(ap);
+    }
     cur++;
   }
 
-  int d0 = va_arg(ap, int);
-  char *s0 = va_arg(ap, char *); 
-  int d1 = va_arg(ap, int); d1++;
-  char *s1 = va_arg(ap, char *);
-  int d2 = va_arg(ap, int); d2++;
-  int d3 = va_arg(ap, int);  d3++;
-  char *s2 = va_arg(ap, char *);
-  int d4 = va_arg(ap, int); d4++;
 
-  while (d0){
-    putch(all_num[d0%10]);
-    d0 /= 10;
-  }
-  putch('\n');
-
-  while(*s0++) putch(*s0);
-  putch('\n');
-  while(*s1++) putch(*s1);
-  putch('\n');
-  while(*s2++) putch(*s2);
-
-  if (is_format) va_end(ap);
 
   return 0;
 
 
-
+/*
   while (*fmt) {
     if (*fmt != '%') {
         putch(*fmt);
@@ -94,11 +96,13 @@ int printf(const char *fmt, ...) {
             break;
         }
     }
-}
+        
+  }
 
 
   if (is_format) va_end(ap);
   return count;
+  */
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
