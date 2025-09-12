@@ -42,6 +42,11 @@ char * int_to_str(int num, char *buf) {
 }
 
 int printf(const char *fmt, ...) {
+  const char * flag = fmt;
+  while(*fmt++) putch(*fmt);
+  fmt = flag;
+
+
   int count = 0;
   va_list ap;
   va_start(ap, fmt);
