@@ -86,7 +86,6 @@ int printf(const char *fmt, ...) {
               break;
           }
           default: {
-              // 输出无效格式说明符
               putch('%');
               putch(*fmt);
               count += 2;
