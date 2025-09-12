@@ -32,11 +32,12 @@ int printf(const char *fmt, ...) {
     switch (*fmt) {
         case 'd': case 'x': {
             int num = va_arg(ap, int);
-            while(num){
-              char temp = num % 10 + '0';
-              putch(temp);
-              num /= 10;
-            }
+            num+= 1;
+            // while(num){
+            //   char temp = num % 10 + '0';
+            //   putch(temp);
+            //   num /= 10;
+            // }
             fmt++;
             break;
         }
