@@ -53,6 +53,8 @@ int printf(const char *fmt, ...) {
 
   fmt = flag;
 
+  int s_num = 0;
+
 
   int count = 0;
   va_list ap;
@@ -86,12 +88,18 @@ int printf(const char *fmt, ...) {
       }
 
       case 's' :{
+        s_num++;
+
         char *str = va_arg(ap, char *);
+        char * test_ = str;
         while (*str != '\0') {
           putch(*str);
           str++;
           count++;
         }
+        putch('-');
+        putch(*test_);
+
         fmt++;
         break;
       }
