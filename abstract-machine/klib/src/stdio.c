@@ -77,8 +77,9 @@ int sprintf(char *out, const char *fmt, ...) {
       *out++ = *fmt++;
       continue;
     }
-    fmt++;
     va_start(ap, fmt);
+    fmt++;
+    
     switch(*fmt) {
       case 'd':{
         int num = va_arg(ap, int);
@@ -105,7 +106,7 @@ int sprintf(char *out, const char *fmt, ...) {
 
   while(*out) *out++ = '\0';
 
-  va_end(ap);
+  // va_end(ap);
   return 0;
 }
 
