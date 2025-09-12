@@ -27,7 +27,7 @@ int printf(const char *fmt, ...) {
   char *s2 = va_arg(ap, char *);
   char d4 = va_arg(ap, int); d4++;
 
-  putch(all_num[0]);
+  putch(all_num[1]);
 
   while(*s0++) putch(*s0);
   putch('\n');
