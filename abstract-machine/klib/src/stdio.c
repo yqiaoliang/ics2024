@@ -10,6 +10,7 @@
 int printf(const char *fmt, ...) {
   int count = 0;
   va_list ap;
+  
   va_start(ap, fmt);
   
   while (*fmt){
