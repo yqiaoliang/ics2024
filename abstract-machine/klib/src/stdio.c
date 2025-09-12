@@ -20,7 +20,7 @@ int printf(const char *fmt, ...) {
 
 
   while (*fmt) {
-    if (*fmt != '%' || 1) {
+    if (*fmt != '%') {
         putch(*fmt);
         count++;
         fmt++;
@@ -31,8 +31,9 @@ int printf(const char *fmt, ...) {
 
     switch (*fmt) {
         case 'd': case 'x': {
-            int num = va_arg(ap, int);
-            num+= 1;
+            // int num = va_arg(ap, int);
+            // num+= 1;
+            putch('d');
             // while(num){
             //   char temp = num % 10 + '0';
             //   putch(temp);
@@ -42,14 +43,15 @@ int printf(const char *fmt, ...) {
             break;
         }
         case 's': {
-            char *str = va_arg(ap, char *);
-            while (*str) {
-                putch(*str);
-                str++;
-                count++;
-            }
-            fmt++;
-            break;
+            putch('s');
+            // char *str = va_arg(ap, char *);
+            // while (*str) {
+            //     putch(*str);
+            //     str++;
+            //     count++;
+            // }
+            // fmt++;
+            // break;
         }
         case '%': {
             putch('%');
