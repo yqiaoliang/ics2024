@@ -11,8 +11,9 @@ int printf(const char *fmt, ...) {
   va_list ap;
 
   const char * cur = fmt;
+  int is_format = 0;
   while (*fmt != '\0'){
-    if (*fmt == '%')  {va_start(ap, fmt); break;}
+    if (*fmt == '%')  {va_start(ap, fmt); is_format = 1; break;}
     fmt++;
   }
 
@@ -68,7 +69,8 @@ int printf(const char *fmt, ...) {
     }
 }
 
-  va_end(ap);
+
+  if (is_format) va_end(ap);
   return count;
 }
 
