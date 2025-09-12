@@ -50,7 +50,7 @@ int printf(const char *fmt, ...) {
   }
   fmt = flag;
 
-  return 0;
+  return cnt;
 
 
   int count = 0;
