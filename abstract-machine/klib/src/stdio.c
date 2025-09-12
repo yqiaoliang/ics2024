@@ -43,7 +43,7 @@ char * int_to_str(int num, char *buf) {
 
 int printf(const char *fmt, ...) {
   int cnt = 0;
-  const char * flag = fmt;
+  // const char * flag = fmt;
   while(*fmt++) {
     putch(*fmt);
     cnt++;
@@ -52,60 +52,60 @@ int printf(const char *fmt, ...) {
 
   return cnt;
 
-  fmt = flag;
+  // fmt = flag;
 
 
-  int count = 0;
-  va_list ap;
-  va_start(ap, fmt);
+  // int count = 0;
+  // va_list ap;
+  // va_start(ap, fmt);
 
-  while (*fmt){
-    if (*fmt != '%'){
-      putch(*fmt++);
-      count++;
-      continue;
-    }
-    fmt++;
-    switch(*fmt){
-      case 'd':{
-        int num = va_arg(ap, int);
-        // char *buf = malloc(23* sizeof(char));
+  // while (*fmt){
+  //   if (*fmt != '%'){
+  //     putch(*fmt++);
+  //     count++;
+  //     continue;
+  //   }
+  //   fmt++;
+  //   switch(*fmt){
+  //     case 'd':{
+  //       int num = va_arg(ap, int);
+  //       // char *buf = malloc(23* sizeof(char));
         
-        char buf[23];
-        memset(buf, '\0', 23);
-        int_to_str(num, buf);
-        int i = 0;
-        while (buf[i] != '\0') {
-          putch(buf[i]);
-          i++;
-          count++;
-        }
-        // free(buf);
-        fmt++;
-        break;
-      }
+  //       char buf[23];
+  //       memset(buf, '\0', 23);
+  //       int_to_str(num, buf);
+  //       int i = 0;
+  //       while (buf[i] != '\0') {
+  //         putch(buf[i]);
+  //         i++;
+  //         count++;
+  //       }
+  //       // free(buf);
+  //       fmt++;
+  //       break;
+  //     }
 
-      case 's' :{
-        char *str = va_arg(ap, char *);
-        while (*str) {
-          putch(*str++);
-          count++;
-        }
-        fmt++;
-        break;
-      }
+  //     case 's' :{
+  //       char *str = va_arg(ap, char *);
+  //       while (*str) {
+  //         putch(*str++);
+  //         count++;
+  //       }
+  //       fmt++;
+  //       break;
+  //     }
 
-      case '%' :{
-        putch('%');
-        count++;
-        fmt++;
-        break;
-      }
-      default: fmt++; break;;
-    }
-  }
+  //     case '%' :{
+  //       putch('%');
+  //       count++;
+  //       fmt++;
+  //       break;
+  //     }
+  //     default: fmt++; break;;
+  //   }
+  // }
 
-  return count;
+  // return count;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
