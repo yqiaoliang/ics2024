@@ -60,7 +60,8 @@ int int_to_str_for_printf(int num) {
   }
 
   while (n != 0) {
-    temp[i++] = '0' + (n % 10);
+    temp[i] = '0' + (n % 10);
+    i++;
     n /= 10;
   }
 
