@@ -104,8 +104,8 @@ int printf(const char *fmt, ...) {
         break;
       }
       default: {
-        putch(*fmt);
-        count++;
+        // putch(*fmt);
+        // count++;
         fmt++;
         break;
       }
