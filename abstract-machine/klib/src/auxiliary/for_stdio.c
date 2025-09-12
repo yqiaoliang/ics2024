@@ -69,7 +69,7 @@ int int_to_str_for_printf(int num) {
     count++;
   }
 
-  while (i > 0) {
+  while (i >= 0) {
     putch(temp[i]);
     i--;
     count++;
