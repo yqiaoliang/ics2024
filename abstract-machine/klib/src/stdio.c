@@ -48,9 +48,11 @@ int printf(const char *fmt, ...) {
     putch(*fmt);
     cnt++;
   }
-  fmt = flag;
+
 
   return cnt;
+
+  fmt = flag;
 
 
   int count = 0;
