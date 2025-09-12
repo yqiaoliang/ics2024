@@ -12,9 +12,9 @@ int printf(const char *fmt, ...) {
 
   const char * cur = fmt;
   int is_format = 0;
-  while (*fmt != '\0'){
-    if (*fmt == '%')  {va_start(ap, fmt); is_format = 1; break;}
-    fmt++;
+  while (*cur != '\0'){
+    if (*cur== '%')  {va_start(ap, fmt); is_format = 1; break;}
+    cur++;
   }
 
   fmt = cur;
