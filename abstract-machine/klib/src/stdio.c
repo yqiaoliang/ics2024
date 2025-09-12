@@ -32,7 +32,7 @@ int printf(const char *fmt, ...) {
     switch (*fmt) {
         case 'd': case 'x': {
             int num = va_arg(ap, int);
-            char buf[32];
+            char buf[64];
             int_to_str(num, buf);
             for (int i = 0; buf[i] != '\0'; i++) {
                 putch(buf[i]);
