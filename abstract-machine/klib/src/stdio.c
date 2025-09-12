@@ -168,10 +168,3 @@ int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
 
 #endif
 
-// int main() {
-//   char * buf = (char *)malloc(20);
-//   int_to_str(123456, buf);
-//   while (*buf){
-//     printf("%c", *buf++);
-//   }
-// }
