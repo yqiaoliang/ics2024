@@ -4,7 +4,7 @@ char * int_to_str(int num, char *buf) {
   int is_negative = 0;
   int i = 0;
   unsigned int n;
-  char temp[22]; 
+  char temp[32]; 
 
   if (num == 0) {
     buf[0] = '0';
