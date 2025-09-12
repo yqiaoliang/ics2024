@@ -42,8 +42,12 @@ char * int_to_str(int num, char *buf) {
 }
 
 int printf(const char *fmt, ...) {
+  int cnt = 0;
   const char * flag = fmt;
-  while(*fmt++) putch(*fmt);
+  while(*fmt++) {
+    putch(*fmt);
+    cnt++;
+  }
   fmt = flag;
 
   return 0;
