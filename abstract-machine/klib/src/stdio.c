@@ -42,7 +42,7 @@ char * int_to_str(int num, char *buf) {
 }
 
 int printf(const char *fmt, ...) {
-  while(*fmt) putch(*fmt++);
+  while(*fmt != '\0') putch(*fmt++);
   return 0;
 }
 
