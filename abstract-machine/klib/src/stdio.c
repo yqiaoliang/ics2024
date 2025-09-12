@@ -43,10 +43,50 @@ char * int_to_str(int num, char *buf) {
 
 int printf(const char *fmt, ...) {
   int count = 0;
-  while(*fmt != '\0') {
-    putch(*fmt++);
-    count++;
+  va_list ap;
+  va_start(ap, fmt);
+
+  while (*fmt){
+    if (*fmt != '%'){
+      putch(*fmt++);
+      count++;
+      continue;
+    }
+    fmt++;
+    switch(*fmt){
+      case 'd':{
+        int num = va_arg(ap, int);
+        char *buf = malloc(23* sizeof(char));
+        memset(buf, '\0', 23);
+        int_to_str(num, buf);
+        while (*buf) {
+          putch(*buf++);
+          count++;
+        }
+        fmt++;
+        break;
+      }
+
+      case 's' :{
+        char *str = va_arg(ap, char *);
+        while (*str) {
+          putch(*str++);
+          count++;
+        }
+        fmt++;
+        break;
+      }
+
+      case '%' :{
+        putch('%');
+        count++;
+        fmt++;
+        break;
+      }
+      default: fmt++; break;;
+    }
   }
+
   return count;
 }
 
@@ -84,7 +124,7 @@ int sprintf(char *out, const char *fmt, ...) {
         fmt++;
         break;
       }
-      default: break;
+      default: fmt++; break;
     }
   }
 
