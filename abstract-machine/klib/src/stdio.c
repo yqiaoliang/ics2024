@@ -82,6 +82,7 @@ int printf(const char *fmt, ...) {
             putch('d');
             while(num){
               putch(all_num[num%10]);
+              num /= 10;
             }
             fmt++;
             break;
