@@ -13,8 +13,9 @@ int printf(const char *fmt, ...) {
   
   va_start(ap, fmt);
 
-  while (*fmt++) {
+  while (*fmt) {
     putch(*fmt);
+    fmt++;
     count++;
   }
   return count;
