@@ -43,7 +43,7 @@ int printf(const char *fmt, ...) {
             break;
         }
         case 's': {
-            putch('s');
+            // putch('s');
             char *str = va_arg(ap, char *);
             while (*str) {
                 putch(*str);
