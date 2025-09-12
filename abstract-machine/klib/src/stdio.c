@@ -14,51 +14,10 @@ int printf(const char *fmt, ...) {
   const char * cur = fmt;
   int is_format = 0;
   while (*cur != '\0'){
-    if (*cur== '%')  {va_start(ap, fmt); is_format = 1;
-      /*
-        int d0 = va_arg(ap, int);
-        char *s0 = va_arg(ap, char *); 
-        int d1 = va_arg(ap, int); 
-        char *s1 = va_arg(ap, char *);
-        int d2 = va_arg(ap, int); 
-        int d3 = va_arg(ap, int);  
-        char *s2 = va_arg(ap, char *);
-        int d4 = va_arg(ap, int); 
-
-        while (d0){
-          putch(all_num[d0%10]);
-          d0 /= 10;
-        }
-        putch('\n');
-        while (d1){
-          putch(all_num[d1%10]);
-          d1 /= 10;
-        }
-        putch('\n');
-        while (d2){
-          putch(all_num[d2%10]);
-          d2 /= 10;
-        }
-        putch('\n');
-        while (d3){
-          putch(all_num[d3%10]);
-          d3 /= 10;
-        }
-        putch('\n');
-        while (d4){
-          putch(all_num[d4%10]);
-          d4 /= 10;
-        }
-        putch('\n');
-
-        while(*s0){ putch(*s0); s0++;}
-        putch('\n');
-        while(*s1) {putch(*s1); s1++;}
-        putch('\n');
-        while(*s2) {putch(*s2);s2++;}
-
-        if (is_format) va_end(ap); */
-         break;
+    if (*cur== '%')  {
+      va_start(ap, fmt);
+      is_format = 1;
+      break;
     }
     cur++;
   }
@@ -79,7 +38,6 @@ int printf(const char *fmt, ...) {
     switch (*fmt) {
         case 'd': case 'x': {
             int num = va_arg(ap, int);
-            putch('d');
             while(num){
               putch(all_num[num%10]);
               num /= 10;
