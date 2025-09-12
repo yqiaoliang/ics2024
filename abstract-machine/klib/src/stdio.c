@@ -46,6 +46,8 @@ int printf(const char *fmt, ...) {
   while(*fmt++) putch(*fmt);
   fmt = flag;
 
+  return 0;
+
 
   int count = 0;
   va_list ap;
