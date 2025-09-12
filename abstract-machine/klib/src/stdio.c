@@ -89,7 +89,8 @@ int printf(const char *fmt, ...) {
       case 's' :{
         char *str = va_arg(ap, char *);
         while (*str != '\0') {
-          putch(*str++);
+          putch(*str);
+          str++;
           count++;
         }
         fmt++;
@@ -102,7 +103,12 @@ int printf(const char *fmt, ...) {
         fmt++;
         break;
       }
-      default: fmt++; break;;
+      default: {
+        putch(*fmt);
+        count++;
+        fmt++;
+        break;
+      }
     }
   }
 
