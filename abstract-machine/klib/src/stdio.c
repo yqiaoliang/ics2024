@@ -91,15 +91,11 @@ int printf(const char *fmt, ...) {
         s_num++;
 
         char *str = va_arg(ap, char *);
-        char * test_ = str;
         while (*str != '\0') {
           putch(*str);
           str++;
           count++;
         }
-        putch('-');
-        putch(*test_);
-        putch('-');
 
         fmt++;
         break;
