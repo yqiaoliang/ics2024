@@ -35,6 +35,8 @@ int printf(const char *fmt, ...) {
   putch('\n');
   while(*s2++) putch(*s2);
 
+  if (is_format) va_end(ap);
+
   return 0;
 
 
