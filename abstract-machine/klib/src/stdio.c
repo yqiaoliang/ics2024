@@ -69,6 +69,7 @@ int printf(const char *fmt, ...) {
     fmt++;
     switch(*fmt){
       case 'd':{
+        continue;
         int num = va_arg(ap, int);
         // char *buf = malloc(23* sizeof(char));
         
