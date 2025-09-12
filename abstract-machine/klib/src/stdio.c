@@ -42,8 +42,12 @@ char * int_to_str(int num, char *buf) {
 }
 
 int printf(const char *fmt, ...) {
-  while(*fmt != '\0') putch(*fmt++);
-  return 0;
+  int count = 0;
+  while(*fmt != '\0') {
+    putch(*fmt++);
+    count++;
+  }
+  return count;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
