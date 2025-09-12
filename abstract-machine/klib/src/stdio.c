@@ -67,6 +67,7 @@ int printf(const char *fmt, ...) {
       continue;
     }
     fmt++;
+    if(*fmt=='\0') break;
     switch(*fmt){
       case 'd':{
         int num = va_arg(ap, int);
