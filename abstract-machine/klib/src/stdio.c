@@ -21,7 +21,7 @@ int printf(const char *fmt, ...) {
     fmt++;
 
     switch(*fmt){
-      case 'b' : {
+      case 'd' : {
         int num = va_arg(ap, int);
         int_to_str_for_printf(num);
         fmt++;
@@ -54,6 +54,7 @@ int printf(const char *fmt, ...) {
   va_end(ap);
   return count;
 }
+
 int vsprintf(char *out, const char *fmt, va_list ap) {
   panic("Not implemented"); 
 }
