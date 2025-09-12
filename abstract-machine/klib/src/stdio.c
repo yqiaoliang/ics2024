@@ -33,6 +33,7 @@ int printf(const char *fmt, ...) {
       case 'd' : {
         int num = va_arg(ap, int);
         count += int_to_str_for_printf(num);
+        return count;
         fmt++;
         break;
       }
