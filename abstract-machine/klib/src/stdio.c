@@ -20,7 +20,7 @@ int printf(const char *fmt, ...) {
 
 
   while (*fmt) {
-    if (*fmt != '%') {
+    if (*fmt != '%' || 1) {
         putch(*fmt);
         count++;
         fmt++;
