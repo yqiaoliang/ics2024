@@ -7,49 +7,62 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
-  putch('-');
-  return 0;
-  // char this_buf[128];
-  // char *out = this_buf;
-  // va_list ap;
-  // va_start(ap, fmt);
+  int count = 0;
+  va_list ap;
+  va_start(ap, fmt);
 
-  // while(*fmt) {
-  //   if (*fmt != '%') {
-  //     *out++ = *fmt++;
-  //     continue;
-  //   }
-  //   fmt++;
-  //   switch(*fmt) {
-  //     case 'd':{
-  //       int num = va_arg(ap, int);
-  //       out = int_to_str(num, out);
-  //       fmt++;
-  //       break;
-  //     }
-  //     case 's':{
-  //       char *str = va_arg(ap, char *);
-  //       while(*str){
-  //         *out++ = *str++;
-  //       }
-  //       fmt++;
-  //       break;
-  //     }
-  //     case '%': {
-  //       *out++ = '%';
-  //       fmt++;
-  //       break;
-  //     }
-  //     default: fmt++; break;
-  //   }
-  // }
+  while (*fmt) {
+      if (*fmt != '%') {
+          putch(*fmt);
+          count++;
+          fmt++;
+          continue;
+      }
 
-  // while(*out) *out++ = '\0';
+      fmt++; // 跳过 '%'
+      if (*fmt == '\0') break;
 
-  // while(*out++) putch(*out); 
+      switch (*fmt) {
+          case 'd': case 'x': {
+              int num = va_arg(ap, int);
+              char buf[32];
+              int_to_str(num, buf);
+              for (int i = 0; buf[i] != '\0'; i++) {
+                  putch(buf[i]);
+                  count++;
+              }
+              fmt++;
+              break;
+          }
+          case 's': {
+              char *str = va_arg(ap, char *);
+              while (*str) {
+                  putch(*str);
+                  str++;
+                  count++;
+              }
+              fmt++;
+              break;
+          }
+          case '%': {
+              putch('%');
+              count++;
+              fmt++;
+              break;
+          }
+          default: {
+              // 输出无效格式说明符（如 %x -> 输出 %x）
+              putch('%');
+              putch(*fmt);
+              count += 2;
+              fmt++;
+              break;
+          }
+      }
+  }
 
-  // return 0;
-
+  va_end(ap);
+  return count;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
