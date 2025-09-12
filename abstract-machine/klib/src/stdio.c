@@ -65,9 +65,6 @@ int printf(const char *fmt, ...) {
 
 
 
-  return 0;
-
-
 
   while (*fmt) {
     if (*fmt != '%') {
