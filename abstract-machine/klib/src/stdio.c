@@ -88,7 +88,7 @@ int printf(const char *fmt, ...) {
 
       case 's' :{
         char *str = va_arg(ap, char *);
-        while (*str) {
+        while (*str != '\0') {
           putch(*str++);
           count++;
         }
