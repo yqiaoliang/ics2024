@@ -42,18 +42,16 @@ char * int_to_str(int num, char *buf) {
 }
 
 int printf(const char *fmt, ...) {
-  // int cnt = 0;
-  // const char * flag = fmt;
-  // while(*fmt != '\0') {
-  //   putch(*fmt);
-  //   fmt++;
-  //   cnt++;
-  // }
+  int cnt = 0;
+  const char * flag = fmt;
+  while(*fmt != '\0') {
+    putch(*fmt);
+    fmt++;
+    cnt++;
+  }
 
 
-  // return cnt;
-
-  // fmt = flag;
+  fmt = flag;
 
 
   int count = 0;
@@ -72,20 +70,16 @@ int printf(const char *fmt, ...) {
         int num = va_arg(ap, int);
         // char *buf = malloc(23* sizeof(char));
         
-        // char buf[32];
-        // memset(buf, '\0', 32);
-        // int_to_str(num, buf);
-        // int i = 0;
-        // while (buf[i] != '\0') {
-        //   putch(buf[i]);
-        //   i++;
-        //   count++;
-        // }
-        char all_num[10] = "0123456789";
-        while(num){
-          putch(all_num[num%10]);
-          num /= 10;
+        char buf[32];
+        memset(buf, '\0', 32);
+        int_to_str(num, buf);
+        int i = 0;
+        while (buf[i] != '\0') {
+          putch(buf[i]);
+          i++;
+          count++;
         }
+        
         // free(buf);
         fmt++;
         break;
