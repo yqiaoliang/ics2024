@@ -17,10 +17,27 @@ int printf(const char *fmt, ...) {
     cur++;
   }
 
+  int d0 = va_arg(ap, int); d0+=1;
+  char *s0 = va_arg(ap, char *); 
+  char d1 = va_arg(ap, int); d1++;
+  char *s1 = va_arg(ap, char *);
+  char d2 = va_arg(ap, int); d2++;
+  char d3 = va_arg(ap, int);  d3++;
+  char *s2 = va_arg(ap, char *);
+  char d4 = va_arg(ap, int); d4++;
+
+  while(*s0++) putch(*s0);
+  putch('\n');
+  while(*s1++) putch(*s1);
+  putch('\n');
+  while(*s2++) putch(*s2);
+
+  return 0;
+
 
 
   while (*fmt) {
-    if (*fmt != '%' || 1) {
+    if (*fmt != '%') {
         putch(*fmt);
         count++;
         fmt++;
