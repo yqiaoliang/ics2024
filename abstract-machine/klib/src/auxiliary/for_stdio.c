@@ -9,7 +9,7 @@ char * int_to_str(int num, char *buf) {
   if (num == 0) {
     buf[0] = '0';
     buf[1] = '\0';
-    return buf;
+    return buf+1;
   }
 
   if (num < 0) {
