@@ -18,7 +18,7 @@ int printf(const char *fmt, ...) {
     cur++;
   }
 
-  int d0 = va_arg(ap, int); d0+=1;
+  int d0 = va_arg(ap, int);
   char *s0 = va_arg(ap, char *); 
   char d1 = va_arg(ap, int); d1++;
   char *s1 = va_arg(ap, char *);
@@ -27,7 +27,11 @@ int printf(const char *fmt, ...) {
   char *s2 = va_arg(ap, char *);
   char d4 = va_arg(ap, int); d4++;
 
-  putch(all_num[1]);
+  while (d0){
+    putch(all_num[d0%10]);
+    d0 /= 10;
+  }
+  putch('\n');
 
   while(*s0++) putch(*s0);
   putch('\n');
