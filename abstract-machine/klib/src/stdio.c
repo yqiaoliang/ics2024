@@ -9,7 +9,7 @@
 int printf(const char *fmt, ...) {
   int count = 0;
   va_list ap;
-  va_start(ap, fmt);
+
 
   while (*fmt) {
       if (*fmt != '%') {
@@ -18,7 +18,7 @@ int printf(const char *fmt, ...) {
           fmt++;
           continue;
       }
-
+        va_start(ap, fmt);
       fmt++; // 跳过 '%'
       if (*fmt == '\0') break;
 
@@ -71,15 +71,14 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 
 int sprintf(char *out, const char *fmt, ...) {
   va_list ap;
+  va_start(ap, fmt);
 
   while(*fmt) {
     if (*fmt != '%') {
       *out++ = *fmt++;
       continue;
     }
-    va_start(ap, fmt);
     fmt++;
-    
     switch(*fmt) {
       case 'd':{
         int num = va_arg(ap, int);
@@ -106,7 +105,7 @@ int sprintf(char *out, const char *fmt, ...) {
 
   while(*out) *out++ = '\0';
 
-  // va_end(ap);
+  va_end(ap);
   return 0;
 }
 
