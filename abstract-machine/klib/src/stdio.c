@@ -22,6 +22,7 @@ int printf(const char *fmt, ...) {
   while (*fmt) {
     if (*fmt != '%') {
         putch(*fmt);
+        putch('-');
         count++;
         fmt++;
         continue;
