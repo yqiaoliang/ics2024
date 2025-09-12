@@ -44,12 +44,12 @@ int printf(const char *fmt, ...) {
         }
         case 's': {
             putch('s');
-            // char *str = va_arg(ap, char *);
-            // while (*str) {
-            //     putch(*str);
-            //     str++;
-            //     count++;
-            // }
+            char *str = va_arg(ap, char *);
+            while (*str) {
+                putch(*str);
+                str++;
+                count++;
+            }
             fmt++;
             break;
         }
