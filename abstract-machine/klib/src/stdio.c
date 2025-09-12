@@ -10,71 +10,72 @@ int printf(const char *fmt, ...) {
   char test[] = "enter printf func";
   char * test_ptr = test;
   while (*test_ptr++) putch(*test_ptr);
-  int count = 0;
-  va_list ap;
+//   int count = 0;
+//   va_list ap;
 
-  const char * cur = fmt;
-  int is_format = 0;
-  while (*cur != '\0'){
-    if (*cur== '%')  {va_start(ap, fmt); is_format = 1; break;}
-    cur++;
-  }
-
-
-
-  while (*fmt) {
-    if (*fmt != '%') {
-        putch(*fmt);
-        putch('-');
-        count++;
-        fmt++;
-        continue;
-    }
-    fmt++; // 跳过 '%'
-    if (*fmt == '\0') break;
-
-    switch (*fmt) {
-        case 'd': case 'x': {
-            int num = va_arg(ap, int);
-            char buf[32];
-            int_to_str(num, buf);
-            for (int i = 0; buf[i] != '\0'; i++) {
-                putch(buf[i]);
-                count++;
-            }
-            fmt++;
-            break;
-        }
-        case 's': {
-            char *str = va_arg(ap, char *);
-            while (*str) {
-                putch(*str);
-                str++;
-                count++;
-            }
-            fmt++;
-            break;
-        }
-        case '%': {
-            putch('%');
-            count++;
-            fmt++;
-            break;
-        }
-        default: {
-            // 输出无效格式说明符（如 %x -> 输出 %x）
-            putch('%');
-            putch(*fmt);
-            count += 2;
-            fmt++;
-            break;
-        }
-    }
-}
+//   const char * cur = fmt;
+//   int is_format = 0;
+//   while (*cur != '\0'){
+//     if (*cur== '%')  {va_start(ap, fmt); is_format = 1; break;}
+//     cur++;
+//   }
 
 
-  if (is_format) va_end(ap);
-  return count;
+
+//   while (*fmt) {
+//     if (*fmt != '%') {
+//         putch(*fmt);
+//         putch('-');
+//         count++;
+//         fmt++;
+//         continue;
+//     }
+//     fmt++; // 跳过 '%'
+//     if (*fmt == '\0') break;
+
+//     switch (*fmt) {
+//         case 'd': case 'x': {
+//             int num = va_arg(ap, int);
+//             char buf[32];
+//             int_to_str(num, buf);
+//             for (int i = 0; buf[i] != '\0'; i++) {
+//                 putch(buf[i]);
+//                 count++;
+//             }
+//             fmt++;
+//             break;
+//         }
+//         case 's': {
+//             char *str = va_arg(ap, char *);
+//             while (*str) {
+//                 putch(*str);
+//                 str++;
+//                 count++;
+//             }
+//             fmt++;
+//             break;
+//         }
+//         case '%': {
+//             putch('%');
+//             count++;
+//             fmt++;
+//             break;
+//         }
+//         default: {
+//             // 输出无效格式说明符（如 %x -> 输出 %x）
+//             putch('%');
+//             putch(*fmt);
+//             count += 2;
+//             fmt++;
+//             break;
+//         }
+//     }
+// }
+
+
+//   if (is_format) va_end(ap);
+//   return count;
+  return 0;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
