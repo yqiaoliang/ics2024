@@ -7,6 +7,9 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
+  char test[] = "enter printf func";
+  char * test_ptr = test;
+  while (*test_ptr++) putch(*test_ptr);
   int count = 0;
   va_list ap;
 
