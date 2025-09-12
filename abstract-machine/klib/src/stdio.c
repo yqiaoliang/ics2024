@@ -12,87 +12,43 @@ int printf(const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
   
-  while (*fmt) {
-      if (*fmt != '%') {
-          putch(*fmt);
-          count++;
-          fmt++;
-          continue;
+  while (*fmt){
+    if (*fmt != '%'){
+      putch(*fmt);
+      fmt++;
+      count++;
+    }
+    fmt++;
+
+    switch(*fmt){
+      case 'b' : {
+        int num = va_arg(ap, int);
+        int_to_str_for_printf(num);
+        fmt++;
+        count++;
+        break;
       }
-      
-      fmt++; // 跳过 '%'
-      if (*fmt == '\0') break;
-      
-      switch (*fmt) {
-          case 'd': {
-              int num = va_arg(ap, int);
-              char buf[32];
-              int_to_str(num, buf);
-              for (char *p = buf; *p; p++) {
-                  putch(*p);
-                  count++;
-              }
-              fmt++;
-              break;
-          }
-          case 'x': case 'X': {
-              unsigned int num = va_arg(ap, unsigned int);
-              char hex_digits[] = "0123456789abcdef";
-              if (*fmt == 'X') {
-                  hex_digits[10] = 'A'; // 大写字母
-                  hex_digits[11] = 'B';
-                  hex_digits[12] = 'C';
-                  hex_digits[13] = 'D';
-                  hex_digits[14] = 'E';
-                  hex_digits[15] = 'F';
-              }
-              
-              char temp[9];
-              int i = 0;
-              
-              // 处理0值
-              if (num == 0) {
-                  putch('0');
-                  count++;
-              } else {
-                  while (num != 0) {
-                      temp[i++] = hex_digits[num & 0xF];
-                      num >>= 4;
-                  }
-                  
-                  // 反转字符串
-                  while (i > 0) {
-                      putch(temp[--i]);
-                      count++;
-                  }
-              }
-              fmt++;
-              break;
-          }
-          case 's': {
-              char *str = va_arg(ap, char *);
-              while (*str) {
-                  putch(*str);
-                  str++;
-                  count++;
-              }
-              fmt++;
-              break;
-          }
-          case '%': {
-              putch('%');
-              count++;
-              fmt++;
-              break;
-          }
-          default: {
-              putch('%');
-              putch(*fmt);
-              count += 2;
-              fmt++;
-              break;
-          }
+
+      case 's' : {
+        char * str = va_arg(ap, char *);
+        while (*str){
+          putch(*str);
+          str++;
+          count ++;
+        }
+        fmt++;
+        break;
       }
+
+      default:{
+        putch('%');
+        putch(*fmt);
+        fmt++;
+        count += 2;
+        break;
+      }
+    }
+
   }
   
   va_end(ap);

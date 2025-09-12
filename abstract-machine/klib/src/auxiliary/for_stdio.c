@@ -37,3 +37,33 @@ char * int_to_str(int num, char *buf) {
   return buf;
 }
 
+
+void int_to_str_for_printf(int num) {
+  int is_negative = 0;
+  int i = 0;
+  unsigned int n;
+  char temp[64]; 
+
+  if (num == 0) {
+    putch('0');
+  }
+
+  if (num < 0) {
+    is_negative = 1;
+    n = (unsigned int)(-(long long)num);
+  } else {
+    n = (unsigned int)num;
+  }
+
+  while (n != 0) {
+    temp[i++] = '0' + (n % 10);
+    n /= 10;
+  }
+
+  if (is_negative) putch('-');
+
+  while (i > 0) {
+    putch(temp[--i]);
+  }
+}
+
