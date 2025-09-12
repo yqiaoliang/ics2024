@@ -7,35 +7,74 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
-      va_list ap;
-    char buffer[1024];  // 用于存储格式化后的字符串
-    int len;
+  int count = 0;
+  va_list ap;
 
-    // 1. 使用va_start初始化参数列表
-    va_start(ap, fmt);
-    
-    // 2. 利用已有的sprintf将格式化结果写入缓冲区
-    // 这里需要一个支持可变参数的中间函数
-    len = vsprintf(buffer, fmt, ap);
-    
-    // 3. 结束参数列表处理
-    va_end(ap);
-    
-    // 4. 将缓冲区内容写入标准输出（文件描述符1）
-    char *p = buffer;
-    while(*p++)putch(*p);
-    
-    return len;  // 返回输出的字符数
+  const char * cur = fmt;
+  int is_format = 0;
+  while (*cur != '\0'){
+    if (*cur== '%')  {va_start(ap, fmt); is_format = 1; break;}
+    cur++;
+  }
+
+
+
+  while (*fmt) {
+    if (*fmt != '%') {
+        putch(*fmt);
+        count++;
+        fmt++;
+        continue;
+    }
+    fmt++; // 跳过 '%'
+    if (*fmt == '\0') break;
+
+    switch (*fmt) {
+        case 'd': case 'x': {
+            int num = va_arg(ap, int);
+            char buf[32];
+            int_to_str(num, buf);
+            for (int i = 0; buf[i] != '\0'; i++) {
+                putch(buf[i]);
+                count++;
+            }
+            fmt++;
+            break;
+        }
+        case 's': {
+            char *str = va_arg(ap, char *);
+            while (*str) {
+                putch(*str);
+                str++;
+                count++;
+            }
+            fmt++;
+            break;
+        }
+        case '%': {
+            putch('%');
+            count++;
+            fmt++;
+            break;
+        }
+        default: {
+            // 输出无效格式说明符（如 %x -> 输出 %x）
+            putch('%');
+            putch(*fmt);
+            count += 2;
+            fmt++;
+            break;
+        }
+    }
+}
+
+
+  if (is_format) va_end(ap);
+  return count;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-      va_list ap_copy;
-    va_copy(ap_copy, ap);
-    
-    int len = vsprintf_helper(out, fmt, ap_copy);
-    
-    va_end(ap_copy);
-    return len;
+  panic("Not implemented"); 
 }
 
 int sprintf(char *out, const char *fmt, ...) {
