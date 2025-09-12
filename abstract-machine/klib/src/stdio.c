@@ -17,14 +17,34 @@ int printf(const char *fmt, ...) {
     if (*cur== '%')  {va_start(ap, fmt); is_format = 1;
         int d0 = va_arg(ap, int);
         char *s0 = va_arg(ap, char *); 
-        int d1 = va_arg(ap, int); d1++;
+        int d1 = va_arg(ap, int); 
         char *s1 = va_arg(ap, char *);
-        int d2 = va_arg(ap, int); d2++;
-        int d3 = va_arg(ap, int);  d3++;
+        int d2 = va_arg(ap, int); 
+        int d3 = va_arg(ap, int);  
         char *s2 = va_arg(ap, char *);
-        int d4 = va_arg(ap, int); d4++;
+        int d4 = va_arg(ap, int); 
 
         while (d0){
+          putch(all_num[d0%10]);
+          d0 /= 10;
+        }
+        putch('\n');
+        while (d1){
+          putch(all_num[d0%10]);
+          d0 /= 10;
+        }
+        putch('\n');
+        while (d2){
+          putch(all_num[d0%10]);
+          d0 /= 10;
+        }
+        putch('\n');
+        while (d3){
+          putch(all_num[d0%10]);
+          d0 /= 10;
+        }
+        putch('\n');
+        while (d4){
           putch(all_num[d0%10]);
           d0 /= 10;
         }
