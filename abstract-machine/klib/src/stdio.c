@@ -7,7 +7,7 @@
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
-  // int count = 0;
+  int count = 0;
   va_list ap;
 
   char all_num[] = "0123456789";
@@ -15,6 +15,7 @@ int printf(const char *fmt, ...) {
   int is_format = 0;
   while (*cur != '\0'){
     if (*cur== '%')  {va_start(ap, fmt); is_format = 1;
+      /*
         int d0 = va_arg(ap, int);
         char *s0 = va_arg(ap, char *); 
         int d1 = va_arg(ap, int); 
@@ -56,7 +57,7 @@ int printf(const char *fmt, ...) {
         putch('\n');
         while(*s2) {putch(*s2);s2++;}
 
-        if (is_format) va_end(ap);
+        if (is_format) va_end(ap); */
          break;
     }
     cur++;
@@ -67,7 +68,7 @@ int printf(const char *fmt, ...) {
   return 0;
 
 
-/*
+
   while (*fmt) {
     if (*fmt != '%') {
         putch(*fmt);
@@ -80,19 +81,15 @@ int printf(const char *fmt, ...) {
 
     switch (*fmt) {
         case 'd': case 'x': {
-            // int num = va_arg(ap, int);
-            // num+= 1;
+            int num = va_arg(ap, int);
             putch('d');
-            // while(num){
-            //   char temp = num % 10 + '0';
-            //   putch(temp);
-            //   num /= 10;
-            // }
+            while(num){
+              putch(all_num[num%10]);
+            }
             fmt++;
             break;
         }
         case 's': {
-            // putch('s');
             char *str = va_arg(ap, char *);
             while (*str) {
                 putch(*str);
@@ -123,7 +120,7 @@ int printf(const char *fmt, ...) {
 
   if (is_format) va_end(ap);
   return count;
-  */
+
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
