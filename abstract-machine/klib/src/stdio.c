@@ -40,7 +40,6 @@ int printf(const char *fmt, ...) {
       case 's' : {
         char * str = va_arg(ap, char *);
         while (*str){
-          break;
           putch(*str);
           str++;
           count ++;
