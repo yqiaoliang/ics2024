@@ -69,19 +69,19 @@ int printf(const char *fmt, ...) {
     fmt++;
     switch(*fmt){
       case 'd':{
-        // int num = va_arg(ap, int);
-        // // char *buf = malloc(23* sizeof(char));
+        int num = va_arg(ap, int);
+        // char *buf = malloc(23* sizeof(char));
         
-        // char buf[23];
-        // memset(buf, '\0', 23);
-        // int_to_str(num, buf);
-        // int i = 0;
-        // while (buf[i] != '\0') {
-        //   putch(buf[i]);
-        //   i++;
-        //   count++;
-        // }
-        // // free(buf);
+        char buf[23];
+        memset(buf, '\0', 23);
+        int_to_str(num, buf);
+        int i = 0;
+        while (buf[i] != '\0') {
+          putch(buf[i]);
+          i++;
+          count++;
+        }
+        // free(buf);
         fmt++;
         break;
       }
