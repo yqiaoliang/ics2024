@@ -30,23 +30,23 @@ int printf(const char *fmt, ...) {
         }
         putch('\n');
         while (d1){
-          putch(all_num[d0%10]);
-          d0 /= 10;
+          putch(all_num[d1%10]);
+          d1 /= 10;
         }
         putch('\n');
         while (d2){
-          putch(all_num[d0%10]);
-          d0 /= 10;
+          putch(all_num[d2%10]);
+          d2 /= 10;
         }
         putch('\n');
         while (d3){
-          putch(all_num[d0%10]);
-          d0 /= 10;
+          putch(all_num[d3%10]);
+          d3 /= 10;
         }
         putch('\n');
         while (d4){
-          putch(all_num[d0%10]);
-          d0 /= 10;
+          putch(all_num[d4%10]);
+          d4 /= 10;
         }
         putch('\n');
 
