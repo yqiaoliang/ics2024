@@ -31,6 +31,8 @@ int printf(const char *fmt, ...) {
 
     switch(*fmt){
       case 'd' : {
+        putch('-');
+        return ++count ;
         int num = va_arg(ap, int);
         count += int_to_str_for_printf(num);
         putch('\n');
