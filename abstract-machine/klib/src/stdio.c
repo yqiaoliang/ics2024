@@ -50,8 +50,8 @@ int printf(const char *fmt, ...) {
             //     str++;
             //     count++;
             // }
-            // fmt++;
-            // break;
+            fmt++;
+            break;
         }
         case '%': {
             putch('%');
