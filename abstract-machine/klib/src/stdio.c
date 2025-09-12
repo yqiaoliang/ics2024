@@ -63,6 +63,7 @@ int printf(const char *fmt, ...) {
           putch(*buf++);
           count++;
         }
+        free(buf);
         fmt++;
         break;
       }
