@@ -54,7 +54,8 @@ int int_to_str_for_printf(int num) {
   if (num < 0) {
     is_negative = 1;
     n = (unsigned int)(num < 0 ? -num : num);
-  } else {
+  } 
+  else {
     n = (unsigned int)num;
   }
 
@@ -69,7 +70,8 @@ int int_to_str_for_printf(int num) {
   }
 
   while (i > 0) {
-    putch(temp[--i]);
+    putch(temp[i]);
+    i--;
     count++;
   }
 
