@@ -20,12 +20,12 @@ int printf(const char *fmt, ...) {
 
   int d0 = va_arg(ap, int);
   char *s0 = va_arg(ap, char *); 
-  char d1 = va_arg(ap, int); d1++;
+  int d1 = va_arg(ap, int); d1++;
   char *s1 = va_arg(ap, char *);
-  char d2 = va_arg(ap, int); d2++;
-  char d3 = va_arg(ap, int);  d3++;
+  int d2 = va_arg(ap, int); d2++;
+  int d3 = va_arg(ap, int);  d3++;
   char *s2 = va_arg(ap, char *);
-  char d4 = va_arg(ap, int); d4++;
+  int d4 = va_arg(ap, int); d4++;
 
   while (d0){
     putch(all_num[d0%10]);
