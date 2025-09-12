@@ -14,7 +14,7 @@ int printf(const char *fmt, ...) {
   const char * cur = fmt;
   int is_format = 0;
   while (*cur != '\0'){
-    if (*cur== '%')  {va_start(ap, fmt); is_format = 1; break;
+    if (*cur== '%')  {va_start(ap, fmt); is_format = 1;
         int d0 = va_arg(ap, int);
         char *s0 = va_arg(ap, char *); 
         int d1 = va_arg(ap, int); d1++;
@@ -37,6 +37,7 @@ int printf(const char *fmt, ...) {
         while(*s2++) putch(*s2);
 
         if (is_format) va_end(ap);
+         break;
     }
     cur++;
   }
