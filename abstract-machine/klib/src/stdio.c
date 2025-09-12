@@ -81,7 +81,7 @@ int printf(const char *fmt, ...) {
         //   i++;
         //   count++;
         // }
-        char all_num[] = "0123456789";
+        char all_num[10] = "0123456789";
         while(num){
           putch(all_num[num%10]);
           num /= 10;
