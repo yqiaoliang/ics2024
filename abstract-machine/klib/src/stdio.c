@@ -58,7 +58,7 @@ int printf(const char *fmt, ...) {
       if (*fmt == '\0') break;
 
       switch (*fmt) {
-          case 'd': {
+          case 'd': case 'x': {
               int num = va_arg(ap, int);
               char buf[32];
               int_to_str(num, buf);
