@@ -17,6 +17,7 @@ int printf(const char *fmt, ...) {
       putch(*fmt);
       fmt++;
       count++;
+      continue;
     }
     fmt++;
 
