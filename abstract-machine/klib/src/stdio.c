@@ -99,6 +99,7 @@ int printf(const char *fmt, ...) {
         }
         putch('-');
         putch(*test_);
+        putch('-');
 
         fmt++;
         break;
