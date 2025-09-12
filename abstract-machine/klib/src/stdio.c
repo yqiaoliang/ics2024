@@ -10,6 +10,7 @@ int printf(const char *fmt, ...) {
   int count = 0;
   va_list ap;
 
+  char all_num[] = "0123456789";
   const char * cur = fmt;
   int is_format = 0;
   while (*cur != '\0'){
@@ -25,6 +26,8 @@ int printf(const char *fmt, ...) {
   char d3 = va_arg(ap, int);  d3++;
   char *s2 = va_arg(ap, char *);
   char d4 = va_arg(ap, int); d4++;
+
+  putch(all_num[0]);
 
   while(*s0++) putch(*s0);
   putch('\n');
