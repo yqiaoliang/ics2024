@@ -13,8 +13,11 @@ int printf(const char *fmt, ...) {
   
   va_start(ap, fmt);
 
-  while (*fmt++) putch(*fmt);
-  return 0;
+  while (*fmt++) {
+    putch(*fmt);
+    count++;
+  }
+  return count;
   
   while (*fmt){
     if (*fmt != '%'){
