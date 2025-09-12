@@ -105,6 +105,8 @@ int sprintf(char *out, const char *fmt, ...) {
 
   while(*out) *out++ = '\0';
 
+  while(*out++) putch(*out); 
+
   return 0;
 }
 
