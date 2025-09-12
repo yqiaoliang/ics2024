@@ -10,56 +10,62 @@ int printf(const char *fmt, ...) {
   int count = 0;
   va_list ap;
 
+  const char * cur = fmt;
+  while (*fmt != '\0'){
+    if (*fmt == '%')  va_start(ap, fmt);
+  }
+
+  fmt = cur;
+
 
   while (*fmt) {
-      if (*fmt != '%') {
-          putch(*fmt);
-          count++;
-          fmt++;
-          continue;
-      }
-        va_start(ap, fmt);
-      fmt++; // 跳过 '%'
-      if (*fmt == '\0') break;
+    if (*fmt != '%') {
+        putch(*fmt);
+        count++;
+        fmt++;
+        continue;
+    }
+    fmt++; // 跳过 '%'
+    if (*fmt == '\0') break;
 
-      switch (*fmt) {
-          case 'd': case 'x': {
-              int num = va_arg(ap, int);
-              char buf[32];
-              int_to_str(num, buf);
-              for (int i = 0; buf[i] != '\0'; i++) {
-                  putch(buf[i]);
-                  count++;
-              }
-              fmt++;
-              break;
-          }
-          case 's': {
-              char *str = va_arg(ap, char *);
-              while (*str) {
-                  putch(*str);
-                  str++;
-                  count++;
-              }
-              fmt++;
-              break;
-          }
-          case '%': {
-              putch('%');
-              count++;
-              fmt++;
-              break;
-          }
-          default: {
-              // 输出无效格式说明符（如 %x -> 输出 %x）
-              putch('%');
-              putch(*fmt);
-              count += 2;
-              fmt++;
-              break;
-          }
-      }
-  }
+    switch (*fmt) {
+        case 'd': case 'x': {
+            int num = va_arg(ap, int);
+            char buf[32];
+            int_to_str(num, buf);
+            for (int i = 0; buf[i] != '\0'; i++) {
+                putch(buf[i]);
+                count++;
+            }
+            fmt++;
+            break;
+        }
+        case 's': {
+            char *str = va_arg(ap, char *);
+            while (*str) {
+                putch(*str);
+                str++;
+                count++;
+            }
+            fmt++;
+            break;
+        }
+        case '%': {
+            putch('%');
+            count++;
+            fmt++;
+            break;
+        }
+        default: {
+            // 输出无效格式说明符（如 %x -> 输出 %x）
+            putch('%');
+            putch(*fmt);
+            count += 2;
+            fmt++;
+            break;
+        }
+    }
+}
 
   va_end(ap);
   return count;
