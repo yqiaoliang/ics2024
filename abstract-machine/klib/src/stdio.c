@@ -42,81 +42,61 @@ char * int_to_str(int num, char *buf) {
 }
 
 int printf(const char *fmt, ...) {
-  int cnt = 0;
-  const char * flag = fmt;
-  while(*fmt != '\0') {
-    putch(*fmt);
-    fmt++;
-    cnt++;
-  }
-
-
-  fmt = flag;
-
-  int s_num = 0;
-
-
   int count = 0;
   va_list ap;
   va_start(ap, fmt);
 
-  while (*fmt != '\0'){
-    if (*fmt != '%'){
-      putch(*fmt++);
-      count++;
-      continue;
-    }
-    fmt++;
-    if(*fmt=='\0') break;
-    switch(*fmt){
-      case 'd':{
-        int num = va_arg(ap, int);
-        // char *buf = malloc(23* sizeof(char));
-        
-        char buf[32];
-        memset(buf, '\0', 32);
-        int_to_str(num, buf);
-        int i = 0;
-        while (buf[i] != '\0') {
-          putch(buf[i]);
-          i++;
+  while (*fmt) {
+      if (*fmt != '%') {
+          putch(*fmt);
           count++;
-        }
-        
-        // free(buf);
-        fmt++;
-        break;
+          fmt++;
+          continue;
       }
 
-      case 's' :{
-        s_num++;
+      fmt++; // 跳过 '%'
+      if (*fmt == '\0') break;
 
-        char *str = va_arg(ap, char *);
-        while (*str != '\0') {
-          putch(*str);
-          str++;
-          count++;
-        }
-
-        fmt++;
-        break;
+      switch (*fmt) {
+          case 'd': {
+              int num = va_arg(ap, int);
+              char buf[32];
+              int_to_str(num, buf);
+              for (int i = 0; buf[i] != '\0'; i++) {
+                  putch(buf[i]);
+                  count++;
+              }
+              fmt++;
+              break;
+          }
+          case 's': {
+              char *str = va_arg(ap, char *);
+              while (*str) {
+                  putch(*str);
+                  str++;
+                  count++;
+              }
+              fmt++;
+              break;
+          }
+          case '%': {
+              putch('%');
+              count++;
+              fmt++;
+              break;
+          }
+          default: {
+              // 输出无效格式说明符（如 %x -> 输出 %x）
+              putch('%');
+              putch(*fmt);
+              count += 2;
+              fmt++;
+              break;
+          }
       }
-
-      // case '%' :{
-      //   putch('%');
-      //   count++;
-      //   fmt++;
-      //   break;
-      // }
-      default: {
-        putch(*fmt);
-        count++;
-        fmt++;
-        break;
-      }
-    }
   }
 
+  va_end(ap);
   return count;
 }
 
