@@ -71,7 +71,6 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 
 int sprintf(char *out, const char *fmt, ...) {
   va_list ap;
-  va_start(ap, fmt);
 
   while(*fmt) {
     if (*fmt != '%') {
@@ -79,6 +78,7 @@ int sprintf(char *out, const char *fmt, ...) {
       continue;
     }
     fmt++;
+    va_start(ap, fmt);
     switch(*fmt) {
       case 'd':{
         int num = va_arg(ap, int);
@@ -105,6 +105,7 @@ int sprintf(char *out, const char *fmt, ...) {
 
   while(*out) *out++ = '\0';
 
+  va_end(ap);
   return 0;
 }
 
