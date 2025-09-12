@@ -62,7 +62,7 @@ int printf(const char *fmt, ...) {
   }
 
   va_end(ap);
-  return 0;
+  return count;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
