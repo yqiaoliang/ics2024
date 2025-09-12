@@ -12,6 +12,9 @@ int printf(const char *fmt, ...) {
   va_list ap;
   
   va_start(ap, fmt);
+
+  while (*fmt++) putch(*fmt);
+  return 0;
   
   while (*fmt){
     if (*fmt != '%'){
