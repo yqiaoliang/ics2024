@@ -38,14 +38,17 @@ char * int_to_str(int num, char *buf) {
 }
 
 
-void int_to_str_for_printf(int num) {
+int int_to_str_for_printf(int num) {
   int is_negative = 0;
   int i = 0;
   unsigned int n;
   char temp[64]; 
+  int count = 0;
 
   if (num == 0) {
     putch('0');
+    count++;
+    return count;
   }
 
   if (num < 0) {
@@ -60,10 +63,16 @@ void int_to_str_for_printf(int num) {
     n /= 10;
   }
 
-  if (is_negative) putch('-');
+  if (is_negative){
+    putch('-');
+    count++;
+  }
 
   while (i > 0) {
     putch(temp[--i]);
+    count++;
   }
+
+  return count;
 }
 

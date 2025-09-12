@@ -24,9 +24,8 @@ int printf(const char *fmt, ...) {
     switch(*fmt){
       case 'd' : {
         int num = va_arg(ap, int);
-        int_to_str_for_printf(num);
+        count += int_to_str_for_printf(num);
         fmt++;
-        count++;
         break;
       }
 
