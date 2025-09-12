@@ -53,7 +53,7 @@ int int_to_str_for_printf(int num) {
 
   if (num < 0) {
     is_negative = 1;
-    n = (unsigned int)(-(long long)num);
+    n = (unsigned int)(num < 0 ? -num : num);
   } else {
     n = (unsigned int)num;
   }
