@@ -30,11 +30,11 @@ int printf(const char *fmt, ...) {
         }
         putch('\n');
 
-        while(*s0++) putch(*s0);
+        while(*s0){ putch(*s0); s0++;}
         putch('\n');
-        while(*s1++) putch(*s1);
+        while(*s1) {putch(*s1); s1++;}
         putch('\n');
-        while(*s2++) putch(*s2);
+        while(*s2) {putch(*s2);s2++;}
 
         if (is_format) va_end(ap);
          break;
