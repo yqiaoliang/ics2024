@@ -41,63 +41,110 @@ char * int_to_str(int num, char *buf) {
   return buf;
 }
 
+static void print_str(const char *str) {
+    while (*str) {
+        putch(*str++);
+    }
+}
+
+// 辅助函数：输出整数
+static void print_int(int num) {
+    if (num < 0) {
+        putch('-');
+        num = -num;
+    }
+    
+    // 处理0的特殊情况
+    if (num == 0) {
+        putch('0');
+        return;
+    }
+    
+    // 将数字转换为字符（逆序）
+    char buf[20];
+    int i = 0;
+    while (num > 0) {
+        buf[i++] = '0' + (num % 10);
+        num /= 10;
+    }
+    
+    // 逆序输出
+    while (i > 0) {
+        putch(buf[--i]);
+    }
+}
+
+// 自定义printf实现
 int printf(const char *fmt, ...) {
-  int count = 0;
-  va_list ap;
-  va_start(ap, fmt);
-
-  while (*fmt) {
-      if (*fmt != '%') {
-          putch(*fmt);
-          count++;
-          fmt++;
-          continue;
-      }
-
-      fmt++; // 跳过 '%'
-      if (*fmt == '\0') break;
-
-      switch (*fmt) {
-          case 'd': case 'x': {
-              int num = va_arg(ap, int);
-              char buf[32];
-              int_to_str(num, buf);
-              for (int i = 0; buf[i] != '\0'; i++) {
-                  putch(buf[i]);
-                  count++;
-              }
-              fmt++;
-              break;
-          }
-          case 's': {
-              char *str = va_arg(ap, char *);
-              while (*str) {
-                  putch(*str);
-                  str++;
-                  count++;
-              }
-              fmt++;
-              break;
-          }
-          case '%': {
-              putch('%');
-              count++;
-              fmt++;
-              break;
-          }
-          default: {
-              // 输出无效格式说明符（如 %x -> 输出 %x）
-              putch('%');
-              putch(*fmt);
-              count += 2;
-              fmt++;
-              break;
-          }
-      }
-  }
-
-  va_end(ap);
-  return count;
+    va_list args;
+    va_start(args, fmt);
+    
+    int count = 0;  // 统计输出的字符数
+    
+    for (int i = 0; fmt[i] != '\0'; i++) {
+        if (fmt[i] == '%') {
+            i++;  // 跳过'%'
+            switch (fmt[i]) {
+                case 'c': {
+                    char c = (char)va_arg(args, int);
+                    putch(c);
+                    count++;
+                    break;
+                }
+                case 's': {
+                    const char *str = va_arg(args, const char*);
+                    if (str == NULL) {
+                        print_str("(null)");
+                        count += 6;
+                    } else {
+                        int len = strlen(str);
+                        print_str(str);
+                        count += len;
+                    }
+                    break;
+                }
+                case 'd': {
+                    int num = va_arg(args, int);
+                    // 计算数字的字符长度
+                    int temp = num;
+                    int len = 0;
+                    if (temp < 0) {
+                        len++;  // 负号
+                        temp = -temp;
+                    }
+                    if (temp == 0) {
+                        len = 1;
+                    } else {
+                        while (temp > 0) {
+                            len++;
+                            temp /= 10;
+                        }
+                    }
+                    print_int(num);
+                    count += len;
+                    break;
+                }
+                case '%': {
+                    putch('%');
+                    count++;
+                    break;
+                }
+                default: {
+                    // 处理未知格式符，直接输出
+                    putch('%');
+                    putch(fmt[i]);
+                    count += 2;
+                    break;
+                }
+            }
+        } else {
+            putch(fmt[i]);
+            count++;
+        }
+    }
+    
+    va_end(args);
+    return count;  // 返回输出的字符总数
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
