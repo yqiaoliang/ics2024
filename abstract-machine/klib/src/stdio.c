@@ -42,7 +42,8 @@ char * int_to_str(int num, char *buf) {
 }
 
 int printf(const char *fmt, ...) {
-  panic("Not implemented");
+  while(*fmt) putch(*fmt++);
+  return 0;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
