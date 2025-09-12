@@ -17,7 +17,6 @@ int printf(const char *fmt, ...) {
     cur++;
   }
 
-  fmt = cur;
 
 
   while (*fmt) {
