@@ -12,7 +12,7 @@ int printf(const char *fmt, ...) {
 
   const char * cur = fmt;
   while (*fmt != '\0'){
-    if (*fmt == '%')  va_start(ap, fmt);
+    if (*fmt == '%')  {va_start(ap, fmt); break;}
     fmt++;
   }
 
