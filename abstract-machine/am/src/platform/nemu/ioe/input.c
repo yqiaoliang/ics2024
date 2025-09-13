@@ -11,7 +11,6 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   if (kbd_data == AM_KEY_NONE) {
     kbd->keydown = 0;
     kbd->keycode = AM_KEY_NONE;
-    is_press = false;
     return;
   }
   else {
