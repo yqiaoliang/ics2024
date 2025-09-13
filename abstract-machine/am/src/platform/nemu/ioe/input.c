@@ -29,7 +29,7 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
     else {
       kbd->keydown = 1;
       kbd->keycode = kbd_data;
-      is_press = true;
+      is_press = false;
     }
   }
 
