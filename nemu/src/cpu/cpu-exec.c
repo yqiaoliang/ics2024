@@ -42,7 +42,6 @@ void use_ftrace(char * file_path){
 }
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
-  printf("in_trace pc: 0x%0x\n", dnpc);
 #ifdef CONFIG_ITRACE_COND
   if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
 #endif
@@ -79,7 +78,6 @@ static void exec_once(Decode *s, vaddr_t pc) {
   }
 #endif
   cpu.pc = s->dnpc;
-  printf("in_cpu_exec pc: 0x%0x\n", cpu.pc);
 #ifdef CONFIG_ITRACE
   Itrace * itrace = get_itrace();
   char *p = s->logbuf;
@@ -123,7 +121,6 @@ static void execute(uint64_t n) {
   for (;n > 0; n --) {
     exec_once(&s, cpu.pc);
     g_nr_guest_inst ++;
-    printf("in execute pc 0x%0x\n", cpu.pc);
     trace_and_difftest(&s, cpu.pc);
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
