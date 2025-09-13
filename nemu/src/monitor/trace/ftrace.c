@@ -8,7 +8,7 @@
 #include <unistd.h>
 #include <stdint.h>
 #include <errno.h>
-#include "trace.h"
+#include <trace.h>
 
 // 全局变量：存储所有FUNC类型符号
 static Ftrace * ftrace = NULL;

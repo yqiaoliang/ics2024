@@ -1,7 +1,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
-#include "trace.h"
+#include <trace.h>
 #include <stdio.h>
 
 static Itrace * itrace = NULL;

@@ -17,7 +17,7 @@
 #define __SDB_H__
 
 #include <common.h>
-#include "../trace/trace.h"
+#include <trace.h>
 
 // word_t expr(char *e, bool *success);
 word_t vaddr_read(vaddr_t addr, int len);
