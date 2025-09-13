@@ -78,6 +78,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   }
 #endif
   cpu.pc = s->dnpc;
+  printf("in_cpu_exec pc: 0x%0x\n", cpu.pc);
 #ifdef CONFIG_ITRACE
   Itrace * itrace = get_itrace();
   char *p = s->logbuf;
