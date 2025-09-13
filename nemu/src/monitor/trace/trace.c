@@ -9,5 +9,9 @@ void printf_trace(){
         printf_mringbuf();
     #endif
 
+    #ifdef CONFIG_DTRACE
+        printf_dringbuf();
+    #endif
+
     if (is_use_ftrace) printf_fringbuf();
 }

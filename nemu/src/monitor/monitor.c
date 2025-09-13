@@ -118,6 +118,10 @@ void init_monitor(int argc, char *argv[]) {
     init_mringbuf();
   #endif
 
+  #ifdef CONFIG_DEVICE
+    init_dringbuf();
+  #endif
+
 
   /* Open the log file. */
   init_log(log_file);

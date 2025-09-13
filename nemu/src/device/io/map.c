@@ -17,6 +17,7 @@
 #include <memory/host.h>
 #include <memory/vaddr.h>
 #include <device/map.h>
+#include <trace.h>
 
 #define IO_SPACE_MAX (32 * 1024 * 1024)
 
@@ -58,7 +59,12 @@ word_t map_read(paddr_t addr, int len, IOMap *map) {
   paddr_t offset = addr - map->low;
   invoke_callback(map->callback, offset, len, false); // prepare data to read
   word_t ret = host_read(map->space + offset, len);
-  
+
+  Dtrace * dtrace = get_dtrace();
+  snprintf(dtrace->dringbuf[dtrace->dringbuf_index], 128, "read:  addr: 0x%0x  map name: %s: ", addr, map->name);
+  dtrace->dringbuf_index = (dtrace->dringbuf_index + 1) % dtrace->dringbuf_len;
+  dtrace->dringbuf_full = dtrace->dringbuf_full || (dtrace->dringbuf_index == 0);
+
   return ret;
 }
 
@@ -68,4 +74,9 @@ void map_write(paddr_t addr, int len, word_t data, IOMap *map) {
   paddr_t offset = addr - map->low;
   host_write(map->space + offset, len, data);
   invoke_callback(map->callback, offset, len, true);
+
+  Dtrace * dtrace = get_dtrace();
+  snprintf(dtrace->dringbuf[dtrace->dringbuf_index], 128, "write: addr: 0x%0x  map name: %s: ", addr, map->name);
+  dtrace->dringbuf_index = (dtrace->dringbuf_index + 1) % dtrace->dringbuf_len;
+  dtrace->dringbuf_full = dtrace->dringbuf_full || (dtrace->dringbuf_index == 0);
 }
