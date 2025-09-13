@@ -38,16 +38,20 @@ char * int_to_str(int num, char *buf) {
 }
 
 
-int int_to_str_for_printf(int num) {
+int int_to_str_for_printf(int num, int width) {
   int is_negative = 0;
   int i = 0;
-  unsigned int n;
+  unsigned int n = 0;
   char temp[64]; 
   int count = 0;
 
   if (num == 0) {
     putch('0');
     count++;
+    for (int j = 1; j < width; j++){
+      putch('0');
+      count++;
+    }
     return count;
   }
 
@@ -67,6 +71,11 @@ int int_to_str_for_printf(int num) {
 
   if (is_negative){
     putch('-');
+    count++;
+  }
+
+  for (int j = count + i; j < width; j++){
+    putch('0');
     count++;
   }
 

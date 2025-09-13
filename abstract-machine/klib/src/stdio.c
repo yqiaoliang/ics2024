@@ -32,9 +32,27 @@ int printf(const char *fmt, ...) {
     switch(*fmt){
       case 'd' : {
         int num = va_arg(ap, int);
-        count += int_to_str_for_printf(num);
+        count += int_to_str_for_printf(num, 1);
         fmt++;
         break;
+      }
+      case '0' :{
+        const char * cur = fmt;
+        
+        if (*cur == '0' && (*(++cur) >= '0' || *cur <= '9') && *(++cur) == 'd'){
+          int width = *(--cur) - '0';
+          cur++;
+          int num = va_arg(ap, int);
+          count += int_to_str_for_printf(num, width);
+          fmt = (++cur);
+          break;
+        }
+        else {
+          putch('0');
+          fmt++;
+          count+=1;
+          break;
+        }
       }
 
       case 's' : {
