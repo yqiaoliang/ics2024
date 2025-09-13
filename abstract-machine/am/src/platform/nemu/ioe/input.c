@@ -23,13 +23,13 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
     else if (kbd_data == 0xF0){
       kbd->keydown = 1;
       kbd->keycode = AM_KEY_NONE;
-      is_press = false;
+      is_press = true;
     }
 
     else {
       kbd->keydown = 1;
       kbd->keycode = kbd_data;
-      is_press = false;
+      is_press = true;
     }
   }
 
