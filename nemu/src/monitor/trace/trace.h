@@ -3,6 +3,7 @@
 #define IRINGBUF_LEN 15
 #define MRINGBUF_LEN 20
 #define FRINGBUF_LEN 40
+#define DRINGBUF_LEN 20
 
 extern int is_use_ftrace;
 
@@ -50,6 +51,18 @@ void printf_fringbuf();
 Ftrace * get_ftrace();
 const FuncSymbol *find_func_by_instr_addr(uint32_t instr_addr);
 void cleanup_ftrace(void);
+
+
+typedef struct{
+    int dringbuf_len;
+    char *dringbuf[DRINGBUF_LEN];
+    int dringbuf_index;
+    int dringbuf_full;
+} Dtrace;
+void init_dringbuf();
+void printf_dringbuf();
+Dtrace * get_dtrace();
+
 
 
 void printf_trace();
