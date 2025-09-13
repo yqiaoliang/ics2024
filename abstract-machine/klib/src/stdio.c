@@ -37,21 +37,30 @@ int printf(const char *fmt, ...) {
         break;
       }
       case '0' :{
+        fmt++;
         const char * cur = fmt;
-        
-        if (*cur == '0' && (*(++cur) >= '0' || *cur <= '9') && *(++cur) == 'd'){
-          int width = *(--cur) - '0';
-          cur++;
+        int width = 0;
+
+        while (*fmt >= '0' && *fmt <= '9') {
+          width = width * 10 + (*fmt - '0');
+          fmt++;
+        }
+
+        if(*fmt == 'd') {
           int num = va_arg(ap, int);
           count += int_to_str_for_printf(num, width);
-          fmt = (++cur);
+          fmt++;
           break;
         }
         else {
+          putch('%');
           putch('0');
-          fmt++;
-          count+=1;
-          break;
+          count += 2;
+          while(cur < fmt) {
+            putch(*cur);
+            count++;
+            cur++;
+          }
         }
       }
 
