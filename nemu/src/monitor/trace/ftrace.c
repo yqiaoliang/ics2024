@@ -14,6 +14,7 @@
 static Ftrace * ftrace = NULL;
 static FuncSymbol *func_symbols = NULL;
 static int func_sym_count = 0;
+int is_use_ftrace = 0;
 
 // 函数声明
 void *map_elf_file(const char *filename, size_t *file_size);
@@ -173,6 +174,7 @@ void print_symbol_info(Elf32_Sym *symbol, const char *sym_name) {
 
 // 初始化ftrace（解析ELF文件并加载符号表）
 int init_ftrace(char *file_path) {
+    is_use_ftrace = 1;
     // 如果已经初始化，先清理
     if (ftrace != NULL) {
         for (int i = 0; i < ftrace->fringbuf_len; i++) {

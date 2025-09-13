@@ -167,20 +167,8 @@ void cpu_exec(uint64_t n) {
     case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
 
     case NEMU_END: case NEMU_ABORT:{
-      #ifdef CONFIG_ITRACE
-        if (nemu_state.state == NEMU_ABORT) printf_iringbuf();
-        else if (nemu_state.halt_ret != 0) printf_iringbuf();
-      #endif
-
-      #ifdef CONFIG_MTRACE
-        if (nemu_state.state == NEMU_ABORT) printf_mringbuf();
-        else if (nemu_state.halt_ret != 0) printf_mringbuf();
-      #endif
-
-      #ifdef CONFIG_FTRACE
-        if (nemu_state.state == NEMU_ABORT) printf_fringbuf();
-        else if (nemu_state.halt_ret != 0) printf_fringbuf();
-      #endif
+      if (nemu_state.state == NEMU_ABORT) printf_trace();
+      else if (nemu_state.halt_ret != 0) printf_trace();
 
       Log("nemu: %s at pc = " FMT_WORD,
           (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED) :
