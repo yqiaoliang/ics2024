@@ -18,10 +18,10 @@
 #include "../local-include/reg.h"
 
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
-  if (ref_r->pc+4 != pc) {
+  if (ref_r->pc != pc) {
     printf("\n");
     printf("ERROR occur\n");
-    printf("ref_gpr pc: %d, nemu pc: %d", ref_r->pc+4, pc);
+    printf("ref_gpr pc: %d, nemu pc: %d", ref_r->pc, pc);
     printf("\n");
     return false;
   }
