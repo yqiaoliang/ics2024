@@ -29,8 +29,8 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   int fb_height = GPU_HEIGHT;
 
   if (ctl->x < 0 || ctl->y < 0 || 
-      ctl->x + ctl->w > fb_width || 
-      ctl->y + ctl->h > fb_height) {
+      ctl->x + ctl->y > fb_width || 
+      ctl->y + ctl->x > fb_height) {
     return;
   }
 
