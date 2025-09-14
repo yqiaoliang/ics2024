@@ -25,16 +25,31 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 
 // AM_DEVREG(11, GPU_FBDRAW,   WR, int x, y; void *pixels; int w, h; bool sync);
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
-   int x = ctl->x, y = ctl->y, w = ctl->w, h = ctl->h;
-  if (!ctl->sync && (w == 0 || h == 0)) return;
-  uint32_t *pixels = ctl->pixels;
-  uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-  uint32_t screen_w = inl(VGACTL_ADDR) >> 16;
-  for (int i = y; i < y+h; i++) {
-    for (int j = x; j < x+w; j++) {
-      fb[screen_w*i+j] = pixels[w*(i-y)+(j-x)];
+  int fb_width = GPU_WIDTH;
+  int fb_height = GPU_HEIGHT;
+
+  if (ctl->x < 0 || ctl->y < 0 || 
+      ctl->x + ctl->w > fb_width || 
+      ctl->y + ctl->h > fb_height) {
+    return;
+  }
+
+  uint32_t *pixels = (uint32_t *)ctl->pixels;
+  if (pixels == NULL) return;
+
+  for (int w = 0; w < ctl->w; w++){
+    for (int h = 0; h < ctl->h; h++){
+      int fb_x = ctl->x + w;
+      int fb_y = ctl->y + h;
+
+      int fb_index = fb_x * fb_height + fb_y;
+
+      uint32_t addr = FB_ADDR + fb_index * 4;
+      outl(addr, pixels[w * ctl->h + h]);
     }
   }
+
+
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
   }
