@@ -131,6 +131,8 @@ void init_monitor(int argc, char *argv[]) {
 
   #ifdef CONFIG_DEVICE
     printf("device test\n");
+  #else
+    printf("device not def\n");
   #endif
 
   /* Initialize devices. */
