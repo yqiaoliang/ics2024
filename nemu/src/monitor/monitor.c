@@ -118,7 +118,7 @@ void init_monitor(int argc, char *argv[]) {
     init_mringbuf();
   #endif
 
-  #ifdef CONFIG_DEVICE
+  #ifdef CONFIG_DTRACE
     init_dringbuf();
   #endif
 
@@ -128,6 +128,10 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Initialize memory. */
   init_mem();
+
+  #ifdef CONFIG_DEVICE
+    printf("device test\n");
+  #endif
 
   /* Initialize devices. */
   IFDEF(CONFIG_DEVICE, init_device());
