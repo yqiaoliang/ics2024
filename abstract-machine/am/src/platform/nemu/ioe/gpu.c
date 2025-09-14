@@ -14,9 +14,16 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
   };
 }
 
+// AM_DEVREG(11, GPU_FBDRAW,   WR, int x, y; void *pixels; int w, h; bool sync);
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
-  if (ctl->sync) {
-    outl(SYNC_ADDR, 1);
+  // if (ctl->sync) {
+  //   outl(SYNC_ADDR, 1);
+  // }
+  int offset = ctl->x * ctl->y;
+  uint32_t * this_type_pixels = (uint32_t * ) ctl -> pixels;
+
+  for (int i = 0; i < ctl->w * ctl->h; i++){
+    outl(SYNC_ADDR + offset + i, * (this_type_pixels + i));
   }
 }
 
