@@ -4,7 +4,7 @@
 #define SYNC_ADDR (VGACTL_ADDR + 4)
 
 #define GPU_WIDTH 800
-#define GPU_HEIGHT 50
+#define GPU_HEIGHT 600
 
 void __am_gpu_init() {
   int i;
@@ -19,7 +19,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
   *cfg = (AM_GPU_CONFIG_T) {
     .present = true, .has_accel = false,
     .width = GPU_WIDTH, .height = GPU_HEIGHT,
-    .vmemsz = GPU_HEIGHT * GPU_WIDTH * 32
+    .vmemsz = 0
   };
 }
 
