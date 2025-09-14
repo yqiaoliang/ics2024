@@ -22,7 +22,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 
 // AM_DEVREG(11, GPU_FBDRAW,   WR, int x, y; void *pixels; int w, h; bool sync);
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
-  if (ctl->sync) {
+  if (ctl->sync || 1) {
     outl(SYNC_ADDR, 1);
   }
   int offset = ctl->x * ctl->y;
