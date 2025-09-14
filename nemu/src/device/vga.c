@@ -73,7 +73,7 @@ static inline void update_screen() {
 
 void vga_update_screen() {
   // #define SYNC_ADDR (VGACTL_ADDR + 4)
-  update_screen();
+  // update_screen();
   // TODO: call `update_screen()` when the sync register is non-zero,
   // then zero out the sync register
 }
