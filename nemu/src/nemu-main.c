@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
   printf("am_init_monitor finish" \n);
 #else
   init_monitor(argc, argv);
-  printf("init_monitor finish \n");
+  printf("init_monitor success \n");
   printf("\n");
   // test();
 #endif
