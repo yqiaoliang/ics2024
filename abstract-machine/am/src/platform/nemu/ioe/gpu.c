@@ -49,8 +49,8 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   //   }
   // }
 
-  for (int h = 0; h < ctl->h; h++){
-    for (int w = 0; w < ctl->w; w++){
+  for (int w = 0; w < ctl->w; w++){
+    for (int h = 0; h < ctl->h; h++){
       int fb_x = ctl->x + w;
       int fb_y = ctl->y + h;
 
