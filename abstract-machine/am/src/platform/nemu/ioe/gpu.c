@@ -29,8 +29,8 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   int fb_height = GPU_HEIGHT;
 
   if (ctl->x < 0 || ctl->y < 0 || 
-      ctl->x + ctl->h > fb_width || 
-      ctl->y + ctl->w > fb_height) {
+      ctl->x + ctl->w > fb_width || 
+      ctl->y + ctl->h > fb_height) {
     return;
   }
 
@@ -48,19 +48,16 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   //     outl(addr, pixels[row * ctl->w + col]);
   //   }
   // }
-  uint32_t this_addr = FB_ADDR + ctl->x * fb_width + ctl->y;
-  outl(this_addr, 10000000);
 
   for (int h = 0; h < ctl->h; h++){
     for (int w = 0; w < ctl->w; w++){
-      int fb_x = ctl->x + h;
-      int fb_y = ctl->y + w;
+      int fb_x = ctl->x + w;
+      int fb_y = ctl->y + h;
 
-      int fb_index = fb_x * fb_width + fb_y;
+      int fb_index = fb_x * fb_height + fb_y;
 
       uint32_t addr = FB_ADDR + fb_index * 4;
-      addr+=1;
-      // outl(addr, pixels[w * ctl->h + h]);
+      outl(addr, pixels[w * ctl->h + h]);
     }
   }
 
