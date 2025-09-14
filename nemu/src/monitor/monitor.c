@@ -103,7 +103,7 @@ static int parse_args(int argc, char *argv[]) {
 void init_monitor(int argc, char *argv[]) {
   /* Perform some global initialization. */
 
-  printf("test init_monitor\n");
+  
   /* Parse arguments. */
   parse_args(argc, argv);
 
@@ -128,12 +128,6 @@ void init_monitor(int argc, char *argv[]) {
 
   /* Initialize memory. */
   init_mem();
-
-  #ifdef CONFIG_DEVICE
-    printf("device test\n");
-  #else
-    printf("device not def\n");
-  #endif
 
   /* Initialize devices. */
   IFDEF(CONFIG_DEVICE, init_device());
