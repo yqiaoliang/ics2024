@@ -29,7 +29,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   uint32_t * this_type_pixels = (uint32_t * ) ctl -> pixels;
 
   for (int i = 0; i < ctl->w * ctl->h; i++){
-    outl(FB_ADDR + offset + i, * (this_type_pixels + i));
+    outl(FB_ADDR + offset + i*4, * (this_type_pixels + i));
   }
 }
 
