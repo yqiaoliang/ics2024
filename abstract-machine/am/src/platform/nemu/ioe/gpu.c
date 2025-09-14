@@ -19,7 +19,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
   *cfg = (AM_GPU_CONFIG_T) {
     .present = true, .has_accel = false,
     .width = GPU_WIDTH, .height = GPU_HEIGHT,
-    .vmemsz = 400 * 300 * 32
+    .vmemsz = GPU_HEIGHT * GPU_WIDTH * 32
   };
 }
 
