@@ -11,7 +11,7 @@ void __am_gpu_init() {
   int w = GPU_WIDTH;  // TODO: get the correct width
   int h = GPU_HEIGHT;  // TODO: get the correct height
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-  for (i = 0; i < w * h; i ++) fb[i] = i;
+  for (i = 0; i < w * h; i ++) fb[i] = 0;
   outl(SYNC_ADDR, 1);
 }
 
@@ -48,6 +48,8 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   //     outl(addr, pixels[row * ctl->w + col]);
   //   }
   // }
+  uint32_t this_addr = FB_ADDR + ctl->x * fb_width + ctl->y;
+  outl(this_addr, 10000);
 
   for (int h = 0; h < ctl->h; h++){
     for (int w = 0; w < ctl->w; w++){
