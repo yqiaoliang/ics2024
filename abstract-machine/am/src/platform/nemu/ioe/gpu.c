@@ -49,7 +49,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   //   }
   // }
   uint32_t this_addr = FB_ADDR + ctl->x * fb_width + ctl->y;
-  outl(this_addr, 10000);
+  outl(this_addr, 10000000);
 
   for (int h = 0; h < ctl->h; h++){
     for (int w = 0; w < ctl->w; w++){
