@@ -57,7 +57,8 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
       int fb_index = fb_x * fb_width + fb_y;
 
       uint32_t addr = FB_ADDR + fb_index * 4;
-      outl(addr, pixels[w * ctl->h + h]);
+      addr+=1;
+      // outl(addr, pixels[w * ctl->h + h]);
     }
   }
 
