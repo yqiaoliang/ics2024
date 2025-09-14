@@ -77,6 +77,7 @@ void init_device() {
   IFDEF(CONFIG_TARGET_AM, ioe_init());
   init_map();
 
+  printf("test_all\n");
   #ifdef CONFIG_HAS_VGA
     printf("test0\n");
   #endif
