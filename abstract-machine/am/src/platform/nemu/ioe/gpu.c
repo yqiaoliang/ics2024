@@ -41,7 +41,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     for (int col = 0; col < ctl->w; col++) {
       int fb_x = ctl->x + col;
       int fb_y = ctl->y + row;
-      int fb_index = fb_x * fb_height + fb_y;
+      int fb_index = fb_x  + fb_y;
 
       uint32_t addr = FB_ADDR + fb_index * 4;
 
