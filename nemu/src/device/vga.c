@@ -73,15 +73,15 @@ static inline void update_screen() {
 
 void vga_update_screen(uint32_t offset, int len, bool is_write) {
   // #define SYNC_ADDR (VGACTL_ADDR + 4)
-  printf("0: %0x\n", vgactl_port_base[0]);
-  printf("1: %d\n", vgactl_port_base[1]);
-  printf("2: %d\n", vgactl_port_base[2]);
-  printf("3: %d\n", vgactl_port_base[3]);
-  printf("4: %d\n", vgactl_port_base[4]);
-  printf("5: %d\n", vgactl_port_base[5]);
-  printf("6: %d\n", vgactl_port_base[6]);
-  printf("7: %d\n", vgactl_port_base[7]);
-  if (vgactl_port_base[4]) update_screen();
+  // printf("0: %0x\n", vgactl_port_base[0]);
+  // printf("1: %d\n", vgactl_port_base[1]);
+  // printf("2: %d\n", vgactl_port_base[2]);
+  // printf("3: %d\n", vgactl_port_base[3]);
+  // printf("4: %d\n", vgactl_port_base[4]);
+  // printf("5: %d\n", vgactl_port_base[5]);
+  // printf("6: %d\n", vgactl_port_base[6]);
+  // printf("7: %d\n", vgactl_port_base[7]);
+  if (vgactl_port_base[1]) update_screen();
   // TODO: call `update_screen()` when the sync register is non-zero,
   // then zero out the sync register
 }
