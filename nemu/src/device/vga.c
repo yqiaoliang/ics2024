@@ -72,17 +72,10 @@ static inline void update_screen() {
 #endif
 
 void vga_update_screen(uint32_t offset, int len, bool is_write) {
-  // #define SYNC_ADDR (VGACTL_ADDR + 4)
   if (vgactl_port_base[1]) update_screen();
   // TODO: call `update_screen()` when the sync register is non-zero,
   // then zero out the sync register
 }
-
-// void vga_io_handler(uint32_t offset, int len, bool is_write){
-//   if (is_write) {
-//     vemem[offset]
-//   }
-// }
 
 void init_vga() {
   vgactl_port_base = (uint32_t *)new_space(8);
