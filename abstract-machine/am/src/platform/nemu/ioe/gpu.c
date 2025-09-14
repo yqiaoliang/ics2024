@@ -3,8 +3,8 @@
 
 #define SYNC_ADDR (VGACTL_ADDR + 4)
 
-#define GPU_WIDTH 400
-#define GPU_HEIGHT 30
+#define GPU_WIDTH 40
+#define GPU_HEIGHT 300
 
 void __am_gpu_init() {
   int i;
