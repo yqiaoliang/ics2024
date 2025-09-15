@@ -17,10 +17,17 @@
 #define __ISA_RISCV_H__
 
 #include <common.h>
+typedef struct{
+  word_t mepc;    // 存放触发异常的PC
+  word_t mstatus; // 存放处理器的状态
+  word_t mcause;  // 存放触发异常的原因
+  word_t mtvec;   // 取出异常入口地址
+}CSR_state;
 
 typedef struct {
   word_t gpr[MUXDEF(CONFIG_RVE, 16, 32)];
   vaddr_t pc;
+  CSR_state csr;
 } MUXDEF(CONFIG_RV64, riscv64_CPU_state, riscv32_CPU_state);
 
 // decode

@@ -21,6 +21,15 @@
 #define R(i) gpr(i)
 #define Mr vaddr_read
 #define Mw vaddr_write
+#define crs(reg_name) (cpu.csr.reg_name)
+
+#define MEPC    0x341
+#define MSTATUS 0x300
+#define MCAUSE  0x342
+#define MTVEC   0x305
+
+static int RS1;
+static int RS2;
 
 enum {
   TYPE_I, TYPE_U, TYPE_S, TYPE_N, TYPE_R, TYPE_B, TYPE_J,
@@ -43,6 +52,9 @@ static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_
   int rs1 = BITS(i, 19, 15);
   int rs2 = BITS(i, 24, 20);
   *rd     = BITS(i, 11, 7);
+
+  RS1 = rs1;
+  RS2 = rs2;
   switch (type) {
     case TYPE_I: src1R();          immI(); break;
     case TYPE_U:                   immU(); break;
@@ -54,6 +66,32 @@ static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_
     case TYPE_IU:src1R();          immIU(); break;
     case TYPE_N: break;
     default: panic("unsupported type = %d", type);
+  }
+}
+
+word_t csr_read(uint32_t imm) {
+  switch (imm){
+    case MEPC     : return crs(mepc); break;
+    case MSTATUS  : return crs(mstatus); break;
+    case MCAUSE   : return crs(mcause); break;
+    case MTVEC    : return crs(mtvec);  break;
+    default : {
+      printf("No such crs\n");
+      assert(0);
+    }
+  }
+}
+
+void csr_write (uint32_t imm, int data){
+    switch (imm){
+    case MEPC     : crs(mepc) = data; break;
+    case MSTATUS  : crs(mstatus) = data; break;
+    case MCAUSE   : crs(mcause) = data; break;
+    case MTVEC    : crs(mtvec) = data;  break;
+    default : {
+      printf("No such crs\n");
+      assert(0);
+    }
   }
 }
 
@@ -127,8 +165,41 @@ static int decode_exec(Decode *s) {
   INSTPAT("0000000 ????? ????? 101 ????? 01100 11", srl    , R, R(rd) = src1 >> (src2 & 0x1f));
   INSTPAT("0100000 ????? ????? 101 ????? 01100 11", sra    , R, R(rd) = (int32_t)src1 >> (src2 & 0x1f));
   INSTPAT("0000000 ????? ????? 110 ????? 01100 11", or     , R, R(rd) = src1 | src2);
-  INSTPAT("0000000 ????? ????? 111 ????? 01100 11", and    , R, R(rd) = src1 & src2);    
+  INSTPAT("0000000 ????? ????? 111 ????? 01100 11", and    , R, R(rd) = src1 & src2);
 
+  // CSR指令实现
+  INSTPAT("??????? ????? ????? 001 ????? 11100 11", csrrw , I, 
+    word_t t = csr_read(imm & 0xfff); 
+    csr_write(imm & 0xfff, src1); 
+    R(rd) = t;
+  );
+  INSTPAT("??????? ????? ????? 010 ????? 11100 11", csrrs , I, 
+    word_t t = csr_read(imm & 0xfff); 
+    csr_write(imm & 0xfff, t | src1); 
+    R(rd) = t;
+  );
+  INSTPAT("??????? ????? ????? 011 ????? 11100 11", csrrc , I, 
+    word_t t = csr_read(imm & 0xfff); 
+    csr_write(imm & 0xfff, t & (~src1)); 
+    R(rd) = t;
+  );
+  INSTPAT("??????? ????? ????? 101 ????? 11100 11", csrrwi , I, 
+    word_t t = csr_read(imm & 0xfff); 
+    csr_write(imm & 0xfff, RS1); 
+    R(rd) = t;
+  );
+  INSTPAT("??????? ????? ????? 110 ????? 11100 11", csrrsi , I, 
+    word_t t = csr_read(imm & 0xfff); 
+    csr_write(imm & 0xfff, t | RS1); 
+    R(rd) = t;
+  );
+  INSTPAT("??????? ????? ????? 111 ????? 11100 11", csrrci , I, 
+    word_t t = csr_read(imm & 0xfff); 
+    csr_write(imm & 0xfff, t & (~RS1)); 
+    R(rd) = t;
+  );
+  
+  
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
   INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));
   INSTPAT_END();
