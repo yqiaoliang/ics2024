@@ -110,18 +110,7 @@ void init_monitor(int argc, char *argv[]) {
   /* Set random seed. */
   init_rand();
 
-  #ifdef CONFIG_ITRACE
-    init_iringbuf();
-  #endif
-
-  #ifdef CONFIG_MTRACE
-    init_mringbuf();
-  #endif
-
-  #ifdef CONFIG_DTRACE
-    init_dringbuf();
-  #endif
-
+  init_trace();
 
   /* Open the log file. */
   init_log(log_file);

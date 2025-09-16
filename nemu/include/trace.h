@@ -77,5 +77,5 @@ void printf_eringbuf();
 Etrace * get_etrace();
 
 
-
+void init_trace();
 void printf_trace();

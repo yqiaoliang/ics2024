@@ -1,5 +1,23 @@
 #include <trace.h>
 
+void init_trace() {
+    #ifdef CONFIG_ITRACE
+        init_iringbuf();
+    #endif
+
+    #ifdef CONFIG_MTRACE
+        init_mringbuf();
+    #endif
+
+    #ifdef CONFIG_DTRACE
+        init_dringbuf();
+    #endif
+
+    #ifdef CONFIG_ETRACE
+        init_eringbur();
+    #endif
+}
+
 void printf_trace(){
     #ifdef CONFIG_ITRACE
         printf_iringbuf();
