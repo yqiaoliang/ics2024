@@ -4,6 +4,7 @@
 #define MRINGBUF_LEN 20
 #define FRINGBUF_LEN 40
 #define DRINGBUF_LEN 20
+#define ERINGBUF_LEN 20
 
 extern int is_use_ftrace;
 
@@ -62,6 +63,18 @@ typedef struct{
 void init_dringbuf();
 void printf_dringbuf();
 Dtrace * get_dtrace();
+
+
+
+typedef struct{
+    int eringbuf_len;
+    char *eringbuf[ERINGBUF_LEN];
+    int eringbuf_index;
+    int eringbuf_full;
+} Etrace;
+void init_eringbuf();
+void printf_eringbuf();
+Etrace * get_etrace();
 
 
 

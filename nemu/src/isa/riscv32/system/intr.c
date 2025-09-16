@@ -14,10 +14,18 @@
 ***************************************************************************************/
 
 #include <isa.h>
+#include <trace.h>
 
 word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   cpu.csr.mepc = epc;
   cpu.csr.mcause = NO;
+
+  Etrace * etrace = get_etrace();
+  snprintf(etrace->eringbuf[etrace->eringbuf_index], 128, "trap addr: 0x%0x,  current addr: 0x%0x", cpu.csr.mtvec, epc);
+  etrace->eringbuf_index = (etrace->eringbuf_index + 1) % etrace->eringbuf_len;
+  etrace->eringbuf_full = etrace->eringbuf_full || (etrace->eringbuf_index == 0);
+
+
   return cpu.csr.mtvec;
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * Then return the address of the interrupt/exception vector.
