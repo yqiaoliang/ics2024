@@ -2,136 +2,19 @@
 #include <klib.h>
 #include <klib-macros.h>
 #include <stdarg.h>
-#include "./auxiliary/for_stdio.h"
-
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 int printf(const char *fmt, ...) {
-  int count = 0;
-  va_list ap;
-  
-  va_start(ap, fmt);
-
-  // while (*fmt) {
-  //   putch(*fmt);
-  //   fmt++;
-  //   count++;
-  // }
-  // return count;
-  
-  while (*fmt){
-    if (*fmt != '%'){
-      putch(*fmt);
-      fmt++;
-      count++;
-      continue;
-    }
-    fmt++;
-
-    switch(*fmt){
-      case 'd' : {
-        int num = va_arg(ap, int);
-        count += int_to_str_for_printf(num, 1);
-        fmt++;
-        break;
-      }
-      case '0' :{
-        fmt++;
-        const char * cur = fmt;
-        int width = 0;
-
-        while (*fmt >= '0' && *fmt <= '9') {
-          width = width * 10 + (*fmt - '0');
-          fmt++;
-        }
-
-        if(*fmt == 'd') {
-          int num = va_arg(ap, int);
-          count += int_to_str_for_printf(num, width);
-          fmt++;
-          break;
-        }
-        else {
-          putch('%');
-          putch('0');
-          count += 2;
-          while(cur < fmt) {
-            putch(*cur);
-            count++;
-            cur++;
-          }
-        }
-      }
-
-      case 's' : {
-        char * str = va_arg(ap, char *);
-        while (*str){
-          putch(*str);
-          str++;
-          count ++;
-        }
-        fmt++;
-        break;
-      }
-
-      default:{
-        putch('%');
-        putch(*fmt);
-        fmt++;
-        count += 2;
-        break;
-      }
-    }
-
-  }
-  
-  va_end(ap);
-  return count;
+  panic("Not implemented");
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  panic("Not implemented"); 
+  panic("Not implemented");
 }
 
 int sprintf(char *out, const char *fmt, ...) {
-  va_list ap;
-  va_start(ap, fmt);
-
-  while(*fmt) {
-    if (*fmt != '%') {
-      *out++ = *fmt++;
-      continue;
-    }
-    fmt++;
-    switch(*fmt) {
-      case 'd':{
-        int num = va_arg(ap, int);
-        out = int_to_str(num, out);
-        fmt++;
-        break;
-      }
-      case 's':{
-        char *str = va_arg(ap, char *);
-        while(*str){
-          *out++ = *str++;
-        }
-        fmt++;
-        break;
-      }
-      case '%': {
-        *out++ = '%';
-        fmt++;
-        break;
-      }
-      default: fmt++; break;
-    }
-  }
-
-  while(*out) *out++ = '\0';
-
-  va_end(ap);
-  return 0;
+  panic("Not implemented");
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
@@ -143,4 +26,3 @@ int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
 }
 
 #endif
-
