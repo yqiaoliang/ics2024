@@ -111,9 +111,6 @@ void init_monitor(int argc, char *argv[]) {
   init_rand();
 
   init_trace();
-  // #ifdef CONFIG_ITRACE
-  //   init_iringbuf();
-  // #endif
 
   /* Open the log file. */
   init_log(log_file);
