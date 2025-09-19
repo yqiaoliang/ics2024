@@ -7,7 +7,6 @@
 static Itrace * itrace = NULL;
 
 void init_iringbuf(){
-  printf("init_iringbuf\n");
   itrace = (Itrace *) malloc(sizeof(Itrace));
   itrace->iringbuf_len = IRINGBUF_LEN;
   itrace->iringbuf_index = 0;

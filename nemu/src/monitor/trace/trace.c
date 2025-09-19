@@ -2,7 +2,6 @@
 
 void init_trace() {
     #ifdef CONFIG_ITRACE
-        printf("test0\n");
         init_iringbuf();
     #endif
 
