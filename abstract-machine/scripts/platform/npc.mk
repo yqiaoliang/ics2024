@@ -17,6 +17,20 @@ MAINARGS_MAX_LEN = 64
 MAINARGS_PLACEHOLDER = the_insert-arg_rule_in_Makefile_will_insert_mainargs_here
 CFLAGS += -DMAINARGS_MAX_LEN=$(MAINARGS_MAX_LEN) -DMAINARGS_PLACEHOLDER=$(MAINARGS_PLACEHOLDER)
 
+
+
+AM_LDFLAGS := $(LDFLAGS)
+LDFLAGS :=
+
+SCPU_MAKEFILE = /home/yqiaoliang/Desktop/digital/ysyx/ysyx-workbench/npc/sCPU/Makefile
+include $(SCPU_MAKEFILE)
+
+LDFLAGS := $(AM_LDFLAGS)
+
+$(info # BIN $(BIN))
+$(info # IMAGE $(IMAGE))
+
+
 insert-arg: image
 	@python $(AM_HOME)/tools/insert-arg.py $(IMAGE).bin $(MAINARGS_MAX_LEN) $(MAINARGS_PLACEHOLDER) "$(mainargs)"
 
@@ -25,9 +39,7 @@ image: image-dep
 	@echo + OBJCOPY "->" $(IMAGE_REL).bin
 	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE).bin
 
-run: insert-arg
-# 	echo "TODO: add command here to run simulation"
-#     make ARCH=minirv-npc ALL=$(ALL)
-#     $(NPC_HOME)/build/sCPU --image $(BUILD_DIR)/$(ALL).bin
+run: insert-arg nvboard
+	$(sCPU_BIN) $(IMAGE).bin
 
 .PHONY: insert-arg
