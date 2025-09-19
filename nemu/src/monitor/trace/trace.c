@@ -14,7 +14,7 @@ void init_trace() {
     #endif
 
     #ifdef CONFIG_ETRACE
-        init_eringbur();
+        init_eringbuf();
     #endif
 }
 
