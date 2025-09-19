@@ -20,6 +20,7 @@
 #include "../monitor/sdb/sdb.h"
 
 #if   defined(CONFIG_PMEM_MALLOC)
+printf("test0\n");
 static uint8_t *pmem = NULL;
 #else // CONFIG_PMEM_GARRAY
 static uint8_t pmem[CONFIG_MSIZE] PG_ALIGN = {};
