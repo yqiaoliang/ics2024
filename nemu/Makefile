@@ -55,6 +55,8 @@ LDFLAGS += $(CFLAGS_BUILD)
 
 # Include rules for menuconfig
 include $(NEMU_HOME)/scripts/config.mk
+SCPU_MAKEFILE_PATH = /home/yqiaoliang/Desktop/digital/ysyx/ysyx-workbench/npc/sCPU/Makefile
+include $(SCPU_MAKEFILE_PATH)
 
 
 ifdef CONFIG_TARGET_AM
