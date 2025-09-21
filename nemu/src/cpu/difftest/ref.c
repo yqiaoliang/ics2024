@@ -17,27 +17,33 @@
 #include <cpu/cpu.h>
 #include <difftest-def.h>
 #include <memory/paddr.h>
-// #include "/home/yqiaoliang/Desktop/digital/ysyx/ysyx-workbench/npc/sCPU/src/sCPU.h"
 
 
 __EXPORT void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
   if (direction == DIFFTEST_TO_REF) {
-    s->diff_memcpy(addr, buf, n);
-  } else {
+    for (int i = 0; i < n; i++){
+      paddr_write(addr+i, 1, *(buf+i));
+    }
+  }
+  else {
     assert(0);
   }
 }
 
 __EXPORT void difftest_regcpy(void *dut, bool direction) {
-    if (direction == DIFFTEST_TO_REF) {
-    s->diff_set_regs(dut);
-  } else {
-    s->diff_get_regs(dut);
+  if (direction == DIFFTEST_TO_REF) {
+    for (int i = 0 ; i < 32; i++){
+      cpu.gpr[i] = dut->gpr_files[i];
+    }
+    cpu.pc = dut->pc;
+  }
+  else {
+    assert(0);
   }
 }
 
 __EXPORT void difftest_exec(uint64_t n) {
-  s->diff_step(n);
+  cpu_exec(n);
 }
 
 __EXPORT void difftest_raise_intr(word_t NO) {

@@ -19,16 +19,16 @@ CFLAGS += -DMAINARGS_MAX_LEN=$(MAINARGS_MAX_LEN) -DMAINARGS_PLACEHOLDER=$(MAINAR
 
 
 
-# AM_LDFLAGS := $(LDFLAGS)
-# LDFLAGS :=
+AM_LDFLAGS := $(LDFLAGS)
+LDFLAGS :=
 
-# SCPU_MAKEFILE = /home/yqiaoliang/Desktop/digital/ysyx/ysyx-workbench/npc/sCPU/Makefile
-# include $(SCPU_MAKEFILE)
+SCPU_MAKEFILE = /home/yqiaoliang/Desktop/digital/ysyx/ysyx-workbench/npc/sCPU/Makefile
+include $(SCPU_MAKEFILE)
 
-# LDFLAGS := $(AM_LDFLAGS)
+LDFLAGS := $(AM_LDFLAGS)
 
-# $(info # BIN $(BIN))
-# $(info # IMAGE $(IMAGE))
+$(info # BIN $(BIN))
+$(info # IMAGE $(IMAGE))
 
 
 insert-arg: image
@@ -39,7 +39,7 @@ image: image-dep
 	@echo + OBJCOPY "->" $(IMAGE_REL).bin
 	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE).bin
 
-run: insert-arg
-# 	$(sCPU_BIN) $(IMAGE).bin
+run: insert-arg nvboard
+	$(sCPU_BIN) $(IMAGE).bin
 
 .PHONY: insert-arg
